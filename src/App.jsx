@@ -1,6 +1,28 @@
 import { useState } from 'react'
 import './App.css'
 
+// ───────────── ช่องทางติดต่อ ─────────────
+// ช่องไหนเว้นว่าง = ปุ่มนั้นจะไม่ขึ้นบนเว็บ (กันปุ่มกดแล้วไม่ไปไหน)
+const CONTACT = {
+  messenger: 'https://m.me/61590190966678',
+  facebook: 'https://www.facebook.com/profile.php?id=61590190966678',
+  email: 'sudocoffee.home@gmail.com',
+  // ใส่ลิงก์ LINE OA เช่น 'https://lin.ee/xxxxxxx'
+  line: '',
+  // ใส่เบอร์จริงแบบสากล เช่น '+66811234567'
+  phone: '',
+  // สมัครฟรีที่ web3forms.com แล้ววาง Access Key ตรงนี้
+  // ยังไม่ใส่ = ฟอร์มจะไม่ขึ้น เพื่อไม่ให้ลูกค้ากรอกแล้วข้อมูลหาย
+  web3formsKey: '',
+}
+
+const CHANNELS = [
+  { key: 'messenger', icon: '💬', label: 'ทักผ่าน Messenger', href: CONTACT.messenger },
+  { key: 'line', icon: '🟢', label: 'แอดไลน์', href: CONTACT.line },
+  { key: 'phone', icon: '📞', label: CONTACT.phone || 'โทรหาเรา', href: `tel:${CONTACT.phone}` },
+  { key: 'email', icon: '📧', label: CONTACT.email, href: `mailto:${CONTACT.email}` },
+].filter((c) => CONTACT[c.key])
+
 const SERVICES = [
   {
     icon: '🌐',
@@ -59,10 +81,37 @@ const STEPS = [
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [status, setStatus] = useState('idle') // idle | sending | ok | error
 
   const nav = (id) => {
     setMenuOpen(false)
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+  }
+
+  const sendForm = async (e) => {
+    e.preventDefault()
+    const form = e.target
+    setStatus('sending')
+
+    const data = new FormData(form)
+    data.append('access_key', CONTACT.web3formsKey)
+    data.append('subject', 'ลูกค้าใหม่จากเว็บ Sudo Command')
+
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: data,
+      })
+      const json = await res.json()
+      if (json.success) {
+        setStatus('ok')
+        form.reset()
+      } else {
+        setStatus('error')
+      }
+    } catch {
+      setStatus('error')
+    }
   }
 
   return (
@@ -193,27 +242,65 @@ function App() {
             <span className="cmd">~/contact</span> เริ่มกันเลย
           </h2>
           <p className="contact-sub">
-            พิมพ์ปัญหาธุรกิจของคุณ — เราจะตอบกลับภายใน 24 ชั่วโมง
+            เล่าปัญหาธุรกิจของคุณมาได้เลย — เราตอบกลับภายใน 24 ชั่วโมง
           </p>
-          <form
-            className="contact-form"
-            onSubmit={(e) => e.preventDefault()}
-          >
-            <input type="text" placeholder="ชื่อ / ชื่อบริษัท" required />
-            <input type="email" placeholder="อีเมล" required />
-            <input type="text" placeholder="เบอร์ LINE หรือโทรศัพท์" />
-            <textarea
-              placeholder="เล่าโจทย์ธุรกิจที่อยากทำ เช่น ระบบบัญชีอัตโนมัติ, เว็บร้านค้า, AI chatbot…"
-              rows="4"
-              required
-            />
-            <button type="submit" className="btn btn-primary">
-              ส่งข้อความ →
-            </button>
-          </form>
+
+          <div className="channels">
+            {CHANNELS.map((c) => (
+              <a
+                className="channel"
+                key={c.key}
+                href={c.href}
+                target={c.href.startsWith('http') ? '_blank' : undefined}
+                rel={c.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+              >
+                <span className="channel-icon">{c.icon}</span>
+                {c.label}
+              </a>
+            ))}
+          </div>
+
+          {CONTACT.web3formsKey ? (
+            <form className="contact-form" onSubmit={sendForm}>
+              <input name="name" type="text" placeholder="ชื่อ / ชื่อบริษัท" required />
+              <input name="email" type="email" placeholder="อีเมล" required />
+              <input name="contact" type="text" placeholder="เบอร์ LINE หรือโทรศัพท์" />
+              <textarea
+                name="message"
+                placeholder="เล่าโจทย์ธุรกิจที่อยากทำ เช่น ระบบบัญชีอัตโนมัติ, เว็บร้านค้า, AI chatbot…"
+                rows="4"
+                required
+              />
+              <button
+                type="submit"
+                className="btn btn-primary"
+                disabled={status === 'sending'}
+              >
+                {status === 'sending' ? 'กำลังส่ง…' : 'ส่งข้อความ →'}
+              </button>
+
+              {status === 'ok' && (
+                <p className="form-msg ok">
+                  ส่งเรียบร้อยแล้ว ขอบคุณครับ — เราจะติดต่อกลับภายใน 24 ชั่วโมง
+                </p>
+              )}
+              {status === 'error' && (
+                <p className="form-msg error">
+                  ส่งไม่สำเร็จ รบกวนทักมาทางช่องทางด้านบนแทนได้เลยครับ
+                </p>
+              )}
+            </form>
+          ) : (
+            <p className="contact-note">
+              เลือกช่องทางที่สะดวกด้านบนได้เลยครับ ทักมาได้ตลอด 24 ชม.
+            </p>
+          )}
+
           <p className="contact-note">
-            📧 sudocoffee.home@gmail.com · เพจ: Sudo Z — รับทำเว็บไซต์ AI กราฟิก
-            และงาน 3D ครบวงจร
+            ติดตามผลงานได้ที่เพจ{' '}
+            <a href={CONTACT.facebook} target="_blank" rel="noopener noreferrer">
+              Sudo Command — รับทำเว็บไซต์ AI กราฟิก และงาน 3D ครบวงจร
+            </a>
           </p>
         </section>
       </main>
