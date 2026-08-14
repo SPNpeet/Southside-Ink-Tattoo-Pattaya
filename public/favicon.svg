@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="12" fill="#0a0e1a"/>
-  <rect x="1" y="1" width="62" height="62" rx="11" fill="none" stroke="#232b45" stroke-width="2"/>
-  <text x="32" y="42" font-family="Consolas, monospace" font-size="32" font-weight="bold" text-anchor="middle" fill="#34d399">$_</text>
+  <rect width="64" height="64" fill="#14161a"/>
+  <text x="32" y="40" font-family="'IBM Plex Mono', Consolas, monospace" font-size="26" font-weight="700" letter-spacing="1" text-anchor="middle" fill="#faf8f4">SC</text>
+  <rect x="17" y="48" width="30" height="3" fill="#c93f00"/>
 </svg>

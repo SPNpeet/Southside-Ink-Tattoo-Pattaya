@@ -1,5 +1,7 @@
-import { useState } from 'react'
-import './App.css'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import Icon from './Icon'
+import CommandPalette from './CommandPalette'
+import { useDismiss, useReveal, useScrollSpy, useTheme } from './hooks'
 
 // ───────────── ช่องทางติดต่อ ─────────────
 // ช่องไหนเว้นว่าง = ปุ่มนั้นจะไม่ขึ้นบนเว็บ (กันปุ่มกดแล้วไม่ไปไหน)
@@ -11,82 +13,256 @@ const CONTACT = {
   line: '',
   // ใส่เบอร์จริงแบบสากล เช่น '+66811234567'
   phone: '',
-  // สมัครฟรีที่ web3forms.com แล้ววาง Access Key ตรงนี้
+  // สมัครฟรีที่ web3forms.com แล้ววาง Access Key ตรงนี้ (ต้องเป็นรูปแบบ UUID)
   // ยังไม่ใส่ = ฟอร์มจะไม่ขึ้น เพื่อไม่ให้ลูกค้ากรอกแล้วข้อมูลหาย
   web3formsKey: '',
 }
 
 const CHANNELS = [
-  { key: 'messenger', icon: '💬', label: 'ทักผ่าน Messenger', href: CONTACT.messenger },
-  { key: 'line', icon: '🟢', label: 'แอดไลน์', href: CONTACT.line },
-  { key: 'phone', icon: '📞', label: CONTACT.phone || 'โทรหาเรา', href: `tel:${CONTACT.phone}` },
-  { key: 'email', icon: '📧', label: CONTACT.email, href: `mailto:${CONTACT.email}` },
+  { key: 'messenger', icon: 'chat', label: 'ทักผ่าน Messenger', href: CONTACT.messenger },
+  { key: 'line', icon: 'line', label: 'แอดไลน์', href: CONTACT.line },
+  { key: 'phone', icon: 'phone', label: CONTACT.phone, href: `tel:${CONTACT.phone}` },
+  { key: 'email', icon: 'mail', label: CONTACT.email, href: `mailto:${CONTACT.email}` },
 ].filter((c) => CONTACT[c.key])
 
 const SERVICES = [
   {
-    icon: '🌐',
-    title: 'Web App & เว็บไซต์',
-    desc: 'เว็บไซต์ธุรกิจ พอร์ตโฟลิโอ ร้านค้าออนไลน์ และระบบหลังบ้านครบวงจร รองรับทุกขนาดธุรกิจ',
-  },
-  {
-    icon: '🤖',
-    title: 'AI Assistant',
-    desc: 'แชทบอท, AI Agent, ระบบอัตโนมัติบน LINE/Facebook/Messenger พร้อมเชื่อมกับข้อมูลธุรกิจของคุณ',
-  },
-  {
-    icon: '📊',
+    id: 'svc-accounting',
+    icon: 'ledger',
     title: 'ระบบบัญชีอัตโนมัติ',
-    desc: 'ออกแบบระบบบัญชีอัตโนมัติ ช่วย SME และสำนักงานบัญชีปิดงบไว ไม่ต้องคีย์มือ ลดงานซ้ำซ้อน',
+    short: 'ปิดงบไม่ต้องคีย์มือ',
+    desc: 'ปิดงบไม่ต้องคีย์มือ ออกเอกสารขาย อ่านสลิป จับคู่รายการ และดึงรายงานได้เอง สำหรับ SME และสำนักงานบัญชี',
   },
   {
-    icon: '🎨',
+    id: 'svc-ai',
+    icon: 'ai',
+    title: 'AI Assistant',
+    short: 'ตอบลูกค้าแทนได้ 24 ชม.',
+    desc: 'แชทบอทและ AI Agent บน LINE, Facebook, Instagram ตอบลูกค้าได้ 24 ชั่วโมง เชื่อมกับข้อมูลธุรกิจจริงของคุณ',
+  },
+  {
+    id: 'svc-web',
+    icon: 'web',
+    title: 'Web App และเว็บไซต์',
+    short: 'เว็บธุรกิจและระบบหลังบ้าน',
+    desc: 'เว็บธุรกิจ ร้านค้าออนไลน์ และระบบหลังบ้าน พร้อมแดชบอร์ดดูตัวเลขได้แบบเรียลไทม์',
+  },
+  {
+    id: 'svc-graphic',
+    icon: 'layers',
     title: 'งานกราฟิก',
-    desc: 'โลโก้, แบรนดิ้ง, สื่อโฆษณา, คอนเทนต์โซเชียลมีเดีย — ปั้นภาพลักษณ์ให้ดูมืออาชีพ',
+    short: 'โลโก้ แบรนดิ้ง สื่อโฆษณา',
+    desc: 'โลโก้ แบรนดิ้ง สื่อโฆษณา และคอนเทนต์โซเชียล คุมโทนให้เป็นชุดเดียวกันทั้งแบรนด์',
   },
   {
-    icon: '🧊',
+    id: 'svc-3d',
+    icon: 'cube',
     title: 'งาน 3D',
-    desc: 'โมเดล 3D, ภาพเรนเดอร์สินค้า, อนิเมชัน สำหรับนำเสนอสินค้าและงานโฆษณา',
+    short: 'โมเดลและภาพเรนเดอร์สินค้า',
+    desc: 'โมเดล ภาพเรนเดอร์สินค้า และอนิเมชัน สำหรับนำเสนอสินค้าและงานโฆษณา',
   },
   {
-    icon: '🔗',
+    id: 'svc-system',
+    icon: 'grid',
     title: 'วางระบบครบวงจร',
-    desc: 'ดูแลตั้งแต่คอนเซ็ปต์ ออกแบบ พัฒนา ติดตั้ง จนถึงเทรนและซัพพอร์ต End-to-End',
+    short: 'ดูแลตั้งแต่ต้นจนส่งมอบ',
+    desc: 'ดูแลตั้งแต่คอนเซ็ปต์ ออกแบบ พัฒนา ติดตั้ง จนถึงเทรนทีมและซัพพอร์ตต่อเนื่อง',
   },
 ]
 
 const STEPS = [
-  {
-    num: '01',
-    title: 'คุยโจทย์',
-    desc: 'เล่าเป้าหมายธุรกิจให้เราฟัง เราช่วยขยายเป็นโซลูชันที่จับต้องได้',
-  },
-  {
-    num: '02',
-    title: 'วางแผน & ออกแบบ',
-    desc: 'จัดทำแบบและประมาณการก่อนเริ่มงาน ทุกอย่างชัดเจน โปร่งใส',
-  },
-  {
-    num: '03',
-    title: 'พัฒนา & ดีไซน์',
-    desc: 'ลงมือสร้างระบบ AI กราฟิก 3D ให้ตรงแบบที่ตกลงกันไว้',
-  },
-  {
-    num: '04',
-    title: 'ส่งมอบ & ซัพพอร์ต',
-    desc: 'ติดตั้ง เฟ้นหา และดูแลต่อเนื่องให้ธุรกิจโตแบบก้าวกระโดด 🚀',
-  },
+  { title: 'คุยโจทย์', desc: 'เล่าเป้าหมายธุรกิจมา เราช่วยแปลงเป็นโซลูชันที่จับต้องได้' },
+  { title: 'วางแผนและออกแบบ', desc: 'ทำแบบและประมาณการก่อนเริ่มงาน ชัดเจนตั้งแต่ต้น' },
+  { title: 'พัฒนาและดีไซน์', desc: 'ลงมือสร้างระบบ AI กราฟิก และงาน 3D ตามที่ตกลงไว้' },
+  { title: 'ส่งมอบและซัพพอร์ต', desc: 'ติดตั้ง เทรนทีม แล้วดูแลต่อเนื่องหลังส่งมอบ' },
 ]
+
+const SPEC = [
+  ['ขอบเขตงาน', 'บัญชี · AI · Web App · กราฟิก · 3D'],
+  ['รูปแบบ', 'End-to-End ตั้งแต่คอนเซ็ปต์ถึงซัพพอร์ต'],
+  ['ตอบกลับ', 'ภายใน 24 ชั่วโมง'],
+  ['ฐานที่ตั้ง', 'บางมด กรุงเทพฯ'],
+]
+
+// ───────────── ผลงาน ─────────────
+// เว้นว่างไว้ = ส่วนผลงานจะไม่ขึ้นเลย
+// ห้ามใส่งานที่ไม่ได้ทำจริงหรือตัวเลขที่พิสูจน์ไม่ได้ ลูกค้าจับได้แล้วเสียเครดิตทั้งเว็บ
+// รูปแบบ 1 ชิ้น:
+//   { title: 'ชื่องาน', client: 'ประเภทลูกค้า', tags: ['Web App', 'LINE OA'],
+//     desc: 'ทำอะไรให้เขา 1-2 บรรทัด', image: '/work/ชื่อไฟล์.jpg' }
+// รูปวางไว้ในโฟลเดอร์ public/work/
+const WORKS = []
+
+const THEMES = [
+  { id: 'light', icon: 'sun', label: 'ธีมสว่าง' },
+  { id: 'dark', icon: 'moon', label: 'ธีมมืด' },
+  { id: 'system', icon: 'monitor', label: 'ตามระบบ' },
+]
+
+function SectionHead({ num, title, note }) {
+  return (
+    <header className="sec-head" data-reveal>
+      <span className="sec-num">{num}</span>
+      <h2>{title}</h2>
+      {note && <p className="sec-note">{note}</p>}
+    </header>
+  )
+}
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [ddOpen, setDdOpen] = useState(false)
+  const [paletteOpen, setPaletteOpen] = useState(false)
   const [status, setStatus] = useState('idle') // idle | sending | ok | error
+  const [toast, setToast] = useState('')
+  const [theme, setTheme] = useTheme()
 
-  const nav = (id) => {
+  const ddRef = useRef(null)
+  const ddBtnRef = useRef(null)
+
+  const order = ['services', ...(WORKS.length ? ['work'] : []), 'process', 'contact']
+  const numOf = (id) => String(order.indexOf(id) + 1).padStart(2, '0')
+  const active = useScrollSpy(order)
+  useReveal([WORKS.length, CONTACT.web3formsKey])
+
+  const closeDd = useCallback(() => setDdOpen(false), [])
+  useDismiss(ddRef, ddOpen, closeDd)
+
+  const goto = useCallback((id) => {
+    const el = document.getElementById(id)
+    if (!el) return
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    el.focus({ preventScroll: true })
+  }, [])
+
+  const nav = (id) => (e) => {
+    e.preventDefault()
     setMenuOpen(false)
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+    setDdOpen(false)
+    goto(id)
   }
+
+  const flash = useCallback((msg) => {
+    setToast(msg)
+    window.clearTimeout(flash._t)
+    flash._t = window.setTimeout(() => setToast(''), 2600)
+  }, [])
+
+  const copyEmail = useCallback(async () => {
+    try {
+      await navigator.clipboard.writeText(CONTACT.email)
+      flash(`คัดลอกอีเมลแล้ว — ${CONTACT.email}`)
+    } catch {
+      flash('คัดลอกไม่สำเร็จ ลองกดที่อีเมลในหน้าติดต่อแทน')
+    }
+  }, [flash])
+
+  // Ctrl+K / ⌘K เปิด command palette
+  useEffect(() => {
+    const onKey = (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault()
+        setPaletteOpen((v) => !v)
+      }
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [])
+
+  const openExternal = (url) => () => window.open(url, '_blank', 'noopener,noreferrer')
+
+  const actions = [
+    ...SERVICES.map((s) => ({
+      id: s.id,
+      icon: s.icon,
+      label: s.title,
+      hint: s.short,
+      keywords: ['บริการ', 'service', s.short],
+      run: () => goto(s.id),
+    })),
+    ...(WORKS.length
+      ? [
+          {
+            id: 'go-work',
+            icon: 'layers',
+            label: 'ดูผลงานที่ผ่านมา',
+            keywords: ['work', 'portfolio', 'ผลงาน'],
+            run: () => goto('work'),
+          },
+        ]
+      : []),
+    {
+      id: 'go-process',
+      icon: 'grid',
+      label: 'วิธีทำงาน',
+      hint: '4 ขั้นตอน',
+      keywords: ['process', 'ขั้นตอน'],
+      run: () => goto('process'),
+    },
+    {
+      id: 'go-contact',
+      icon: 'arrow',
+      label: 'ไปที่หน้าติดต่อ',
+      keywords: ['contact', 'ติดต่อ'],
+      run: () => goto('contact'),
+    },
+    {
+      id: 'messenger',
+      icon: 'chat',
+      label: 'ทักผ่าน Messenger',
+      hint: 'เปิดแท็บใหม่',
+      keywords: ['contact', 'ติดต่อ', 'แชท', 'facebook'],
+      run: openExternal(CONTACT.messenger),
+    },
+    ...(CONTACT.line
+      ? [
+          {
+            id: 'line',
+            icon: 'line',
+            label: 'แอดไลน์',
+            hint: 'เปิดแท็บใหม่',
+            keywords: ['contact', 'ติดต่อ', 'line'],
+            run: openExternal(CONTACT.line),
+          },
+        ]
+      : []),
+    ...(CONTACT.phone
+      ? [
+          {
+            id: 'phone',
+            icon: 'phone',
+            label: `โทร ${CONTACT.phone}`,
+            keywords: ['contact', 'ติดต่อ', 'โทร', 'call'],
+            run: () => {
+              window.location.href = `tel:${CONTACT.phone}`
+            },
+          },
+        ]
+      : []),
+    {
+      id: 'copy-email',
+      icon: 'mail',
+      label: 'คัดลอกอีเมล',
+      hint: CONTACT.email,
+      keywords: ['contact', 'ติดต่อ', 'email', 'copy'],
+      run: copyEmail,
+    },
+    {
+      id: 'facebook',
+      icon: 'chat',
+      label: 'เปิดเพจ Facebook',
+      keywords: ['facebook', 'เพจ', 'page'],
+      run: openExternal(CONTACT.facebook),
+    },
+    ...THEMES.map((t) => ({
+      id: `theme-${t.id}`,
+      icon: t.icon,
+      label: t.label,
+      hint: theme === t.id ? 'กำลังใช้อยู่' : undefined,
+      keywords: ['theme', 'ธีม', 'สี', 'มืด', 'สว่าง'],
+      run: () => setTheme(t.id),
+    })),
+  ]
 
   const sendForm = async (e) => {
     e.preventDefault()
@@ -116,201 +292,342 @@ function App() {
 
   return (
     <>
-      <header className="nav">
-        <a
-          className="logo"
-          href="#top"
-          onClick={(e) => {
-            e.preventDefault()
-            nav('top')
-          }}
-        >
-          <span className="logo-prompt">$</span> sudo command
-        </a>
-        <nav className={`nav-links ${menuOpen ? 'open' : ''}`}>
-          <a href="#services" onClick={(e) => { e.preventDefault(); nav('services') }}>
-            บริการ
+      <a className="skip" href="#main">
+        ข้ามไปเนื้อหาหลัก
+      </a>
+
+      <header className="site-head">
+        <div className="wrap head-inner">
+          <a className="brand" href="#top" onClick={nav('top')}>
+            <span className="brand-mark" aria-hidden="true">
+              SC
+            </span>
+            <span className="brand-name">
+              Sudo Command
+              <span className="brand-sub">Tech &amp; Creative Agency</span>
+            </span>
           </a>
-          <a href="#process" onClick={(e) => { e.preventDefault(); nav('process') }}>
-            วิธีทำงาน
-          </a>
-          <a href="#contact" onClick={(e) => { e.preventDefault(); nav('contact') }}>
-            ติดต่อ
-          </a>
-          <a className="btn" href="#contact" onClick={(e) => { e.preventDefault(); nav('contact') }}>
-            ปรึกษาฟรี
-          </a>
-        </nav>
-        <button
-          className="menu-toggle"
-          aria-label="เปิดเมนู"
-          onClick={() => setMenuOpen((v) => !v)}
-        >
-          ☰
-        </button>
-      </header>
 
-      <main id="top">
-        <section className="hero">
-          <p className="badge">
-            <span className="dot" />
-            Web App · AI · กราฟิก · 3D
-          </p>
-          <h1>
-            สั่งรันความสำเร็จ
-            <br />
-            ให้ธุรกิจคุณ <span className="gradient">โตแบบก้าวกระโดด!</span>
-          </h1>
-          <p className="sub">
-            Sudo Command คือ Tech & Creative Agency “ตัวจบ” ที่ช่วยให้ธุรกิจ SME
-            และสำนักงานบัญชีปิดงบไว ไม่ต้องคีย์มือ พร้อมดูแลงานกราฟิก 3D
-            และวางระบบครบวงจร End-to-End 💻✨
-          </p>
-          <div className="cta-row">
-            <a className="btn btn-primary" href="#contact" onClick={(e) => { e.preventDefault(); nav('contact') }}>
-              เริ่มโปรเจกต์ของคุณ →
-            </a>
-            <a className="btn btn-ghost" href="#services" onClick={(e) => { e.preventDefault(); nav('services') }}>
-              ดูบริการทั้งหมด
-            </a>
-          </div>
-          <div className="terminal">
-            <div className="terminal-bar">
-              <span className="t-dot red" />
-              <span className="t-dot yellow" />
-              <span className="t-dot green" />
-              <span className="t-title">sudo-command — bash</span>
-            </div>
-            <pre>{`$ sudo business --grow --accelerate
-[Sudo Command] initializing solutions...
-[✓] Web App             … ready
-[✓] AI Assistant        … ready
-[✓] บัญชีอัตโนมัติ       … ready
-[✓] กราฟิก & 3D         … ready
-
-> ธุรกิจของคุณ พร้อมแล้วหรือยัง?`}</pre>
-          </div>
-        </section>
-
-        <section className="stats">
-          <div>
-            <h2>End-to-End</h2>
-            <p>ดูแลครบจบในที่เดียว</p>
-          </div>
-          <div>
-            <h2>AI-First</h2>
-            <p>ทุกงานชู AI เข้ามาช่วย</p>
-          </div>
-          <div>
-            <h2>Fast &amp; Scalable</h2>
-            <p>เร็วขึ้น รองรับการโต</p>
-          </div>
-        </section>
-
-        <section id="services" className="section">
-          <h2 className="section-title">
-            <span className="cmd">~/services</span> บริการของเรา
-          </h2>
-          <div className="grid">
-            {SERVICES.map((s) => (
-              <article className="card" key={s.title}>
-                <div className="card-icon">{s.icon}</div>
-                <h3>{s.title}</h3>
-                <p>{s.desc}</p>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section id="process" className="section">
-          <h2 className="section-title">
-            <span className="cmd">~/process</span> วิธีทำงาน
-          </h2>
-          <div className="steps">
-            {STEPS.map((s) => (
-              <div className="step" key={s.num}>
-                <span className="step-num">{s.num}</span>
-                <h3>{s.title}</h3>
-                <p>{s.desc}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section id="contact" className="section contact">
-          <h2 className="section-title">
-            <span className="cmd">~/contact</span> เริ่มกันเลย
-          </h2>
-          <p className="contact-sub">
-            เล่าปัญหาธุรกิจของคุณมาได้เลย — เราตอบกลับภายใน 24 ชั่วโมง
-          </p>
-
-          <div className="channels">
-            {CHANNELS.map((c) => (
-              <a
-                className="channel"
-                key={c.key}
-                href={c.href}
-                target={c.href.startsWith('http') ? '_blank' : undefined}
-                rel={c.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-              >
-                <span className="channel-icon">{c.icon}</span>
-                {c.label}
-              </a>
-            ))}
-          </div>
-
-          {CONTACT.web3formsKey ? (
-            <form className="contact-form" onSubmit={sendForm}>
-              <input name="name" type="text" placeholder="ชื่อ / ชื่อบริษัท" required />
-              <input name="email" type="email" placeholder="อีเมล" required />
-              <input name="contact" type="text" placeholder="เบอร์ LINE หรือโทรศัพท์" />
-              <textarea
-                name="message"
-                placeholder="เล่าโจทย์ธุรกิจที่อยากทำ เช่น ระบบบัญชีอัตโนมัติ, เว็บร้านค้า, AI chatbot…"
-                rows="4"
-                required
-              />
+          <nav className={`site-nav ${menuOpen ? 'open' : ''}`} aria-label="เมนูหลัก">
+            <div className="dd" ref={ddRef}>
               <button
-                type="submit"
-                className="btn btn-primary"
-                disabled={status === 'sending'}
+                type="button"
+                ref={ddBtnRef}
+                className={`dd-btn ${active === 'services' ? 'is-active' : ''}`}
+                aria-expanded={ddOpen}
+                onClick={() => setDdOpen((v) => !v)}
               >
-                {status === 'sending' ? 'กำลังส่ง…' : 'ส่งข้อความ →'}
+                บริการ
+                <Icon name="chevron" className={`dd-caret ${ddOpen ? 'up' : ''}`} />
               </button>
 
-              {status === 'ok' && (
-                <p className="form-msg ok">
-                  ส่งเรียบร้อยแล้ว ขอบคุณครับ — เราจะติดต่อกลับภายใน 24 ชั่วโมง
-                </p>
-              )}
-              {status === 'error' && (
-                <p className="form-msg error">
-                  ส่งไม่สำเร็จ รบกวนทักมาทางช่องทางด้านบนแทนได้เลยครับ
-                </p>
-              )}
-            </form>
-          ) : (
-            <p className="contact-note">
-              เลือกช่องทางที่สะดวกด้านบนได้เลยครับ ทักมาได้ตลอด 24 ชม.
-            </p>
-          )}
+              <div className="dd-panel" hidden={!ddOpen}>
+                <ul>
+                  {SERVICES.map((s) => (
+                    <li key={s.id}>
+                      <a href={`#${s.id}`} onClick={nav(s.id)}>
+                        <span className="dd-ic">
+                          <Icon name={s.icon} />
+                        </span>
+                        <span className="dd-text">
+                          <strong>{s.title}</strong>
+                          <small>{s.short}</small>
+                        </span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+                <a className="dd-all" href="#services" onClick={nav('services')}>
+                  ดูบริการทั้งหมด
+                  <Icon name="arrow" />
+                </a>
+              </div>
+            </div>
 
-          <p className="contact-note">
-            ติดตามผลงานได้ที่เพจ{' '}
-            <a href={CONTACT.facebook} target="_blank" rel="noopener noreferrer">
-              Sudo Command — รับทำเว็บไซต์ AI กราฟิก และงาน 3D ครบวงจร
+            {WORKS.length > 0 && (
+              <a
+                href="#work"
+                className={active === 'work' ? 'is-active' : ''}
+                onClick={nav('work')}
+              >
+                ผลงาน
+              </a>
+            )}
+            <a
+              href="#process"
+              className={active === 'process' ? 'is-active' : ''}
+              onClick={nav('process')}
+            >
+              วิธีทำงาน
             </a>
-          </p>
+            <a
+              href="#contact"
+              className={active === 'contact' ? 'is-active' : ''}
+              onClick={nav('contact')}
+            >
+              ติดต่อ
+            </a>
+
+            <div className="theme-switch" role="group" aria-label="เลือกธีมสีของเว็บ">
+              {THEMES.map((t) => (
+                <button
+                  key={t.id}
+                  type="button"
+                  className={theme === t.id ? 'on' : ''}
+                  aria-pressed={theme === t.id}
+                  title={t.label}
+                  onClick={() => setTheme(t.id)}
+                >
+                  <Icon name={t.icon} />
+                  <span className="sr-only">{t.label}</span>
+                </button>
+              ))}
+            </div>
+
+            <a className="btn btn-solid nav-cta" href="#contact" onClick={nav('contact')}>
+              ปรึกษาฟรี
+            </a>
+          </nav>
+
+          <button
+            type="button"
+            className="cmdk-trigger"
+            onClick={() => setPaletteOpen(true)}
+            title="ค้นหาเมนู (Ctrl+K)"
+          >
+            <Icon name="search" />
+            <span className="cmdk-trigger-label">ค้นหา</span>
+            <kbd>Ctrl K</kbd>
+          </button>
+
+          <button
+            type="button"
+            className="menu-btn"
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen((v) => !v)}
+          >
+            {menuOpen ? 'ปิด' : 'เมนู'}
+          </button>
+        </div>
+      </header>
+
+      <main id="main" tabIndex={-1}>
+        <section className="hero" id="top" tabIndex={-1}>
+          <div className="wrap hero-grid">
+            <div className="hero-copy">
+              <p className="eyebrow">รับงานทั่วประเทศ · ทำงานออนไลน์เต็มรูปแบบ</p>
+              <h1>
+                เลิกเสียเวลากับงานซ้ำ ๆ
+                <br />
+                <em>เอาคนไปโตธุรกิจ</em>
+              </h1>
+              <p className="lede">
+                เรารับวางระบบบัญชีอัตโนมัติ AI ผู้ช่วยตอบลูกค้า และเว็บแอปสำหรับ SME
+                และสำนักงานบัญชี พร้อมดูแลงานกราฟิกและงาน 3D ให้จบในทีมเดียว
+              </p>
+              <div className="cta">
+                <a className="btn btn-solid" href="#contact" onClick={nav('contact')}>
+                  เล่าโจทย์ให้เราฟัง
+                  <Icon name="arrow" />
+                </a>
+                <button type="button" className="btn btn-line" onClick={() => setPaletteOpen(true)}>
+                  <Icon name="search" />
+                  ค้นหาสิ่งที่ต้องการ
+                  <kbd className="btn-kbd">Ctrl K</kbd>
+                </button>
+              </div>
+            </div>
+
+            <dl className="spec" aria-label="ข้อมูลบริการโดยสรุป">
+              {SPEC.map(([k, v]) => (
+                <div className="spec-row" key={k}>
+                  <dt>{k}</dt>
+                  <dd>{v}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </section>
+
+        <section className="band" aria-label="จุดเด่นของบริการ">
+          <div className="wrap band-grid">
+            <p>
+              <strong>ไม่ต้องคีย์มือ</strong>
+              ออกเอกสาร อ่านสลิป และลงรายการให้อัตโนมัติ
+            </p>
+            <p>
+              <strong>รวมทุกแชทไว้ที่เดียว</strong>
+              LINE, Facebook และ Instagram ต่อเข้าระบบหลังบ้านเดียว
+            </p>
+            <p>
+              <strong>ส่งมอบแล้วไม่ทิ้ง</strong>
+              มีคู่มือ เทรนทีมงาน และซัพพอร์ตต่อเนื่อง
+            </p>
+          </div>
+        </section>
+
+        <section className="sec" id="services" tabIndex={-1}>
+          <div className="wrap">
+            <SectionHead
+              num={numOf('services')}
+              title="บริการของเรา"
+              note="เลือกเฉพาะส่วนที่ต้องการก็ได้ ไม่จำเป็นต้องทำทั้งหมดพร้อมกัน"
+            />
+            <ul className="svc-list">
+              {SERVICES.map((s) => (
+                <li className="svc" id={s.id} key={s.id} tabIndex={-1} data-reveal>
+                  <span className="svc-icon">
+                    <Icon name={s.icon} />
+                  </span>
+                  <h3>{s.title}</h3>
+                  <p>{s.desc}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        {WORKS.length > 0 && (
+          <section className="sec" id="work" tabIndex={-1}>
+            <div className="wrap">
+              <SectionHead num={numOf('work')} title="ผลงานที่ผ่านมา" />
+              <ul className="work-list">
+                {WORKS.map((w) => (
+                  <li className="work" key={w.title} data-reveal>
+                    {w.image && (
+                      <img src={w.image} alt={w.title} loading="lazy" width="640" height="400" />
+                    )}
+                    <div className="work-body">
+                      {w.client && <p className="work-client">{w.client}</p>}
+                      <h3>{w.title}</h3>
+                      <p>{w.desc}</p>
+                      {w.tags?.length > 0 && (
+                        <ul className="tags">
+                          {w.tags.map((t) => (
+                            <li key={t}>{t}</li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+        )}
+
+        <section className="sec sec-alt" id="process" tabIndex={-1}>
+          <div className="wrap">
+            <SectionHead num={numOf('process')} title="วิธีทำงาน" />
+            <ol className="steps">
+              {STEPS.map((s, i) => (
+                <li key={s.title} data-reveal>
+                  <span className="step-num">{String(i + 1).padStart(2, '0')}</span>
+                  <h3>{s.title}</h3>
+                  <p>{s.desc}</p>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+
+        <section className="sec" id="contact" tabIndex={-1}>
+          <div className="wrap">
+            <SectionHead
+              num={numOf('contact')}
+              title="เริ่มคุยกันได้เลย"
+              note="เล่าปัญหาที่เจออยู่มาสั้น ๆ ก็พอ เราตอบกลับภายใน 24 ชั่วโมง"
+            />
+
+            <div className="contact-grid">
+              <div data-reveal>
+                <ul className="channels">
+                  {CHANNELS.map((c) => {
+                    const external = c.href.startsWith('http')
+                    return (
+                      <li key={c.key}>
+                        <a
+                          className="channel"
+                          href={c.href}
+                          target={external ? '_blank' : undefined}
+                          rel={external ? 'noopener noreferrer' : undefined}
+                        >
+                          <Icon name={c.icon} />
+                          <span>{c.label}</span>
+                          <Icon name="arrow" className="channel-go" />
+                        </a>
+                      </li>
+                    )
+                  })}
+                </ul>
+
+                <p className="fine">
+                  ติดตามงานใหม่ได้ที่เพจ{' '}
+                  <a href={CONTACT.facebook} target="_blank" rel="noopener noreferrer">
+                    Sudo Command
+                  </a>
+                </p>
+              </div>
+
+              {CONTACT.web3formsKey ? (
+                <form className="form" onSubmit={sendForm} data-reveal>
+                  <div className="field">
+                    <label htmlFor="f-name">ชื่อ หรือ ชื่อบริษัท</label>
+                    <input id="f-name" name="name" type="text" required />
+                  </div>
+                  <div className="field">
+                    <label htmlFor="f-email">อีเมล</label>
+                    <input id="f-email" name="email" type="email" required />
+                  </div>
+                  <div className="field">
+                    <label htmlFor="f-contact">
+                      เบอร์โทร หรือ LINE <span className="opt">(ไม่บังคับ)</span>
+                    </label>
+                    <input id="f-contact" name="contact" type="text" />
+                  </div>
+                  <div className="field">
+                    <label htmlFor="f-msg">อยากให้ช่วยเรื่องอะไร</label>
+                    <textarea id="f-msg" name="message" rows="4" required />
+                  </div>
+
+                  <button type="submit" className="btn btn-solid" disabled={status === 'sending'}>
+                    {status === 'sending' ? 'กำลังส่ง…' : 'ส่งข้อความ'}
+                    {status !== 'sending' && <Icon name="arrow" />}
+                  </button>
+
+                  <p className="form-msg" role="status" aria-live="polite">
+                    {status === 'ok' && (
+                      <span className="ok">ส่งเรียบร้อยแล้ว เราจะติดต่อกลับภายใน 24 ชั่วโมง</span>
+                    )}
+                    {status === 'error' && (
+                      <span className="err">ส่งไม่สำเร็จ รบกวนทักมาทางช่องทางด้านซ้ายแทนได้เลย</span>
+                    )}
+                  </p>
+                </form>
+              ) : (
+                <p className="fine">เลือกช่องทางที่สะดวกได้เลย ทักมาได้ตลอด</p>
+              )}
+            </div>
+          </div>
         </section>
       </main>
 
-      <footer className="footer">
-        <p>
-          <span className="logo-prompt">$</span> sudo command — Tech &amp;
-          Creative Agency © {new Date().getFullYear()}
-        </p>
+      <footer className="site-foot">
+        <div className="wrap foot-inner">
+          <p>Sudo Command — Tech &amp; Creative Agency</p>
+          <p>© {new Date().getFullYear()} บางมด กรุงเทพฯ</p>
+        </div>
       </footer>
+
+      <CommandPalette
+        open={paletteOpen}
+        onClose={() => setPaletteOpen(false)}
+        actions={actions}
+      />
+
+      <div className="toast" role="status" aria-live="polite">
+        {toast && <span>{toast}</span>}
+      </div>
     </>
   )
 }

@@ -6,9 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Sudo Command — รับทำเว็บไซต์ Web App, AI Assistant, ระบบบัญชีอัตโนมัติ, กราฟิก และงาน 3D ครบวงจร End-to-End"
+      content="Sudo Command — รับวางระบบบัญชีอัตโนมัติ AI ผู้ช่วยตอบลูกค้า และ Web App สำหรับ SME และสำนักงานบัญชี พร้อมงานกราฟิกและงาน 3D ครบในทีมเดียว"
     />
-    <title>Sudo Command — Web App, AI, กราฟิก และงาน 3D ครบวงจร</title>
+    <meta name="theme-color" content="#faf8f4" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#14161a" media="(prefers-color-scheme: dark)" />
+    <title>Sudo Command — ระบบบัญชีอัตโนมัติ AI และ Web App สำหรับธุรกิจ</title>
 
     <!-- ฟอนต์ที่ CSS เรียกใช้ ต้องโหลดจริง ไม่งั้นเครื่องลูกค้าจะ fallback เป็นฟอนต์ระบบ -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -25,11 +27,11 @@
     <meta property="og:url" content="https://spnpeet.github.io/sudo-command/" />
     <meta
       property="og:title"
-      content="Sudo Command — Web App, AI, กราฟิก และงาน 3D ครบวงจร"
+      content="Sudo Command — ระบบบัญชีอัตโนมัติ AI และ Web App สำหรับธุรกิจ"
     />
     <meta
       property="og:description"
-      content="Tech &amp; Creative Agency ตัวจบ ช่วยธุรกิจ SME และสำนักงานบัญชีปิดงบไว ไม่ต้องคีย์มือ พร้อมดูแลกราฟิก 3D และวางระบบครบวงจร End-to-End"
+      content="รับวางระบบบัญชีที่ไม่ต้องคีย์มือ AI ผู้ช่วยตอบลูกค้าบน LINE และ Facebook และ Web App สำหรับ SME และสำนักงานบัญชี พร้อมงานกราฟิกและ 3D ครบในทีมเดียว"
     />
     <meta property="og:image" content="https://spnpeet.github.io/sudo-command/og.png" />
     <meta property="og:image:width" content="1200" />
@@ -37,6 +39,26 @@
     <meta name="twitter:card" content="summary_large_image" />
   </head>
   <body>
+    <script>
+      // ใส่ธีมก่อนหน้าจอวาด กันไฟกระพริบขาววาบตอนโหลดในโหมดมืด
+      try {
+        var t = localStorage.getItem('sc-theme')
+        if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t)
+      } catch (e) {}
+
+      // เปิดโหมดค่อย ๆ เผยเนื้อหา ต้องใส่ก่อนวาดเช่นกัน
+      // ถ้าใส่ทีหลัง เนื้อหาจะโผล่มาแล้วค่อยจางหาย เห็นเป็นภาพกระพริบ
+      // เปิดเฉพาะเครื่องที่รองรับจริงและผู้ใช้ไม่ได้ขอลดการเคลื่อนไหว
+      // ถ้าสคริปต์หลักไม่ทำงาน hooks.js จะถอดคลาสนี้คืนให้เนื้อหาแสดงครบ
+      try {
+        if (
+          'IntersectionObserver' in window &&
+          !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+        ) {
+          document.documentElement.classList.add('js-reveal')
+        }
+      } catch (e) {}
+    </script>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
