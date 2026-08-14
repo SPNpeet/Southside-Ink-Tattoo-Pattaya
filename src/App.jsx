@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import Icon from './Icon'
 import CommandPalette from './CommandPalette'
+import FloatingContact from './FloatingContact'
 import { useDismiss, useReveal, useScrollSpy, useTheme } from './hooks'
 
 // ───────────── ช่องทางติดต่อ ─────────────
@@ -168,6 +169,29 @@ function App() {
 
   const closeDd = useCallback(() => setDdOpen(false), [])
   useDismiss(ddRef, ddOpen, closeDd)
+
+  // คีย์บอร์ดใน dropdown: ArrowDown/ArrowUp เลื่อนเลือก, Enter เลือก, Esc ปิด
+  const onDdKeyDown = useCallback(
+    (e) => {
+      const links = [...(ddRef.current?.querySelectorAll('a') || [])]
+      if (!links.length) return
+      const idx = links.indexOf(document.activeElement)
+
+      if (e.key === 'ArrowDown') {
+        e.preventDefault()
+        const next = idx === -1 ? 0 : (idx + 1) % links.length
+        links[next].focus()
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault()
+        const prev = idx <= 0 ? links.length - 1 : idx - 1
+        links[prev].focus()
+      } else if (e.key === 'Home' || e.key === 'End') {
+        e.preventDefault()
+        links[e.key === 'Home' ? 0 : links.length - 1].focus()
+      }
+    },
+    [],
+  )
 
   const goto = useCallback((id) => {
     const el = document.getElementById(id)
@@ -370,7 +394,7 @@ function App() {
                 <Icon name="chevron" className={`dd-caret ${ddOpen ? 'up' : ''}`} />
               </button>
 
-              <div className="dd-panel" hidden={!ddOpen}>
+              <div className="dd-panel" hidden={!ddOpen} onKeyDown={onDdKeyDown}>
                 <ul>
                   {SERVICES.map((s) => (
                     <li key={s.id}>
@@ -397,6 +421,7 @@ function App() {
               <a
                 href="#work"
                 className={active === 'work' ? 'is-active' : ''}
+                aria-current={active === 'work' ? 'true' : undefined}
                 onClick={nav('work')}
               >
                 ผลงาน
@@ -405,16 +430,23 @@ function App() {
             <a
               href="#process"
               className={active === 'process' ? 'is-active' : ''}
+              aria-current={active === 'process' ? 'true' : undefined}
               onClick={nav('process')}
             >
               วิธีทำงาน
             </a>
-            <a href="#faq" className={active === 'faq' ? 'is-active' : ''} onClick={nav('faq')}>
+            <a
+              href="#faq"
+              className={active === 'faq' ? 'is-active' : ''}
+              aria-current={active === 'faq' ? 'true' : undefined}
+              onClick={nav('faq')}
+            >
               คำถามที่พบบ่อย
             </a>
             <a
               href="#contact"
               className={active === 'contact' ? 'is-active' : ''}
+              aria-current={active === 'contact' ? 'true' : undefined}
               onClick={nav('contact')}
             >
               ติดต่อ
@@ -709,6 +741,8 @@ function App() {
           </div>
         </div>
       </footer>
+
+      <FloatingContact channels={CHANNELS} />
 
       <CommandPalette
         open={paletteOpen}

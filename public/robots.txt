@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://spnpeet.github.io/sudo-command/sitemap.xml

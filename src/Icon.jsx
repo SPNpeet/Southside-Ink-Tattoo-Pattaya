@@ -66,6 +66,7 @@ const PATHS = {
   ),
   arrow: <path d="M5 12h13M12.5 6l6 6-6 6" />,
   chevron: <path d="m6 9.5 6 6 6-6" />,
+  close: <path d="M6 6l12 12M18 6 6 18" />,
   search: (
     <>
       <circle cx="11" cy="11" r="7" />

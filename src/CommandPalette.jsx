@@ -5,7 +5,16 @@ import Icon from './Icon'
  * Command palette แบบที่ Linear / Vercel / GitHub ใช้ กด Ctrl+K หรือ ⌘K
  * ใช้ <dialog> ของเบราว์เซอร์เอง เลยได้ focus trap กับปุ่ม Escape มาฟรี
  * ไม่ต้องพึ่งไลบรารีภายนอก บันเดิลไม่โต และไม่มีสคริปต์นอกให้ต้องเชื่อใจ
+ *
+ * ค้นหาแบบตัดสระ/วรรณยุกต์ทิ้งก่อน กลุ่มลูกค้าอาจพิมพ์เร็วแล้วหลุดวรรณยุกต์
+ * พิมพ์ "ติดตอ" ต้องเจอ "ติดต่อ" เหมือนกัน
  */
+const NORMALIZE = /[\u0E31\u0E34-\u0E3A\u0E47-\u0E4E]/g
+
+function norm(s) {
+  return String(s).normalize('NFKD').replace(NORMALIZE, '').toLowerCase()
+}
+
 export default function CommandPalette({ open, onClose, actions }) {
   const dialogRef = useRef(null)
   const inputRef = useRef(null)
@@ -14,10 +23,10 @@ export default function CommandPalette({ open, onClose, actions }) {
   const [cursor, setCursor] = useState(0)
 
   const results = useMemo(() => {
-    const term = q.trim().toLowerCase()
+    const term = norm(q)
     if (!term) return actions
     return actions.filter((a) =>
-      `${a.label} ${a.hint || ''} ${(a.keywords || []).join(' ')}`.toLowerCase().includes(term)
+      norm(`${a.label} ${a.hint || ''} ${(a.keywords || []).join(' ')}`).includes(term)
     )
   }, [q, actions])
 
@@ -84,8 +93,19 @@ export default function CommandPalette({ open, onClose, actions }) {
     }
   }
 
+  // คลิกพื้นหลังนอกกล่องแล้วปิด — คลิกที่ backdrop จะยิงมาที่ตัว dialog เอง
+  // จำเป็นมาก เพราะบนมือถือไม่มีปุ่ม Escape ให้กด
+  const onDialogClick = (e) => {
+    if (e.target === dialogRef.current) onClose()
+  }
+
   return (
-    <dialog className="cmdk" ref={dialogRef} aria-label="ค้นหาและลัดไปยังเมนู">
+    <dialog
+      className="cmdk"
+      ref={dialogRef}
+      aria-label="ค้นหาและลัดไปยังเมนู"
+      onClick={onDialogClick}
+    >
       <div className="cmdk-box" onKeyDown={onKeyDown}>
         <div className="cmdk-search">
           <span className="cmdk-prompt" aria-hidden="true">
@@ -101,7 +121,9 @@ export default function CommandPalette({ open, onClose, actions }) {
             autoComplete="off"
             spellCheck="false"
           />
-          <kbd>esc</kbd>
+          <button type="button" className="cmdk-close" onClick={onClose} aria-label="ปิดการค้นหา">
+            <Icon name="close" />
+          </button>
         </div>
 
         <ul className="cmdk-list" ref={listRef} role="listbox" aria-label="ผลการค้นหา">
@@ -133,6 +155,7 @@ export default function CommandPalette({ open, onClose, actions }) {
           <span>
             <kbd>enter</kbd> เลือก
           </span>
+          <span className="cmdk-foot-end">แตะนอกกรอบเพื่อปิด</span>
         </footer>
       </div>
     </dialog>

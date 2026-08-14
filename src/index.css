@@ -1143,6 +1143,135 @@ kbd {
   gap: 5px;
 }
 
+.cmdk-foot-end {
+  margin-left: auto;
+}
+
+/* ปุ่มปิด จำเป็นสำหรับมือถือที่ไม่มีปุ่ม Escape ให้กด */
+.cmdk-close {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  flex: none;
+  background: var(--paper-2);
+  border: none;
+  border-radius: 999px;
+  color: var(--ink-2);
+  cursor: pointer;
+  transition: background 0.14s, color 0.14s;
+}
+
+.cmdk-close:hover {
+  background: var(--accent-wash);
+  color: var(--accent-deep);
+}
+
+.cmdk-close .icon {
+  width: 19px;
+  height: 19px;
+}
+
+/* ---------------- ปุ่มติดต่อลอยตาม ---------------- */
+.fab {
+  position: fixed;
+  right: clamp(16px, 3vw, 30px);
+  bottom: clamp(16px, 3vw, 30px);
+  z-index: 70;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(16px);
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+}
+
+.fab.in {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+.fab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 56px;
+  padding: 14px 24px;
+  background: var(--accent);
+  color: var(--on-accent);
+  border: none;
+  border-radius: 999px;
+  font-size: 16.5px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 10px 28px color-mix(in srgb, var(--accent) 34%, transparent);
+  transition: background 0.15s;
+}
+
+.fab-btn:hover {
+  background: var(--accent-deep);
+}
+
+.fab-ic {
+  width: 21px;
+  height: 21px;
+  transition: transform 0.2s;
+}
+
+.fab.open .fab-ic {
+  transform: rotate(180deg);
+}
+
+.fab-panel {
+  width: min(300px, calc(100vw - 32px));
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: var(--r);
+  box-shadow: var(--shadow);
+  padding: 8px;
+}
+
+.fab-panel[hidden] {
+  display: none;
+}
+
+.fab-head {
+  padding: 10px 12px 8px;
+  font-size: 14px;
+  color: var(--ink-2);
+}
+
+.fab-panel a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 52px;
+  padding: 10px 12px;
+  border-radius: var(--r-sm);
+  text-decoration: none;
+  font-size: 15.5px;
+  font-weight: 600;
+  transition: background 0.14s;
+}
+
+.fab-panel a:hover {
+  background: var(--accent-wash);
+}
+
+.fab-panel a .icon {
+  width: 20px;
+  height: 20px;
+  flex: none;
+  color: var(--accent-deep);
+}
+
+.fab-panel a span {
+  overflow-wrap: anywhere;
+}
+
 /* ---------------- Toast ---------------- */
 .toast {
   position: fixed;
@@ -1320,6 +1449,16 @@ kbd {
 
   .cmdk {
     margin-top: 8vh;
+  }
+
+  /* ยกข้อความแจ้งเตือนขึ้นเหนือปุ่มลอย ไม่ให้ทับกันบนจอแคบ */
+  .toast {
+    bottom: 92px;
+    width: calc(100vw - 32px);
+  }
+
+  .toast span {
+    text-align: center;
   }
 }
 
