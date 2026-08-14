@@ -71,10 +71,51 @@ const SERVICES = [
 ]
 
 const STEPS = [
-  { title: 'คุยโจทย์', desc: 'เล่าเป้าหมายธุรกิจมา เราช่วยแปลงเป็นโซลูชันที่จับต้องได้' },
-  { title: 'วางแผนและออกแบบ', desc: 'ทำแบบและประมาณการก่อนเริ่มงาน ชัดเจนตั้งแต่ต้น' },
-  { title: 'พัฒนาและดีไซน์', desc: 'ลงมือสร้างระบบ AI กราฟิก และงาน 3D ตามที่ตกลงไว้' },
-  { title: 'ส่งมอบและซัพพอร์ต', desc: 'ติดตั้ง เทรนทีม แล้วดูแลต่อเนื่องหลังส่งมอบ' },
+  {
+    title: 'คุยกันก่อน',
+    desc: 'เล่ามาแบบบ้าน ๆ ได้เลย ไม่ต้องเตรียมอะไรมา ที่เหลือเราถามต่อเอง',
+  },
+  {
+    title: 'เราสรุปให้ดู',
+    desc: 'ทำแบบและประมาณการมาให้ดูก่อน เห็นราคาแล้วค่อยตัดสินใจว่าจะเริ่มไหม',
+  },
+  {
+    title: 'ลงมือทำ',
+    desc: 'ระหว่างทางมีความคืบหน้าอะไรบอกให้รู้ตลอด อยากปรับตรงไหนบอกได้',
+  },
+  {
+    title: 'ส่งมอบแล้วอยู่ต่อ',
+    desc: 'ติดตั้งให้ สอนทีมคุณจนใช้เป็น แล้วยังตามดูแลให้หลังจากนั้น',
+  },
+]
+
+// คำถามที่เจ้าของธุรกิจมักลังเลแต่ไม่กล้าถาม ตอบไว้ก่อนเลยจะได้กล้าทัก
+// ทุกข้อต้องตอบจากสิ่งที่ทำจริงเท่านั้น ห้ามสัญญาสิ่งที่ยังไม่รู้ว่าทำได้ไหม
+const FAQS = [
+  {
+    q: 'ไม่มีความรู้ด้านเทคนิคเลย คุยกันรู้เรื่องไหม',
+    a: 'รู้เรื่องแน่นอน คุณเล่าว่าติดปัญหาอะไรในการทำงานก็พอ เรื่องศัพท์เทคนิคเป็นหน้าที่เราที่ต้องแปลให้เข้าใจ ไม่ใช่หน้าที่คุณ',
+  },
+  {
+    q: 'อยากทำแค่บางส่วน ไม่เอาทั้งหมด ได้ไหม',
+    a: 'ได้ครับ แนะนำให้เริ่มจากจุดที่เจ็บที่สุดก่อนด้วยซ้ำ พอเห็นผลแล้วค่อยขยายทีหลังก็ยังทัน',
+  },
+  {
+    q: 'ราคาประมาณเท่าไหร่',
+    a: 'ขึ้นกับขอบเขตงาน เราจะทำแบบและประมาณการมาให้ดูก่อนเริ่มเสมอ ได้เห็นตัวเลขแล้วค่อยตัดสินใจ ช่วงคุยและประเมินไม่มีค่าใช้จ่าย',
+  },
+  {
+    q: 'อยู่ต่างจังหวัด ทำงานด้วยกันได้ไหม',
+    a: 'ได้ครับ เรารับงานทั่วประเทศและทำงานออนไลน์เต็มรูปแบบอยู่แล้ว',
+  },
+  {
+    q: 'ทำเสร็จแล้วใช้ไม่เป็น จะทำยังไง',
+    a: 'เราสอนทีมคุณจนใช้เป็นก่อนถึงจะถือว่าจบงาน และมีคู่มือให้ไว้ดูย้อนหลัง ติดตรงไหนหลังจากนั้นก็ทักมาได้',
+  },
+  {
+    q: 'เริ่มต้นต้องทำอะไรบ้าง',
+    a: 'ทักมาเล่าให้ฟังอย่างเดียวเลยครับ ไม่ต้องเตรียมเอกสารหรือข้อมูลอะไรมาก่อน เราตอบกลับภายใน 24 ชั่วโมง',
+  },
 ]
 
 const SPEC = [
@@ -120,7 +161,7 @@ function App() {
   const ddRef = useRef(null)
   const ddBtnRef = useRef(null)
 
-  const order = ['services', ...(WORKS.length ? ['work'] : []), 'process', 'contact']
+  const order = ['services', ...(WORKS.length ? ['work'] : []), 'process', 'faq', 'contact']
   const numOf = (id) => String(order.indexOf(id) + 1).padStart(2, '0')
   const active = useScrollSpy(order)
   useReveal([WORKS.length, CONTACT.web3formsKey])
@@ -198,6 +239,14 @@ function App() {
       hint: '4 ขั้นตอน',
       keywords: ['process', 'ขั้นตอน'],
       run: () => goto('process'),
+    },
+    {
+      id: 'go-faq',
+      icon: 'search',
+      label: 'คำถามที่พบบ่อย',
+      hint: 'ราคา ขั้นตอน การดูแลหลังส่งมอบ',
+      keywords: ['faq', 'คำถาม', 'ราคา', 'สงสัย'],
+      run: () => goto('faq'),
     },
     {
       id: 'go-contact',
@@ -360,6 +409,9 @@ function App() {
             >
               วิธีทำงาน
             </a>
+            <a href="#faq" className={active === 'faq' ? 'is-active' : ''} onClick={nav('faq')}>
+              คำถามที่พบบ่อย
+            </a>
             <a
               href="#contact"
               className={active === 'contact' ? 'is-active' : ''}
@@ -415,19 +467,20 @@ function App() {
         <section className="hero" id="top" tabIndex={-1}>
           <div className="wrap hero-grid">
             <div className="hero-copy">
-              <p className="eyebrow">รับงานทั่วประเทศ · ทำงานออนไลน์เต็มรูปแบบ</p>
+              <p className="eyebrow">ปรึกษาก่อนได้ ไม่มีค่าใช้จ่าย · รับงานทั่วประเทศ</p>
               <h1>
-                เลิกเสียเวลากับงานซ้ำ ๆ
+                งานจุกจิกที่กินเวลาคุณอยู่
                 <br />
-                <em>เอาคนไปโตธุรกิจ</em>
+                <em>ให้เราช่วยดูให้ไหม</em>
               </h1>
               <p className="lede">
-                เรารับวางระบบบัญชีอัตโนมัติ AI ผู้ช่วยตอบลูกค้า และเว็บแอปสำหรับ SME
-                และสำนักงานบัญชี พร้อมดูแลงานกราฟิกและงาน 3D ให้จบในทีมเดียว
+                ไม่ต้องรู้ศัพท์เทคนิคก็คุยกับเรารู้เรื่อง เล่ามาว่าตอนนี้ติดอะไรอยู่
+                เดี๋ยวเราช่วยดูว่าอะไรพอทำให้อัตโนมัติได้บ้าง แล้วค่อยหาทางที่พอดีกับ
+                ขนาดธุรกิจและงบของคุณไปด้วยกัน
               </p>
               <div className="cta">
                 <a className="btn btn-solid" href="#contact" onClick={nav('contact')}>
-                  เล่าโจทย์ให้เราฟัง
+                  เล่าให้เราฟังหน่อย
                   <Icon name="arrow" />
                 </a>
                 <button type="button" className="btn btn-line" onClick={() => setPaletteOpen(true)}>
@@ -436,6 +489,9 @@ function App() {
                   <kbd className="btn-kbd">Ctrl K</kbd>
                 </button>
               </div>
+              <p className="hero-note">
+                ยังไม่รู้ว่าอยากได้อะไรก็ทักมาได้ เราช่วยคิดตั้งแต่ต้นให้
+              </p>
             </div>
 
             <dl className="spec" aria-label="ข้อมูลบริการโดยสรุป">
@@ -452,16 +508,16 @@ function App() {
         <section className="band" aria-label="จุดเด่นของบริการ">
           <div className="wrap band-grid">
             <p>
-              <strong>ไม่ต้องคีย์มือ</strong>
-              ออกเอกสาร อ่านสลิป และลงรายการให้อัตโนมัติ
+              <strong>ไม่ต้องนั่งคีย์เอง</strong>
+              ออกเอกสาร อ่านสลิป ลงรายการ ให้ระบบทำแทน คุณเอาเวลาไปทำอย่างอื่นได้
             </p>
             <p>
-              <strong>รวมทุกแชทไว้ที่เดียว</strong>
-              LINE, Facebook และ Instagram ต่อเข้าระบบหลังบ้านเดียว
+              <strong>ลูกค้าทักมาทางไหนก็ไม่ตกหล่น</strong>
+              LINE, Facebook, Instagram รวมมาที่เดียว ตอบได้แม้ตอนคุณไม่ว่าง
             </p>
             <p>
-              <strong>ส่งมอบแล้วไม่ทิ้ง</strong>
-              มีคู่มือ เทรนทีมงาน และซัพพอร์ตต่อเนื่อง
+              <strong>ส่งมอบแล้วเราไม่หายไปไหน</strong>
+              มีคู่มือ สอนทีมคุณจนใช้เป็น แล้วติดตรงไหนทักมาได้เลย
             </p>
           </div>
         </section>
@@ -470,8 +526,8 @@ function App() {
           <div className="wrap">
             <SectionHead
               num={numOf('services')}
-              title="บริการของเรา"
-              note="เลือกเฉพาะส่วนที่ต้องการก็ได้ ไม่จำเป็นต้องทำทั้งหมดพร้อมกัน"
+              title="เราช่วยอะไรได้บ้าง"
+              note="ไม่ต้องทำทั้งหมดพร้อมกันก็ได้ เริ่มจากจุดที่เจ็บที่สุดก่อน แล้วค่อยขยายทีหลัง"
             />
             <ul className="svc-list">
               {SERVICES.map((s) => (
@@ -518,7 +574,11 @@ function App() {
 
         <section className="sec sec-alt" id="process" tabIndex={-1}>
           <div className="wrap">
-            <SectionHead num={numOf('process')} title="วิธีทำงาน" />
+            <SectionHead
+              num={numOf('process')}
+              title="ทำงานกันยังไง"
+              note="ไม่มีขั้นตอนซับซ้อน และไม่มีอะไรที่คุณต้องรู้มาก่อน"
+            />
             <ol className="steps">
               {STEPS.map((s, i) => (
                 <li key={s.title} data-reveal>
@@ -531,12 +591,35 @@ function App() {
           </div>
         </section>
 
+        <section className="sec" id="faq" tabIndex={-1}>
+          <div className="wrap">
+            <SectionHead
+              num={numOf('faq')}
+              title="เรื่องที่หลายคนสงสัย"
+              note="ถ้ายังมีข้อไหนค้างใจอยู่ ทักมาถามได้เลย ไม่ต้องเกรงใจ"
+            />
+            <ul className="faq">
+              {FAQS.map((f) => (
+                <li key={f.q} data-reveal>
+                  <details>
+                    <summary>
+                      <span>{f.q}</span>
+                      <Icon name="chevron" className="faq-caret" />
+                    </summary>
+                    <p>{f.a}</p>
+                  </details>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
         <section className="sec" id="contact" tabIndex={-1}>
           <div className="wrap">
             <SectionHead
               num={numOf('contact')}
-              title="เริ่มคุยกันได้เลย"
-              note="เล่าปัญหาที่เจออยู่มาสั้น ๆ ก็พอ เราตอบกลับภายใน 24 ชั่วโมง"
+              title="ทักมาคุยกันก่อนได้"
+              note="ไม่ต้องเตรียมอะไรมาก่อน เล่าสั้น ๆ ว่าตอนนี้ติดอะไรอยู่ก็พอ เราตอบกลับภายใน 24 ชั่วโมง และยังไม่ต้องตัดสินใจอะไรทั้งนั้น"
             />
 
             <div className="contact-grid">
@@ -562,7 +645,7 @@ function App() {
                 </ul>
 
                 <p className="fine">
-                  ติดตามงานใหม่ได้ที่เพจ{' '}
+                  สะดวกช่องทางไหนเลือกได้เลย หรือแวะดูงานใหม่ ๆ ที่เพจ{' '}
                   <a href={CONTACT.facebook} target="_blank" rel="noopener noreferrer">
                     Sudo Command
                   </a>
@@ -605,7 +688,9 @@ function App() {
                   </p>
                 </form>
               ) : (
-                <p className="fine">เลือกช่องทางที่สะดวกได้เลย ทักมาได้ตลอด</p>
+                <p className="fine">
+                  ทักมาได้ตลอดครับ เห็นเมื่อไหร่ตอบทันที
+                </p>
               )}
             </div>
           </div>
@@ -613,9 +698,15 @@ function App() {
       </main>
 
       <footer className="site-foot">
-        <div className="wrap foot-inner">
-          <p>Sudo Command — Tech &amp; Creative Agency</p>
-          <p>© {new Date().getFullYear()} บางมด กรุงเทพฯ</p>
+        <div className="wrap">
+          <p className="foot-say">
+            อ่านมาถึงตรงนี้แล้ว ถ้ายังลังเลอยู่ ทักมาถามเฉย ๆ ก็ได้ครับ
+            เราไม่ได้ตื๊อขายของ แค่อยากรู้ว่าพอช่วยอะไรได้บ้าง
+          </p>
+          <div className="foot-inner">
+            <p>Sudo Command — Tech &amp; Creative Agency</p>
+            <p>© {new Date().getFullYear()} บางมด กรุงเทพฯ</p>
+          </div>
         </div>
       </footer>
 
