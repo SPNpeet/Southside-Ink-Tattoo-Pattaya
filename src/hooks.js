@@ -79,11 +79,8 @@ export function useReveal(deps = []) {
       return
     }
 
-    let fired = false
-
     const io = new IntersectionObserver(
       (entries) => {
-        fired = true
         entries.forEach((e) => {
           if (e.isIntersecting) {
             e.target.classList.add('revealed')
@@ -94,20 +91,44 @@ export function useReveal(deps = []) {
       { rootMargin: '0px 0px -8% 0px', threshold: 0.06 }
     )
 
-    document.querySelectorAll('[data-reveal]:not(.revealed)').forEach((el) => io.observe(el))
+    const observeAll = () =>
+      document.querySelectorAll('[data-reveal]:not(.revealed)').forEach((el) => io.observe(el))
+    observeAll()
 
-    // ตัวกันพลาด: ปกติ IntersectionObserver ต้องยิงรอบแรกทันทีที่ observe()
-    // ถ้าเงียบเกินเวลานี้ แปลว่าเบราว์เซอร์นั้นใช้ไม่ได้จริง ให้ถอดคลาสทิ้ง
-    // ยอมเสียแอนิเมชัน ดีกว่าปล่อยให้ลูกค้าเจอหน้าเปล่าเพราะเนื้อหาซ่อนถาวร
+    // ชั้นสำรอง: กวาดด้วยตำแหน่งจริงเวลาเลื่อนหรือปรับขนาดจอ
+    // เผื่อกรณี IntersectionObserver ยิงรอบแรกแล้วเงียบไปเลย ซึ่งเกิดได้จริง
+    const inView = (el) => {
+      const r = el.getBoundingClientRect()
+      return r.top < window.innerHeight * 0.94 && r.bottom > 0
+    }
+
+    const sweep = () => {
+      document.querySelectorAll('[data-reveal]:not(.revealed)').forEach((el) => {
+        if (inView(el)) el.classList.add('revealed')
+      })
+    }
+
+    window.addEventListener('scroll', sweep, { passive: true })
+    window.addEventListener('resize', sweep)
+
+    /* ชั้นสุดท้าย: ถ้าผ่านไปแล้วยังมีบล็อกที่ "อยู่ในจอ" แต่ไม่ถูกเผย
+       แปลว่ากลไกเผยใช้การไม่ได้จริงบนเบราว์เซอร์นั้น ให้ถอดคลาสทิ้งทั้งหมด
+
+       เดิมเช็คว่า IntersectionObserver ยิงหรือยัง ซึ่งผิด
+       เพราะ IO ยิงรอบแรกเสมอแม้ไม่มีอะไรเข้าจอ watchdog เลยปลดอาวุธตัวเองทันที
+       พอ IO เงียบหลังจากนั้น เนื้อหาค้างซ่อนถาวรโดยไม่มีอะไรมากู้ */
     const watchdog = window.setTimeout(() => {
-      if (!fired) {
+      const stuck = [...document.querySelectorAll('[data-reveal]:not(.revealed)')].some(inView)
+      if (stuck) {
         root.classList.remove('js-reveal')
         io.disconnect()
       }
-    }, 1200)
+    }, 1500)
 
     return () => {
       window.clearTimeout(watchdog)
+      window.removeEventListener('scroll', sweep)
+      window.removeEventListener('resize', sweep)
       io.disconnect()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

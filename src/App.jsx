@@ -552,19 +552,21 @@ function App() {
           </div>
         </section>
 
-        <section className="band" aria-label="จุดเด่นของบริการ">
+        {/* แถบนี้เคยเขียนซ้ำกับหัวข้อบริการทั้งสามข้อ เปลี่ยนมาบอกว่า "ใครเหมาะ"
+            ซึ่งเป็นข้อมูลที่ไม่มีที่ไหนบอก และช่วยให้คนอ่านรู้ตัวว่าใช่กลุ่มตัวเองไหม */}
+        <section className="band" aria-label="กลุ่มธุรกิจที่เราถนัด">
           <div className="wrap band-grid">
             <p>
-              <strong>ไม่ต้องนั่งคีย์เอง</strong>
-              ออกเอกสาร อ่านสลิป ลงรายการ ให้ระบบทำแทน คุณเอาเวลาไปทำอย่างอื่นได้
+              <strong>เจ้าของ SME ที่ทำเองเกือบทุกอย่าง</strong>
+              งานเอกสารกับงานตอบลูกค้ากินเวลาจนไม่เหลือเวลาไปหาลูกค้าใหม่
             </p>
             <p>
-              <strong>ลูกค้าทักมาทางไหนก็ไม่ตกหล่น</strong>
-              LINE, Facebook, Instagram รวมมาที่เดียว ตอบได้แม้ตอนคุณไม่ว่าง
+              <strong>สำนักงานบัญชีที่ลูกค้าเยอะขึ้นทุกปี</strong>
+              รับงานเพิ่มไม่ไหวเพราะติดที่ต้องคีย์เอกสารเองทุกใบ
             </p>
             <p>
-              <strong>ส่งมอบแล้วเราไม่หายไปไหน</strong>
-              มีคู่มือ สอนทีมคุณจนใช้เป็น แล้วติดตรงไหนทักมาได้เลย
+              <strong>ร้านค้าออนไลน์ที่ลูกค้าทักหลายช่องทาง</strong>
+              แชทเข้ามาหลายทางจนตอบไม่ทัน และตกหล่นโดยไม่รู้ตัว
             </p>
           </div>
         </section>
@@ -584,11 +586,13 @@ function App() {
                   </span>
                   <h3>{s.title}</h3>
                   <p className="svc-desc">{s.desc}</p>
-                  <ul className="svc-includes">
-                    {s.includes.map((it) => (
-                      <li key={it}>{it}</li>
-                    ))}
-                  </ul>
+                  {s.includes?.length > 0 && (
+                    <ul className="svc-includes">
+                      {s.includes.map((it) => (
+                        <li key={it}>{it}</li>
+                      ))}
+                    </ul>
+                  )}
                   <p className="svc-gain">
                     <span className="svc-gain-label">คุณจะได้</span>
                     {s.gain}
