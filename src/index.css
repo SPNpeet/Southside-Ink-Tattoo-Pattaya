@@ -57,19 +57,21 @@
 }
 
 :root[data-theme='dark'] {
-  --paper: #171513;
-  --paper-2: #1f1c19;
-  --paper-3: #282420;
-  --ink: #f5f1ea;
-  --ink-2: #b0a89c;
-  --rule: #35302a;
+  /* พื้นหลังกลางค่อนข้างเป็นกลาง ไม่อมน้ำตาล
+     ปล่อยให้สีส้มเป็นตัวให้ความอุ่นแทน ถ้าพื้นอมน้ำตาลด้วยจะขุ่นทั้งหน้า */
+  --paper: #16151a;
+  --paper-2: #1d1c22;
+  --paper-3: #26252c;
+  --ink: #f2f0ee;
+  --ink-2: #a8a5a0;
+  --rule: #33313a;
   --accent: #ff8552;
   --accent-deep: #ffa077;
-  --accent-wash: #2a1c14;
+  --accent-wash: #2a1a12;
   --on-accent: #2b1206;
-  --band: #221c17;
-  --band-ink: #f5f1ea;
-  --band-ink-2: #b0a89c;
+  --band: #1d1c22;
+  --band-ink: #f2f0ee;
+  --band-ink-2: #a8a5a0;
   --shadow: 0 14px 40px rgba(0, 0, 0, 0.5);
   --scrim: rgba(0, 0, 0, 0.6);
 }
@@ -560,12 +562,19 @@ kbd {
   text-wrap: balance;
 }
 
+/* ไฮไลต์แบบปากกามาร์คเกอร์: ใช้ "พื้นหลัง" ไม่ใช่เส้นใต้หรือ inset shadow
+   ภาษาไทยมีสระล่าง (ุ ู) กับวรรณยุกต์ ถ้าใช้แถบใต้เส้นฐานจะไปทับจนดูเป็นแท่งสีเลอะ
+   แต่พื้นหลังอยู่ "หลัง" ตัวอักษร เลยครอบทั้งสระบนและสระล่างโดยไม่ทับอะไร
+   clone เพื่อให้ตอนข้อความตัดบรรทัด แต่ละบรรทัดได้พื้นหลังของตัวเอง */
 .hero h1 em {
   font-style: normal;
   color: var(--accent-deep);
+  background: var(--accent-wash);
+  padding: 0.04em 0.16em;
+  margin-inline: -0.16em;
+  border-radius: 0.12em;
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
-  box-shadow: inset 0 -0.22em 0 color-mix(in srgb, var(--accent) 20%, transparent);
 }
 
 .lede {
@@ -726,6 +735,29 @@ kbd {
 .svc p {
   color: var(--ink-2);
   font-size: 16px;
+}
+
+/* บรรทัดผลลัพธ์ ต่อท้ายคำอธิบาย แยกด้วยเส้นบาง ๆ ให้อ่านแยกออกจากกัน */
+.svc .svc-gain {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 8px;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--rule);
+  color: var(--ink);
+  font-size: 15.5px;
+}
+
+.svc-gain-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--accent-deep);
+  background: var(--accent-wash);
+  padding: 3px 9px;
+  border-radius: 999px;
 }
 
 /* ---------------- Work ---------------- */
