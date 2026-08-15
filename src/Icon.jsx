@@ -86,6 +86,18 @@ const PATHS = {
       <path d="M9 20.5h6M12 17v3.5" />
     </>
   ),
+  clock: (
+    <>
+      <circle cx="12" cy="12" r="8.5" />
+      <path d="M12 7v5l3 2" />
+    </>
+  ),
+  tag: (
+    <>
+      <path d="M3.5 12.5V4h8.5l8.5 8.5-8.5 8.5z" />
+      <circle cx="8" cy="8" r="1.2" fill="currentColor" stroke="none" />
+    </>
+  ),
 }
 
 export default function Icon({ name, className = '' }) {

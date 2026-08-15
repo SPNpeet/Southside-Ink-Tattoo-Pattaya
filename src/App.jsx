@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import Icon from './Icon'
 import Terminal from './Terminal'
+import { VISUAL_BY_KEY } from './ServiceVisuals'
 import CommandPalette from './CommandPalette'
 import FloatingContact from './FloatingContact'
 import { useDismiss, useReveal, useScrollSpy, useTheme } from './hooks'
@@ -27,82 +28,96 @@ const CHANNELS = [
   { key: 'email', icon: 'mail', label: CONTACT.email, href: `mailto:${CONTACT.email}` },
 ].filter((c) => CONTACT[c.key])
 
-// แต่ละบริการมีสองชั้น: desc = เราทำอะไร, gain = ลูกค้าได้อะไรกลับไป
-// เคยแยก gain ออกไปเป็น section ต่างหาก แล้วพบว่าซ้ำกับ section นี้ 5 จาก 6 รายการ
-// เลยยุบกลับมารวมเป็นที่เดียว ห้ามแยกออกไปอีกถ้าเนื้อหายังเป็นชุดเดิม
+// แต่ละบริการมีสามชั้น: desc = เราทำอะไร, gain = ลูกค้าได้อะไรกลับไป, price = ราคาเริ่ม
+// ปรับให้ครอบคลุมบริการจริงทั้งหมด: การตลาด/เว็บ/AI/IoT/IT Audit/วางระบบ
+// visual = component key สำหรับ SVG abstract (ServiceVisuals.jsx)
 const SERVICES = [
   {
-    id: 'svc-accounting',
-    icon: 'ledger',
-    title: 'ระบบบัญชีอัตโนมัติ',
-    short: 'ปิดงบไม่ต้องคีย์มือ',
-    desc: 'ออกเอกสารขาย อ่านสลิป จับคู่รายการ และดึงรายงานได้เอง สำหรับ SME และสำนักงานบัญชี',
-    gain: 'ปิดงบได้เร็วขึ้นโดยไม่ต้องนั่งคีย์ทีละใบ',
-    includes: ['ออกเอกสารขาย', 'อ่านสลิปอัตโนมัติ', 'จับคู่รายการ', 'รายงานสรุป'],
-  },
-  {
-    id: 'svc-ai',
-    icon: 'ai',
-    title: 'AI Assistant',
-    short: 'ตอบลูกค้าแทนได้ 24 ชม.',
-    desc: 'แชทบอทและ AI Agent บน LINE, Facebook, Instagram เชื่อมกับข้อมูลธุรกิจจริงของคุณ',
-    gain: 'ลูกค้าถามตอนไหนก็มีคนตอบ แม้ตอนคุณไม่ว่าง',
-    includes: ['ต่อ LINE / Facebook / IG', 'ตอบจากข้อมูลจริง', 'ส่งต่อให้คนเมื่อจำเป็น'],
+    id: 'svc-marketing',
+    visual: 'marketing',
+    title: 'การตลาดดิจิทัล',
+    short: 'ยิงแอด · SEO · คอนเทนต์ · วิดีโอ',
+    desc: 'ยิงแอด Google/Facebook/อื่น ๆ สอนยิงเองได้ เขียน SEO คิดแคปชั่น และ Gen วิดีโอจากข่าวรายวัน คุมโทนให้เป็นชุดเดียวกัน',
+    gain: 'ลูกค้าเห็นคุณบ่อยขึ้นในช่องทางที่ใช่ และคุณเห็นยอดจากแดชบอร์ดเดียว',
+    includes: ['ยิงแอด + สอนยิง', 'SEO on-page', 'เขียนคอนเทนต์', 'Gen วิดีโอจากข่าว'],
+    price: { tier: 'S', from: '4,900', unit: 'บาท' },
   },
   {
     id: 'svc-web',
-    icon: 'web',
-    title: 'Web App และเว็บไซต์',
-    short: 'เว็บธุรกิจและระบบหลังบ้าน',
-    desc: 'เว็บธุรกิจ ร้านค้าออนไลน์ และระบบหลังบ้าน พร้อมแดชบอร์ดดูตัวเลขแบบเรียลไทม์',
-    gain: 'ลูกค้าค้นเจอและกดติดต่อได้ทันที ส่วนคุณเปิดดูยอดจากมือถือได้',
-    includes: ['เว็บธุรกิจ', 'ร้านค้าออนไลน์', 'ระบบหลังบ้าน', 'แดชบอร์ด'],
+    visual: 'web',
+    title: 'เว็บ & แอป',
+    short: 'Web App · Website · POS · ERP',
+    desc: 'เว็บธุรกิจ ร้านค้าออนไลน์ Web App POS ERP และโปรแกรมทุกแบบ พร้อมแดชบอร์ดดูตัวเลขเรียลไทม์',
+    gain: 'ลูกค้าเจอคุณบนเว็บ สั่งของได้ทันที ส่วนคุณเปิดดูยอดจากมือถือได้ทุกที่',
+    includes: ['เว็บธุรกิจ', 'ร้านค้าออนไลน์', 'POS / ERP', 'แดชบอร์ดเรียลไทม์'],
+    price: { tier: 'M', from: '14,900', unit: 'บาท' },
   },
   {
-    id: 'svc-graphic',
-    icon: 'layers',
-    title: 'งานกราฟิก',
-    short: 'โลโก้ แบรนดิ้ง สื่อโฆษณา',
-    desc: 'โลโก้ แบรนดิ้ง สื่อโฆษณา และคอนเทนต์โซเชียล คุมโทนให้เป็นชุดเดียวกันทั้งแบรนด์',
-    gain: 'ได้ชุดโลโก้ สี ฟอนต์ และเทมเพลตโพสต์ ที่ทีมคุณใช้ต่อเองได้',
-    includes: ['โลโก้', 'คู่มือแบรนด์', 'สื่อโฆษณา', 'คอนเทนต์โซเชียล'],
+    id: 'svc-ai',
+    visual: 'ai',
+    title: 'AI & Automation',
+    short: 'Chatbot · โพส 24/7 · วิดีโออัตโนมัติ',
+    desc: 'แชทบอทปิดยอด ตอบแทนคุณได้ 24 ชม. โพสอัตโนมัติทุกวัน และ Gen วิดีโอจากข่าวรายวัน เชื่อมกับข้อมูลธุรกิจจริงของคุณ',
+    gain: 'ลูกค้าทักเมื่อไหร่ก็มีคนตอบ โพสไม่ต้องนั่งทำเองทุกวัน และปิดงานได้แม้คุณนอน',
+    includes: ['Chatbot ปิดยอด', 'โพส 24/7', 'Gen วิดีโอจากข่าว', 'ส่งต่อคนเมื่อจำเป็น'],
+    price: { tier: 'S', from: '4,900', unit: 'บาท' },
   },
   {
-    id: 'svc-3d',
-    icon: 'cube',
-    title: 'งาน 3D',
-    short: 'โมเดลและภาพเรนเดอร์สินค้า',
-    desc: 'โมเดล ภาพเรนเดอร์สินค้า และอนิเมชัน สำหรับนำเสนอสินค้าและงานโฆษณา',
-    gain: 'ได้ภาพสินค้าที่หมุนดูได้รอบด้าน เอาไปลงโฆษณาได้เลย',
-    includes: ['โมเดลสินค้า', 'ภาพเรนเดอร์', 'อนิเมชัน'],
+    id: 'svc-iot',
+    visual: 'iot',
+    title: 'IoT & ฮาร์ดแวร์',
+    short: 'เซ็นเซอร์ · หุ่นยนต์ · สมาร์ตโฮม',
+    desc: 'ทุ่นน้ำวัดค่า หุ่นยนต์คลังสินค้า แจ้งเตือนไฟไหม้/ควัน กระถางต้นไม้รดน้ำใส่ปุ๋ยอัตโนมัติ สั่งงานผ่านมือถือหรือ LINE',
+    gain: 'ของในคลัง/ในน้ำ/ในบ้าน ดูแลตัวเองได้ แจ้งเตือนเข้ามือถือคุณทันทีเมื่อมีเรื่อง',
+    includes: ['เซ็นเซอร์ตรวจค่า', 'หุ่นยนต์/ระบบอัตโนมัติ', 'แจ้งเตือนฉุกเฉิน', 'สั่งงานผ่านแอป/LINE'],
+    price: { tier: 'IOT', from: 'ตามใบเสนอราคา', unit: '' },
   },
   {
-    id: 'svc-system',
-    icon: 'grid',
+    id: 'svc-audit',
+    visual: 'audit',
+    title: 'IT Audit & Compliance',
+    short: 'ตรวจสอบ · ประเมินความเสี่ยง · PDPA',
+    desc: 'ตรวจสอบระบบ IT ประเมินความเสี่ยง และช่วยให้ธุรกิจผ่าน PDPA/มาตรฐานที่เกี่ยวข้อง พร้อมรายงานและแผนแก้ไข',
+    gain: 'คุณรู้ทันว่าระบบไหนเสี่ยง แก้ก่อนถูกฟ้องร้องหรือถูกแฮ็ก และ audit ผ่านตามมาตรฐาน',
+    includes: ['ตรวจระบบ IT', 'ประเมินความเสี่ยง', 'PDPA / มาตรฐาน', 'แผนแก้ไข'],
+    price: { tier: 'M', from: '14,900', unit: 'บาท' },
+  },
+  {
+    id: 'svc-full',
+    visual: 'full',
     title: 'วางระบบครบวงจร',
-    short: 'ดูแลตั้งแต่ต้นจนส่งมอบ',
-    desc: 'ดูแลตั้งแต่คอนเซ็ปต์ ออกแบบ พัฒนา ติดตั้ง จนถึงเทรนทีมและซัพพอร์ตต่อเนื่อง',
-    gain: 'คุยกับทีมเดียวจบ ไม่ต้องวิ่งประสานหลายเจ้าเอง',
-    includes: ['วางคอนเซ็ปต์', 'ออกแบบ', 'พัฒนา', 'ติดตั้ง', 'เทรนทีม', 'ซัพพอร์ต'],
+    short: 'ตั้งแต่คอนเซ็ปต์จนซัพพอร์ต',
+    desc: 'ดูแลตั้งแต่คอนเซ็ปต์ ออกแบบ พัฒนา ติดตั้ง จนถึงเทรนทีมและซัพพอร์ตต่อเนื่อง รวมทุกบริการข้างบนในแพ็คเดียว',
+    gain: 'คุยทีมเดียวจบ ไม่ต้องวิ่งประสานหลายเจ้าเอง และมีคนดูแลต่อหลังส่งมอบ',
+    includes: ['วางคอนเซ็ปต์', 'ออกแบบ', 'พัฒนา', 'ติดตั้ง', 'เทรนทีม', 'ซัพพอร์ตต่อเนื่อง'],
+    price: { tier: 'L', from: '39,900', unit: 'บาท' },
   },
 ]
 
 const STEPS = [
   {
     title: 'คุยกันก่อน',
+    time: '30 นาที',
+    cost: 'ฟรี',
     desc: 'เล่ามาแบบบ้าน ๆ ได้เลย ไม่ต้องเตรียมอะไรมา ที่เหลือเราถามต่อเอง',
   },
   {
     title: 'เราสรุปให้ดู',
-    desc: 'สรุปขอบเขตงานและราคามาให้ดูก่อน เห็นตัวเลขแล้วค่อยตัดสินใจว่าจะเริ่มไหม',
+    time: 'ภายใน 24 ชม.',
+    cost: 'เริ่ม 4,900 บาท',
+    desc: 'ส่งใบเสนอราคาพร้อมขอบเขตงานชัดเจน เห็นตัวเลขแล้วค่อยตัดสินใจว่าจะเริ่มไหม',
   },
   {
     title: 'ลงมือทำ',
-    desc: 'มีความคืบหน้าอะไรเราบอกให้รู้ตลอด อยากปรับตรงไหนบอกได้ระหว่างทาง',
+    time: '3-14 วัน',
+    cost: 'ตามแพ็ค',
+    desc: 'มี demo ทุกขั้น ให้คุณเห็นความคืบหน้า อยากปรับตรงไหนบอกได้ระหว่างทาง',
   },
   {
     title: 'ส่งมอบแล้วอยู่ต่อ',
-    desc: 'ติดตั้งให้ สอนทีมคุณจนใช้เป็น แล้วยังตามดูแลให้หลังจากนั้น',
+    time: 'ปรับแก้ 2 รอบฟรี',
+    cost: 'ซัพพอร์ตต่อ',
+    desc: 'ติดตั้งให้ สอนทีมคุณจนใช้เป็น แล้วยังตามดูแลให้หลังจากนั้น ไม่ทิ้งงาน',
   },
 ]
 
@@ -595,26 +610,45 @@ function App() {
               note="ไม่ต้องทำทั้งหมดพร้อมกันก็ได้ เริ่มจากจุดที่เจ็บที่สุดก่อน แล้วค่อยขยายทีหลัง"
             />
             <ul className="svc-list">
-              {SERVICES.map((s) => (
-                <li className="svc" id={s.id} key={s.id} tabIndex={-1} data-reveal>
-                  <span className="svc-icon">
-                    <Icon name={s.icon} />
-                  </span>
-                  <h3>{s.title}</h3>
-                  <p className="svc-desc">{s.desc}</p>
-                  {s.includes?.length > 0 && (
-                    <ul className="svc-includes">
-                      {s.includes.map((it) => (
-                        <li key={it}>{it}</li>
-                      ))}
-                    </ul>
-                  )}
-                  <p className="svc-gain">
-                    <span className="svc-gain-label">คุณจะได้</span>
-                    {s.gain}
-                  </p>
-                </li>
-              ))}
+              {SERVICES.map((s) => {
+                const Visual = VISUAL_BY_KEY[s.visual]
+                return (
+                  <li className={`svc svc-${s.id}`} id={s.id} key={s.id} tabIndex={-1} data-reveal>
+                    <div className="svc-visual" aria-hidden="true">
+                      {Visual && <Visual label={s.title} />}
+                    </div>
+                    <div className="svc-body">
+                      <h3>{s.title}</h3>
+                      <p className="svc-short">{s.short}</p>
+                      <p className="svc-desc">{s.desc}</p>
+                      {s.includes?.length > 0 && (
+                        <ul className="svc-includes">
+                          {s.includes.map((it) => (
+                            <li key={it}>{it}</li>
+                          ))}
+                        </ul>
+                      )}
+                      <p className="svc-gain">
+                        <span className="svc-gain-label">คุณจะได้</span>
+                        {s.gain}
+                      </p>
+                      <div className="svc-foot">
+                        <span className="svc-price">
+                          <span className="svc-tier">{s.price?.tier}</span>
+                          <span className="svc-from">เริ่มต้น</span>
+                          <strong className="svc-amount">
+                            {s.price?.from}
+                            {s.price?.unit && <span className="svc-unit"> {s.price.unit}</span>}
+                          </strong>
+                        </span>
+                        <a className="btn-line btn-sm" href="#contact" onClick={nav('contact')}>
+                          ดูตัวอย่าง <Icon name="arrow" />
+                        </a>
+                      </div>
+                    </div>
+                  </li>
+                )
+              })}
             </ul>
           </div>
         </section>
@@ -660,6 +694,16 @@ function App() {
                 <li key={s.title} data-reveal>
                   <span className="step-num">{String(i + 1).padStart(2, '0')}</span>
                   <h3>{s.title}</h3>
+                  <div className="step-meta">
+                    <span className="step-time">
+                      <Icon name="clock" />
+                      <span>{s.time}</span>
+                    </span>
+                    <span className="step-cost">
+                      <Icon name="tag" />
+                      <span>{s.cost}</span>
+                    </span>
+                  </div>
                   <p>{s.desc}</p>
                 </li>
               ))}
