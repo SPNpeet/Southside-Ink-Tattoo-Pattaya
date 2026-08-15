@@ -1088,7 +1088,13 @@ kbd {
   color: var(--on-accent);
 }
 
-/* radio ตัวจริงซ่อน แต่ label ที่เลือกจะไฮไลต์ — ยังกดถูกต้องด้วย keyboard */
+/* radio ตัวจริงซ่อน แต่ label ที่เลือกจะไฮไลต์ — ยังกดถูกต้องด้วย keyboard
+   ต้องมี position:relative บน label ไม่งั้น input absolute จะไปผูกกับ
+   ancestor ตัวอื่น แล้วเลย์เอาต์หลุด */
+.field-chip {
+  position: relative;
+}
+
 .field-chip input {
   position: absolute;
   opacity: 0;
@@ -1891,7 +1897,7 @@ kbd {
 .svc-includes {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: var(--s1) var(--s2);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -1955,12 +1961,6 @@ kbd {
 .btn-sm {
   padding: 0 14px;
   font-size: var(--fs-sm);
-  min-height: var(--h-md);
-}
-
-/* ปุ่มในท้ายการ์ดบริการ — เดิม btn-sm สูง 36px ต่ำกว่าเกณฑ์เป้ากดด้วยนิ้ว 44px
-   เลยปรับ min-height เป็น 44px เฉพาะจุดที่อยู่ในการ์ด (จุดที่ลูกค้ากดบ่อยที่สุด) */
-.svc-actions .btn-sm {
   min-height: var(--h-md);
 }
 

@@ -516,7 +516,13 @@ function App() {
       const json = await res.json()
       if (json.success) {
         setStatus('ok')
+        // form.reset() ล้างได้เฉพาะ input ที่ไม่ถูก React ควบคุม
+        // msg/topic/budget เป็น controlled state ต้องล้างเอง ไม่งั้น
+        // ข้อความเดิมจะเด้งกลับมาหลัง render
         form.reset()
+        setMsg('')
+        setTopic('')
+        setBudget('')
       } else {
         setStatus('error')
       }
