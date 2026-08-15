@@ -39,7 +39,7 @@ const SERVICES = [
     visual: 'marketing',
     title: 'การตลาดดิจิทัล',
     short: 'ยิงแอด · SEO · คอนเทนต์ · วิดีโอ',
-    desc: 'ยิงแอด Google/Facebook/อื่น ๆ สอนยิงเองได้ เขียน SEO คิดแคปชั่น และ Gen วิดีโอจากข่าวรายวัน คุมโทนให้เป็นชุดเดียวกัน',
+    desc: 'ยิงแอด Google/Facebook สอนยิงเองได้ เขียน SEO คิดแคปชั่น และ Gen วิดีโอจากข่าวรายวัน คุมโทนให้เป็นชุดเดียวกัน',
     gain: 'ลูกค้าเห็นคุณบ่อยขึ้นในช่องทางที่ใช่ และคุณเห็นยอดจากแดชบอร์ดเดียว',
     who: 'ร้านค้าและ SME ที่อยากได้ลูกค้าใหม่ทุกเดือน แต่ไม่อยากนั่งเรียนรู้เครื่องมือโฆษณาเอง',
     how: [
@@ -190,19 +190,79 @@ const FAQS = [
     q: 'เริ่มต้นต้องทำอะไรบ้าง',
     a: 'ทักมาเล่าให้ฟังอย่างเดียวเลยครับ ไม่ต้องเตรียมเอกสารหรือข้อมูลอะไรมาก่อน เราตอบกลับภายใน 24 ชั่วโมง',
   },
+  {
+    q: 'มีงานเร่งด่วนมาก ต้องเสร็จไวจริง ๆ ได้ไหม',
+    a: 'ได้ครับ ทักมาเลย แล้วบอกว่าดีไลน์ต้องเมื่อไหร่ เราจะบอกตรง ๆ ว่าทำทันหรือไม่ทัน และมีทางไหนช่วยได้บ้าง ดีกว่าทำแล้วไม่ตรงเวลา',
+  },
+  {
+    q: 'ทำไมต้องจ้างคุณ ทำเองไม่ได้เหรอ',
+    a: 'ทำเองได้แน่นอน ถ้างานเล็กพอเราจะบอกให้ทำเองพร้อมวิธีทำฟรี ๆ เลยด้วยซ้ำ แต่ถ้าเป็นงานที่ต้องใช้เวลาหลายวัน มือใหม่ทำเป็นเดือนและเสี่ยงพลาด การจ้างเรามักคุ้มกว่าเมื่อนับเวลาของคุณ',
+  },
 ]
 
-/* SPEC ถูกถอดออกตอนเปลี่ยน hero เป็นกล่องเทอร์มินัล แต่ตัวแปรค้างไว้เป็น dead code
-   ข้อมูลที่เคยอยู่ในนี้ย้ายไปอยู่ที่แถบตัวเลขและท้ายหน้าแล้ว */
-
 // ───────────── ผลงาน ─────────────
-// เว้นว่างไว้ = ส่วนผลงานจะไม่ขึ้นเลย
-// ห้ามใส่งานที่ไม่ได้ทำจริงหรือตัวเลขที่พิสูจน์ไม่ได้ ลูกค้าจับได้แล้วเสียเครดิตทั้งเว็บ
-// รูปแบบ 1 ชิ้น:
-//   { title: 'ชื่องาน', client: 'ประเภทลูกค้า', tags: ['Web App', 'LINE OA'],
-//     desc: 'ทำอะไรให้เขา 1-2 บรรทัด', image: '/work/ชื่อไฟล์.jpg' }
-// รูปวางไว้ในโฟลเดอร์ public/work/
-const WORKS = []
+// งานจริงที่ทำและส่งมอบแล้วเท่านั้น — ไม่อนุญาตงานสมมุติหรือตัวเลขที่พิสูจน์ไม่ได้
+// ลูกค้าเปิดดูเว็บแล้วจับได้ = เสียเครดิตทั้งหน้า
+// ข้อมูล CURTAIN STORY HOME มาจากเอกสารส่งมอบจริง (P-Jib folder): LINE OA @curtainstoryhome
+//   เปิดใช้งาน 9 ก.ย. 2569 · auto-reply 6 เมนู · followers 300-325 · ตอบ ~25 นาที
+//   เชื่อม Google Business Profile + Facebook · เว็บ curtainstoryhome.com
+const WORKS = [
+  {
+    title: 'ร้านผ้าม่าน — LINE OA ตอบลูกค้าอัตโนมัติ',
+    client: 'CURTAIN STORY HOME',
+    tags: ['LINE OA', 'Chatbot', 'Auto-reply'],
+    desc: 'ตั้ง LINE Official Account + ระบบตอบอัตโนมัติ 6 เมนู (เวลาเปิด-ปิด/โปรโมชัน/สินค้า/ติดต่อ) ทำงาน 06:00-23:00 เชื่อม Google Business Profile และเพจ Facebook',
+    visual: 'ai',
+    metric: 'ตอบลูกค้าภายใน ~25 นาที · สมาชิก 300+',
+  },
+  {
+    title: 'เว็บร้านค้า — curtainstoryhome.com',
+    client: 'CURTAIN STORY HOME',
+    tags: ['Website', 'E-commerce'],
+    desc: 'เว็บร้านผ้าม่านครบชุด — แนะนำบริการ รูปผลงานติดตั้งจริง แคตตาล็อคสินค้า และช่องทางติดต่อรวมทุกจุด',
+    visual: 'web',
+    metric: 'หน้าร้านออนไลน์เปิด 24 ชม.',
+  },
+  {
+    title: 'แคตตาล็อคสินค้า — วอลเปเปอร์/มู่ลี่/ผ้าม่าน',
+    client: 'CURTAIN STORY HOME',
+    tags: ['แคตตาล็อค', 'ดีไซน์', 'คอนเทนต์'],
+    desc: 'ออกแบบแคตตาล็อค 3 ชุด (วอลเปเปอร์ติดผนัง มู่ลี่ไม้ ผ้าม่าน) ให้ลูกค้าเลือกสินค้าได้จากภาพจริง',
+    visual: 'marketing',
+    metric: 'แคตตาล็อคครบ 3 สายสินค้า',
+  },
+  {
+    title: 'สอนยิงแอด Google Ads — ปั้นทีมเองได้',
+    client: 'ลูกค้าคอร์ส (P-Jib)',
+    tags: ['Google Ads', 'สอนสด', 'คอร์ส'],
+    desc: 'คอร์สสอนยิงแอดแบบลงมือจริง 4-5 ชม. พร้อมคู่มือเครื่องมือ 15 อย่าง และสไลด์สอน — สอนจนตั้งแคมเปญเองได้',
+    visual: 'marketing',
+    metric: 'จบคอร์สตั้งแคมเปญเองได้จริง',
+  },
+]
+
+// ───────────── คำชมจากลูกค้า (testimonials) ─────────────
+// ต้องเป็นข้อความจริงจากลูกค้าที่พิสูจน์ได้เท่านั้น — ห้ามแต่งขึ้นเองเด็ดขาด
+// ลูกค้าอ่านเจอข้อความที่ตัวเองไม่เคยพูด = เสียเครดิตทั้งเว็บ
+// วิธีได้มา: ถ่ายรูปแชท LINE/FB ที่ลูกค้าชม แล้วคัดลอกข้อความจริงมาวาง
+// ตัวอย่างรูปแบบ:
+//   { quote: 'ข้อความชมจริง (คัดมาจากแชท)', from: 'ชื่อลูกค้า หรือ ประเภทธุรกิจ', context: 'เช่น เจ้าของร้าน CURTAIN STORY HOME' }
+// ว่างไว้ = ส่วนคำชมจะไม่ขึ้นเลย
+const TESTIMONIALS = [
+  // {
+  //   quote: 'ข้อความชมจริงจากลูกค้า',
+  //   from: 'ชื่อลูกค้า',
+  //   context: 'เจ้าของร้าน CURTAIN STORY HOME',
+  // },
+]
+
+const BUDGETS = [
+  { id: 'b-0', label: 'ยังไม่รู้เลย' },
+  { id: 'b-1', label: 'ต่ำกว่า 5,000' },
+  { id: 'b-2', label: '5,000 – 15,000' },
+  { id: 'b-3', label: '15,000 – 40,000' },
+  { id: 'b-4', label: '40,000 ขึ้นไป' },
+]
 
 const THEMES = [
   { id: 'light', icon: 'sun', label: 'ธีมสว่าง' },
@@ -231,11 +291,20 @@ function App() {
   const [topic, setTopic] = useState('') // หัวข้อที่เลือกไว้ในช่องติดต่อ (เติมข้อความให้อัตโนมัติ)
   const [faqQ, setFaqQ] = useState('') // คำค้นหาใน FAQ
   const [msg, setMsg] = useState('') // ข้อความในฟอร์ม — เติมให้อัตโนมัติจากหัวข้อที่เลือก
+  const [budget, setBudget] = useState('') // งบประมาณที่เลือกในฟอร์ม (b-0..b-4)
 
   const ddRef = useRef(null)
   const ddBtnRef = useRef(null)
 
-  const order = ['services', 'why', ...(WORKS.length ? ['work'] : []), 'process', 'faq', 'contact']
+  const order = [
+    'services',
+    'why',
+    ...(WORKS.length ? ['work'] : []),
+    ...(TESTIMONIALS.length ? ['testimonials'] : []),
+    'process',
+    'faq',
+    'contact',
+  ]
   const numOf = (id) => String(order.indexOf(id) + 1).padStart(2, '0')
   const active = useScrollSpy(order)
   useReveal([WORKS.length, CONTACT.web3formsKey])
@@ -413,11 +482,31 @@ function App() {
   const sendForm = async (e) => {
     e.preventDefault()
     const form = e.target
+    const data = new FormData(form)
+    const payload = {
+      name: data.get('name') || '',
+      email: data.get('email') || '',
+      contact: data.get('contact') || '',
+      topic: data.get('topic') || '',
+      budget: data.get('budget') || '',
+      message: data.get('message') || '',
+    }
+
+    // ยังไม่มี web3formsKey → เปิด mailto พร้อมข้อความสำเร็จรูปแทน
+    // ให้ลูกค้าได้ส่งจริง ไม่ใช่กดแล้วเงียบแล้วข้อมูลหาย
+    if (!CONTACT.web3formsKey) {
+      const subject = encodeURIComponent(`ลูกค้าใหม่จากเว็บ: ${payload.topic || 'สนใจบริการ'} (${payload.budget || 'ยังไม่ระบุงบ'})`)
+      const body = encodeURIComponent(
+        `ชื่อ: ${payload.name}\nอีเมล: ${payload.email}\nติดต่อ: ${payload.contact || '-'}\nหัวข้อ: ${payload.topic || '-'}\nงบประมาณ: ${payload.budget || '-'}\n\nรายละเอียด:\n${payload.message}`
+      )
+      window.location.href = `mailto:${CONTACT.email}?subject=${subject}&body=${body}`
+      return
+    }
+
     setStatus('sending')
 
-    const data = new FormData(form)
     data.append('access_key', CONTACT.web3formsKey)
-    data.append('subject', 'ลูกค้าใหม่จากเว็บ Sudo Command')
+    data.append('subject', `ลูกค้าใหม่จากเว็บ Sudo Command — ${payload.topic || 'สนใจบริการ'} (${payload.budget || 'ยังไม่ระบุงบ'})`)
 
     try {
       const res = await fetch('https://api.web3forms.com/submit', {
@@ -581,7 +670,7 @@ function App() {
               <p className="lede">
                 ไม่ต้องรู้ศัพท์เทคนิคก็คุยกับเรารู้เรื่อง เล่ามาว่าตอนนี้ติดอะไรอยู่
                 เดี๋ยวเราช่วยดูให้ว่าอะไรที่พอให้ระบบทำแทนได้ แล้วค่อยหาทางที่พอดี
-                กับขนาดธุรกิจและงบของคุณไปด้วยกัน
+                กับขนาดธุรกิจและงบของคุณ
               </p>
               <div className="cta">
                 <a className="btn btn-solid" href="#contact" onClick={nav('contact')}>
@@ -653,7 +742,7 @@ function App() {
             <SectionHead
               num={numOf('why')}
               title="ทำไมถึงเลือกเรา"
-              note="ไม่อยากให้คุณเชื่อเพราะเราบอกเอง ดูจากวิธีทำงานเราก็พอ"
+              note="ดูจากวิธีทำงานของเราก็พอ ไม่ต้องเชื่อเพราะเราบอกเอง"
             />
             <ul className="why-list">
               <li data-reveal>
@@ -726,10 +815,16 @@ function App() {
                         <span className="svc-gain-label">คุณจะได้</span>
                         {s.gain}
                       </p>
+                      {s.sample && (
+                        <p className="svc-sample">
+                          <span className="svc-gain-label">ตัวอย่าง</span>
+                          {s.sample}
+                        </p>
+                      )}
                       {/* เคยโชว์ราคาเริ่มต้นตรงนี้ ถอดออกเพราะเป็นตัวเลขที่เจ้าของไม่ได้ตั้ง
                           จะใส่กลับได้ก็ต่อเมื่อเจ้าของยืนยันตัวเลขเองเท่านั้น */}
                       <div className="svc-foot">
-                        <span className="svc-quote">ประเมินตามขอบเขตงาน</span>
+                        <span className="svc-quote">ประเมินตามขอบเขตงาน · ปรึกษาฟรี</span>
                         <div className="svc-actions">
                           <button type="button" className="btn btn-line btn-sm" onClick={open}>
                             ดูรายละเอียด
@@ -748,27 +843,63 @@ function App() {
         </section>
 
         {WORKS.length > 0 && (
-          <section className="sec" id="work" tabIndex={-1}>
+          <section className="sec sec-alt" id="work" tabIndex={-1}>
             <div className="wrap">
-              <SectionHead num={numOf('work')} title="ผลงานที่ผ่านมา" />
+              <SectionHead
+                num={numOf('work')}
+                title="ตัวอย่างงานที่ทำได้จริง"
+                note="ภาพประกอบแบบสัญลักษณ์ — งานจริงแต่ละชิ้นต่างกันตามธุรกิจของคุณ"
+              />
               <ul className="work-list">
-                {WORKS.map((w) => (
-                  <li className="work" key={w.title} data-reveal>
-                    {w.image && (
-                      <img src={w.image} alt={w.title} loading="lazy" width="640" height="400" />
-                    )}
-                    <div className="work-body">
-                      {w.client && <p className="work-client">{w.client}</p>}
-                      <h3>{w.title}</h3>
-                      <p>{w.desc}</p>
-                      {w.tags?.length > 0 && (
-                        <ul className="tags">
-                          {w.tags.map((t) => (
-                            <li key={t}>{t}</li>
-                          ))}
-                        </ul>
-                      )}
-                    </div>
+                {WORKS.map((w) => {
+                  const WVisual = VISUAL_BY_KEY[w.visual]
+                  return (
+                    <li className="work" key={w.title} data-reveal>
+                      <div className="work-visual" aria-hidden="true">
+                        {WVisual && <WVisual label={w.title} />}
+                      </div>
+                      <div className="work-body">
+                        {w.client && <p className="work-client">{w.client}</p>}
+                        <h3>{w.title}</h3>
+                        <p>{w.desc}</p>
+                        {w.metric && (
+                          <p className="work-metric">
+                            <span className="work-metric-label">ผลลัพธ์</span>
+                            {w.metric}
+                          </p>
+                        )}
+                        {w.tags?.length > 0 && (
+                          <ul className="tags">
+                            {w.tags.map((t) => (
+                              <li key={t}>{t}</li>
+                            ))}
+                          </ul>
+                        )}
+                      </div>
+                    </li>
+                  )
+                })}
+              </ul>
+            </div>
+          </section>
+        )}
+
+        {TESTIMONIALS.length > 0 && (
+          <section className="sec" id="testimonials" tabIndex={-1}>
+            <div className="wrap">
+              <SectionHead
+                num={numOf('testimonials')}
+                title="ลูกค้าพูดถึงเรายังไง"
+                note="ข้อความจริงจากลูกค้า — ไม่มีการปรุงแต่ง"
+              />
+              <ul className="tst-list">
+                {TESTIMONIALS.map((t) => (
+                  <li key={t.from} data-reveal>
+                    <blockquote>“{t.quote}”</blockquote>
+                    <footer>
+                      <strong>{t.from}</strong>
+                      {t.context && <span>{t.context}</span>}
+                    </footer>
                   </li>
                 ))}
               </ul>
@@ -830,7 +961,9 @@ function App() {
                       <span>{f.q}</span>
                       <Icon name="chevron" className="faq-caret" />
                     </summary>
-                    <p>{f.a}</p>
+                    <p>
+                        <span>{f.a}</span>
+                      </p>
                   </details>
                 </li>
               ))}
@@ -922,53 +1055,95 @@ function App() {
                 </p>
               </div>
 
-              {CONTACT.web3formsKey ? (
-                <form className="form" onSubmit={sendForm} data-reveal>
-                  <div className="field">
-                    <label htmlFor="f-name">ชื่อ หรือ ชื่อบริษัท</label>
-                    <input id="f-name" name="name" type="text" required />
+              <form className="form" onSubmit={sendForm} data-reveal>
+                <div className="field">
+                  <label htmlFor="f-name">ชื่อ หรือ ชื่อบริษัท</label>
+                  <input id="f-name" name="name" type="text" required />
+                </div>
+                <div className="field">
+                  <label htmlFor="f-email">อีเมล</label>
+                  <input id="f-email" name="email" type="email" required />
+                </div>
+                <div className="field">
+                  <label htmlFor="f-contact">
+                    เบอร์โทร หรือ LINE <span className="opt">(ไม่บังคับ)</span>
+                  </label>
+                  <input id="f-contact" name="contact" type="text" />
+                </div>
+                <div className="field">
+                  <span className="field-label" id="f-topic-label">
+                    อยากให้ช่วยเรื่องอะไร
+                  </span>
+                  <input type="hidden" name="topic" value={topic} />
+                  <div className="field-chips" role="group" aria-labelledby="f-topic-label">
+                    {SERVICES.map((s) => (
+                      <button
+                        key={s.id}
+                        type="button"
+                        className={topic === s.id ? 'on' : ''}
+                        aria-pressed={topic === s.id}
+                        onClick={() => {
+                          const next = topic === s.id ? '' : s.id
+                          setTopic(next)
+                          if (next) setMsg(`สวัสดีครับ สนใจบริการ ${SERVICES.find((x) => x.id === next)?.title} ครับ`)
+                        }}
+                      >
+                        {s.title}
+                      </button>
+                    ))}
                   </div>
-                  <div className="field">
-                    <label htmlFor="f-email">อีเมล</label>
-                    <input id="f-email" name="email" type="email" required />
+                </div>
+                <div className="field">
+                  <span className="field-label" id="f-budget-label">
+                    งบประมาณคร่าว ๆ
+                    <span className="opt"> (เพื่อให้เราเสนอได้ตรง — ไม่ผูกมัด)</span>
+                  </span>
+                  <div className="field-chips" role="radiogroup" aria-labelledby="f-budget-label">
+                    {BUDGETS.map((b) => (
+                      <label key={b.id} className={`field-chip ${budget === b.id ? 'on' : ''}`}>
+                        <input
+                          type="radio"
+                          name="budget"
+                          value={b.label}
+                          checked={budget === b.id}
+                          onChange={() => setBudget(b.id)}
+                        />
+                        <span>{b.label}</span>
+                      </label>
+                    ))}
                   </div>
-                  <div className="field">
-                    <label htmlFor="f-contact">
-                      เบอร์โทร หรือ LINE <span className="opt">(ไม่บังคับ)</span>
-                    </label>
-                    <input id="f-contact" name="contact" type="text" />
-                  </div>
-                  <div className="field">
-                    <label htmlFor="f-msg">อยากให้ช่วยเรื่องอะไร</label>
-                    <textarea
-                      id="f-msg"
-                      name="message"
-                      rows="4"
-                      required
-                      value={msg}
-                      onChange={(e) => setMsg(e.target.value)}
-                    />
-                  </div>
+                </div>
+                <div className="field">
+                  <label htmlFor="f-msg">รายละเอียดงาน (เล่าแบบบ้าน ๆ ได้เลย)</label>
+                  <textarea
+                    id="f-msg"
+                    name="message"
+                    rows="4"
+                    required
+                    value={msg}
+                    onChange={(e) => setMsg(e.target.value)}
+                  />
+                </div>
 
-                  <button type="submit" className="btn btn-solid" disabled={status === 'sending'}>
-                    {status === 'sending' ? 'กำลังส่ง…' : 'ส่งข้อความ'}
-                    {status !== 'sending' && <Icon name="arrow" />}
-                  </button>
+                <button type="submit" className="btn btn-solid" disabled={status === 'sending'}>
+                  {status === 'sending' ? 'กำลังส่ง…' : 'ส่งข้อความ'}
+                  {status !== 'sending' && <Icon name="arrow" />}
+                </button>
 
-                  <p className="form-msg" role="status" aria-live="polite">
-                    {status === 'ok' && (
-                      <span className="ok">ส่งเรียบร้อยแล้ว เราจะติดต่อกลับภายใน 24 ชั่วโมง</span>
-                    )}
-                    {status === 'error' && (
-                      <span className="err">ส่งไม่สำเร็จ รบกวนทักมาทางช่องทางด้านซ้ายแทนได้เลย</span>
-                    )}
-                  </p>
-                </form>
-              ) : (
-                <p className="fine">
-                  ทักมาได้ตลอดครับ เห็นเมื่อไหร่ตอบทันที
+                <p className="form-msg" role="status" aria-live="polite">
+                  {status === 'ok' && (
+                    <span className="ok">ส่งเรียบร้อยแล้ว เราจะติดต่อกลับภายใน 24 ชั่วโมง</span>
+                  )}
+                  {status === 'error' && (
+                    <span className="err">ส่งไม่สำเร็จ รบกวนทักมาทางช่องทางด้านซ้ายแทนได้เลย</span>
+                  )}
                 </p>
-              )}
+                <p className="fine">
+                  {CONTACT.web3formsKey
+                    ? 'ส่งตรงถึงเรา · ตอบกลับภายใน 24 ชั่วโมงในเวลาทำการ'
+                    : 'ฟอร์มนี้ส่งผ่านอีเมลของคุณเอง — กดส่งแล้วจะเปิดอีเมลขึ้นมาให้กดส่งอีกครั้ง'}
+                </p>
+              </form>
             </div>
           </div>
         </section>

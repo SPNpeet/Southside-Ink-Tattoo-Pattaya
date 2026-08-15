@@ -698,35 +698,6 @@ kbd {
   color: var(--ink-2);
 }
 
-.spec {
-  border: 1px solid var(--rule);
-  border-radius: var(--r-lg);
-  background: var(--bg-2);
-  padding: 0 var(--s5);
-}
-
-.spec-row {
-  display: grid;
-  gap: var(--s1);
-  padding: var(--s4) 0;
-  border-bottom: 1px solid var(--rule);
-}
-
-.spec-row:last-child {
-  border-bottom: none;
-}
-
-.spec dt {
-  font-size: var(--fs-xs);
-  color: var(--ink-2);
-}
-
-.spec dd {
-  margin: 0;
-  font-size: var(--fs-sm);
-  font-weight: 600;
-}
-
 /* ---------------- แถบจุดเด่น ---------------- */
 .band {
   background: var(--bg-2);
@@ -792,85 +763,9 @@ kbd {
   gap: var(--s4);
 }
 
-.svc {
-  display: flex;
-  flex-direction: column;
-  background: var(--bg);
-  border: 1px solid var(--rule);
-  border-radius: var(--r-lg);
-  padding: var(--s5);
-  scroll-margin-top: 88px;
-  transition: border-color 0.16s, box-shadow 0.16s;
-}
-
-.sec-alt .svc {
-  background: var(--bg);
-}
-
-.svc:hover {
-  border-color: var(--rule-strong);
-  box-shadow: var(--shadow-md);
-}
-
-.svc-icon {
-  display: grid;
-  place-items: center;
-  width: 36px;
-  height: 36px;
-  border-radius: var(--r-sm);
-  border: 1px solid var(--rule);
-  color: var(--accent);
-  margin-bottom: var(--s4);
-}
-
-.svc h3 {
-  font-size: var(--fs-h3);
-  margin-bottom: var(--s2);
-}
-
-.svc-desc {
-  font-size: var(--fs-sm);
-  color: var(--ink-2);
-}
-
-.svc-includes {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--s1) var(--s2);
-  margin-top: var(--s4);
-}
-
-.svc-includes li {
-  font-size: var(--fs-xs);
-  color: var(--ink-2);
-  background: var(--bg-3);
-  border-radius: var(--r-xs);
-  padding: 3px var(--s2);
-}
-
-.svc .svc-gain {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--s1) var(--s3);
-  margin-top: auto;
-  padding-top: var(--s4);
-  border-top: 1px solid var(--rule);
-  font-size: var(--fs-sm);
-  color: var(--ink);
-}
-
-.svc-gain-label {
-  font-family: var(--mono);
-  font-size: var(--fs-micro);
-  letter-spacing: var(--ls-label);
-  text-transform: uppercase;
-  color: var(--accent-2);
-}
-
-/* เว้นระยะบนสุดของบล็อกผลลัพธ์ในการ์ดที่เนื้อหาสั้น ให้ก้นการ์ดเสมอกัน */
+/* เว้นระยะให้ "คุณจะได้" หลังรายการในแพ็ค ไม่ชิดติดกัน */
 .svc-includes + .svc-gain {
-  margin-top: var(--s5);
+  margin-top: var(--s3);
 }
 
 /* ---------------- ผลงาน ---------------- */
@@ -880,13 +775,22 @@ kbd {
   gap: var(--s7) var(--s5);
 }
 
-.work img {
+/* ภาพประกอบแบบสัญลักษณ์ แทนรูปถ่ายจริง (งานจริงมีรูปเมื่อลูกค้ายินยอม) */
+.work-visual {
   width: 100%;
   aspect-ratio: 8 / 5;
-  object-fit: cover;
-  border-radius: var(--r-lg);
   border: 1px solid var(--rule);
+  border-radius: var(--r-lg);
+  background: var(--bg-2);
+  display: grid;
+  place-items: center;
   margin-bottom: var(--s4);
+  overflow: hidden;
+}
+
+.work-visual svg {
+  width: 56%;
+  height: 56%;
 }
 
 .work-client {
@@ -903,6 +807,31 @@ kbd {
 .work-body p {
   font-size: var(--fs-sm);
   color: var(--ink-2);
+}
+
+/* ตัวเลขผลลัพธ์ที่พิสูจน์ได้ — ใช้ mono ให้ดูเป็นข้อมูลจริง ไม่ใช่คำโฆษณา */
+.work-metric {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--s1) var(--s3);
+  margin-top: var(--s3);
+  padding: var(--s3) var(--s4);
+  border: 1px dashed var(--rule);
+  border-radius: var(--r-sm);
+  background: var(--bg-2);
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: var(--fs-xs);
+}
+
+.work-metric-label {
+  font-family: var(--sans);
+  font-size: var(--fs-micro);
+  font-weight: 700;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .tags {
@@ -1003,11 +932,34 @@ kbd {
   color: var(--accent);
 }
 
+/* เปิด-ปิดคำตอบแบบเลื่อนนุ่ม
+   Chrome 131+ ซ่อน slot ของ details ตอนปิดด้วย content-visibility:hidden
+   → transition บน div ด้านในไม่เล่น (กระโดดทันที) ต้อง animate ตัว
+   ::details-content เอง ซึ่งเป็นวิธีที่ browser สนับสนุนอย่างเป็นทางการ
+   browser เก่าที่ไม่รู้จัก pseudo นี้ จะได้พฤติกรรมเปิด-ปิดทันทีปกติ ไม่พัง */
+.faq details::details-content {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition:
+    grid-template-rows 0.24s ease,
+    content-visibility 0.24s allow-discrete;
+}
+
+.faq details[open]::details-content {
+  grid-template-rows: 1fr;
+}
+
 .faq details p {
-  padding: 0 var(--s5) var(--s5);
+  min-height: 0;
+  overflow: hidden;
   font-size: var(--fs-sm);
   color: var(--ink-2);
   max-width: 68ch;
+}
+
+.faq details p > span {
+  display: block;
+  padding: 0 var(--s5) var(--s5);
 }
 
 /* ---------------- ติดต่อ ---------------- */
@@ -1091,6 +1043,62 @@ kbd {
 .field label {
   font-size: var(--fs-sm);
   font-weight: 600;
+}
+
+/* label แบบเป็น span (ไม่มี for) ใช้กับกลุ่ม chips/radio */
+.field-label {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+}
+
+/* chips เลือกหัวข้อ/งบประมาณในฟอร์ม — ใหญ่พอแตะด้วยนิ้ว (44px) */
+.field-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+}
+
+.field-chips > button,
+.field-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--h-md);
+  padding: 0 var(--s4);
+  background: var(--bg);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  color: var(--ink-2);
+  font-family: var(--sans);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+
+.field-chips > button:hover,
+.field-chip:hover {
+  border-color: var(--accent);
+  color: var(--ink);
+}
+
+.field-chips > button.on,
+.field-chip.on {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--on-accent);
+}
+
+/* radio ตัวจริงซ่อน แต่ label ที่เลือกจะไฮไลต์ — ยังกดถูกต้องด้วย keyboard */
+.field-chip input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.field-chip input:focus-visible + span {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--r-xs);
 }
 
 .opt {
@@ -1827,6 +1835,7 @@ kbd {
   border: 1px solid var(--rule);
   border-radius: var(--r-lg);
   background: var(--bg);
+  scroll-margin-top: 88px;
   transition: border-color 0.2s, transform 0.2s;
 }
 
@@ -1889,13 +1898,12 @@ kbd {
 }
 
 .svc-includes li {
-  font-size: var(--fs-nano);
+  font-size: var(--fs-xs);
   color: var(--ink-2);
   border: 1px solid var(--rule);
   background: var(--bg-2);
   padding: 3px 8px;
   border-radius: 999px;
-  white-space: nowrap;
 }
 
 .svc-gain {
@@ -1913,6 +1921,17 @@ kbd {
   margin-right: var(--s2);
   text-transform: uppercase;
   letter-spacing: 0.05em;
+}
+
+/* ตัวอย่างที่ทำได้จริง — ให้การ์ดดูจับต้องได้ ไม่ใช่แค่คำโฆษณา
+   ใช้เส้นข้างแบบเดียวกับ modal เพื่อให้คนเห็นว่าเป็น "ตัวอย่าง" ทันที */
+.svc-sample {
+  font-size: var(--fs-sm);
+  color: var(--ink-2);
+  line-height: 1.6;
+  margin: 0;
+  padding-left: var(--s4);
+  border-left: 2px solid var(--rule-strong);
 }
 
 .svc-foot {
@@ -1934,9 +1953,15 @@ kbd {
 }
 
 .btn-sm {
-  padding: 8px 14px;
+  padding: 0 14px;
   font-size: var(--fs-sm);
-  min-height: 36px;
+  min-height: var(--h-md);
+}
+
+/* ปุ่มในท้ายการ์ดบริการ — เดิม btn-sm สูง 36px ต่ำกว่าเกณฑ์เป้ากดด้วยนิ้ว 44px
+   เลยปรับ min-height เป็น 44px เฉพาะจุดที่อยู่ในการ์ด (จุดที่ลูกค้ากดบ่อยที่สุด) */
+.svc-actions .btn-sm {
+  min-height: var(--h-md);
 }
 
 @media (max-width: 600px) {
@@ -2330,6 +2355,49 @@ button.svc-visual:focus-visible {
   font-size: var(--fs-sm);
   color: var(--ink-2);
   text-align: center;
+}
+
+/* ---------------- คำชมจากลูกค้า ---------------- */
+.tst-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--s4);
+  max-width: 1100px;
+}
+
+.tst-list li {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s4);
+  padding: var(--s5);
+  background: var(--bg);
+  border: 1px solid var(--rule);
+  border-radius: var(--r-lg);
+}
+
+.tst-list blockquote {
+  margin: 0;
+  font-size: var(--fs-md);
+  line-height: var(--lh-body);
+  color: var(--ink);
+  flex: 1;
+}
+
+.tst-list li footer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s1);
+  padding-top: var(--s4);
+  border-top: 1px solid var(--rule);
+}
+
+.tst-list li footer strong {
+  font-size: var(--fs-sm);
+}
+
+.tst-list li footer span {
+  font-size: var(--fs-xs);
+  color: var(--ink-2);
 }
 
 /* ---------------- ทำไมถึงเลือกเรา ---------------- */

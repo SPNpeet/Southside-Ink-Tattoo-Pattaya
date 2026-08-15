@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 // สลับระหว่าง 3 สถานการณ์ (LOOP) เพื่อให้ดูมีชีวิต ไม่ใช่ภาพนิ่ง
 const SCENES = [
   {
-    title: 'กล่าวถึงหน้าร้าน · LINE OA',
+    title: 'ร้านเปิดอยู่ไหม · LINE OA',
     sub: '23:47',
     lines: [
       { who: 'in', text: 'สวัสดีค่ะ ร้านเปิดกี่โมงคะ' },
