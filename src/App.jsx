@@ -497,6 +497,14 @@ function App() {
       keywords: ['facebook', 'เพจ', 'page'],
       run: openExternal(CONTACT.facebook),
     },
+    {
+      id: 'curtain-web',
+      icon: 'web',
+      label: 'ดูเว็บ curtainstoryhome.com',
+      hint: 'งานจริงที่ส่งมอบแล้ว',
+      keywords: ['curtain', 'ผ้าม่าน', 'งาน', 'portfolio', 'ตัวอย่างงาน'],
+      run: openExternal('https://curtainstoryhome.com'),
+    },
     ...THEMES.map((t) => ({
       id: `theme-${t.id}`,
       icon: t.icon,
@@ -791,30 +799,32 @@ function App() {
               note="ดูจากวิธีทำงานของเราก็พอ ไม่ต้องเชื่อเพราะเราบอกเอง"
             />
             <ul className="why-list">
-              <li data-reveal>
-                <Icon name="layers" />
-                <h3>ทีมเดียวจบ 6 ด้าน</h3>
-                <p>
-                  การตลาด เว็บ AI IoT IT Audit วางระบบ — ไม่ต้องวิ่งประสานหลายเจ้า
-                  ให้แต่ละคนเถียงกันเอง เราแปลความต้องการคุณให้เป็นงานแล้วดูแลจนจบ
-                </p>
-              </li>
-              <li data-reveal>
-                <Icon name="chat" />
-                <h3>สอนจนใช้เป็นจริง ๆ</h3>
-                <p>
-                  ส่งมอบพร้อมเทรนทีมและคู่มือ ถ้าทีมคุณยังใช้ไม่เป็น ถือว่างานยังไม่จบ
-                  แล้วยังมีคนคอยตอบคำถามหลังส่งมอบ ไม่ใช่ส่งงานแล้วหาย
-                </p>
-              </li>
-              <li data-reveal>
-                <Icon name="cube" />
-                <h3>มองด้วยสายตา IT Audit</h3>
-                <p>
-                  ตรวจระบบให้ปลอดภัยตั้งแต่แรก ไม่ใช่ทำเสร็จแล้วปล่อย
-                  รู้ว่าข้อมูลไหนเสี่ยง ก่อนที่ปัญหาจะกลายเป็นเรื่องใหญ่
-                </p>
-              </li>
+              {[
+                {
+                  icon: 'layers',
+                  title: 'ทีมเดียวจบ 6 ด้าน',
+                  text: 'การตลาด เว็บ AI IoT IT Audit วางระบบ — ไม่ต้องวิ่งประสานหลายเจ้า ให้แต่ละคนเถียงกันเอง เราแปลความต้องการคุณให้เป็นงานแล้วดูแลจนจบ',
+                },
+                {
+                  icon: 'chat',
+                  title: 'สอนจนใช้เป็นจริง ๆ',
+                  text: 'ส่งมอบพร้อมเทรนทีมและคู่มือ ถ้าทีมคุณยังใช้ไม่เป็น ถือว่างานยังไม่จบ แล้วยังมีคนคอยตอบคำถามหลังส่งมอบ ไม่ใช่ส่งงานแล้วหาย',
+                },
+                {
+                  icon: 'cube',
+                  title: 'มองด้วยสายตา IT Audit',
+                  text: 'ตรวจระบบให้ปลอดภัยตั้งแต่แรก ไม่ใช่ทำเสร็จแล้วปล่อย รู้ว่าข้อมูลไหนเสี่ยง ก่อนที่ปัญหาจะกลายเป็นเรื่องใหญ่',
+                },
+              ].map((w, i) => (
+                <li key={w.title} data-reveal>
+                  <span className="why-num">{String(i + 1).padStart(2, '0')}</span>
+                  <span className="why-ic" aria-hidden="true">
+                    <Icon name={w.icon} />
+                  </span>
+                  <h3>{w.title}</h3>
+                  <p>{w.text}</p>
+                </li>
+              ))}
             </ul>
           </div>
         </section>
@@ -1239,9 +1249,49 @@ function App() {
             อ่านมาถึงตรงนี้แล้ว ถ้ายังลังเลอยู่ ทักมาถามเฉย ๆ ก็ได้ครับ
             เราไม่ได้ตื๊อขายของ แค่อยากรู้ว่าพอช่วยอะไรได้บ้าง
           </p>
+          <div className="foot-grid">
+            <div className="foot-brand">
+              <p className="foot-name">Sudo Command</p>
+              <p className="foot-tag">Tech &amp; Creative Agency — การตลาด · เว็บ&amp;แอป · AI · IoT · IT Audit</p>
+            </div>
+            <nav className="foot-nav" aria-label="เมนูท้ายหน้า">
+              <p className="foot-h">เมนู</p>
+              <ul>
+                <li><a href="#services" onClick={nav('services')}>บริการ</a></li>
+                {WORKS.length > 0 && (
+                  <li><a href="#work" onClick={nav('work')}>ผลงาน</a></li>
+                )}
+                <li><a href="#process" onClick={nav('process')}>วิธีทำงาน</a></li>
+                <li><a href="#faq" onClick={nav('faq')}>คำถามที่พบบ่อย</a></li>
+                <li><a href="#contact" onClick={nav('contact')}>ติดต่อ</a></li>
+              </ul>
+            </nav>
+            <div className="foot-channels">
+              <p className="foot-h">ช่องทางติดต่อ</p>
+              <ul>
+                {CHANNELS.map((c) => {
+                  const external = c.href.startsWith('http')
+                  return (
+                    <li key={c.key}>
+                      <a
+                        href={c.href}
+                        target={external ? '_blank' : undefined}
+                        rel={external ? 'noopener noreferrer' : undefined}
+                      >
+                        {c.label}
+                      </a>
+                    </li>
+                  )
+                })}
+              </ul>
+            </div>
+          </div>
           <div className="foot-inner">
-            <p>Sudo Command — Tech &amp; Creative Agency</p>
-            <p>© {new Date().getFullYear()} บางมด กรุงเทพฯ</p>
+            <p>© {new Date().getFullYear()} Sudo Command — บางมด กรุงเทพฯ</p>
+            <a className="foot-top" href="#top" onClick={nav('top')}>
+              กลับขึ้นบน
+              <Icon name="chevron" />
+            </a>
           </div>
         </div>
       </footer>

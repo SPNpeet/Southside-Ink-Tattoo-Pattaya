@@ -66,7 +66,7 @@ export default function FloatingContact({ channels }) {
       inert={!shown}
     >
       <div className="fab-panel" ref={panelRef} hidden={!open}>
-        <p className="fab-head">สะดวกทางไหนบอกได้เลย</p>
+        <p className="fab-head">ฝากช่องทางไว้เลย — เดี๋ยวเราติดต่อกลับเอง</p>
         <ul>
           {channels.map((c) => {
             const external = c.href.startsWith('http')

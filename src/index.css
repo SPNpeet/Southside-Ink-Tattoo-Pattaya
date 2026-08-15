@@ -1655,15 +1655,92 @@ kbd {
   font-size: var(--fs-md);
 }
 
+.foot-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: var(--s6);
+  padding-block: var(--s5);
+  border-top: 1px solid var(--rule);
+}
+
+.foot-name {
+  font-weight: 700;
+  font-size: var(--fs-md);
+  margin: 0 0 var(--s1);
+}
+
+.foot-tag {
+  font-size: var(--fs-xs);
+  color: var(--ink-2);
+  margin: 0;
+  max-width: 38ch;
+}
+
+.foot-h {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: var(--ls-label);
+  color: var(--ink-2);
+  margin: 0 0 var(--s2);
+}
+
+.foot-nav ul,
+.foot-channels ul {
+  display: grid;
+  gap: var(--s1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.foot-nav a,
+.foot-channels a {
+  color: var(--ink);
+  font-size: var(--fs-sm);
+  text-decoration: none;
+}
+
+.foot-nav a:hover,
+.foot-channels a:hover {
+  color: var(--accent);
+}
+
 .foot-inner {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  align-items: center;
   gap: var(--s2);
   padding-top: var(--s5);
   border-top: 1px solid var(--rule);
   font-size: var(--fs-xs);
   color: var(--ink-2);
+}
+
+.foot-top {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s1);
+  color: var(--ink-2);
+  text-decoration: none;
+}
+
+.foot-top:hover {
+  color: var(--accent);
+}
+
+.foot-top .icon {
+  width: 14px;
+  height: 14px;
+  transform: rotate(180deg);
+}
+
+@media (max-width: 800px) {
+  .foot-grid {
+    grid-template-columns: 1fr;
+    gap: var(--s4);
+  }
 }
 
 /* ---------------- ค่อย ๆ เผยเนื้อหา ----------------
@@ -2604,6 +2681,31 @@ button.svc-visual:focus-visible {
   background: var(--bg);
   border: 1px solid var(--rule);
   border-radius: var(--r-lg);
+}
+
+/* เลขกำกับ + ไอคอนในวงกลม — ให้การ์ดมีมิติไม่แบน */
+.why-num {
+  font-family: var(--mono);
+  font-size: var(--fs-xs);
+  letter-spacing: var(--ls-label);
+  color: var(--ink-2);
+  opacity: 0.6;
+}
+
+.why-ic {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border: 1px solid var(--rule);
+  border-radius: var(--r-md);
+  background: var(--bg-2);
+  color: var(--accent);
+}
+
+.why-ic .icon {
+  width: var(--ic-lg);
+  height: var(--ic-lg);
 }
 
 .why-list .icon {
