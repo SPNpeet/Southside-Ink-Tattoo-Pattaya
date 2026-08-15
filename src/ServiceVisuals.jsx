@@ -66,7 +66,7 @@ export function VIoT({ label }) {
       <path d="M 40 32 L 34 35" stroke="var(--ink)" strokeWidth="1.5" />
       <rect x="28" y="42" width="24" height="3" rx="1.5" fill="var(--ink-2)" />
       <rect x="28" y="48" width="20" height="3" rx="1.5" fill="var(--ink-2)" />
-      <circle cx="34" cy="56" r="1.5" fill="var(--green)" />
+      <circle cx="34" cy="56" r="1.5" fill="var(--ok)" />
       <circle cx="46" cy="56" r="1.5" fill="var(--ink-2)" opacity="0.4" />
       <path d="M 60 22 Q 70 22 70 32" stroke="var(--accent)" strokeWidth="1.5" fill="none" strokeDasharray="2 2" />
       <path d="M 20 22 Q 10 22 10 32" stroke="var(--accent)" strokeWidth="1.5" fill="none" strokeDasharray="2 2" />

@@ -4,6 +4,7 @@ import Terminal from './Terminal'
 import { VISUAL_BY_KEY } from './ServiceVisuals'
 import CommandPalette from './CommandPalette'
 import FloatingContact from './FloatingContact'
+import ServiceModal from './ServiceModal'
 import { useDismiss, useReveal, useScrollSpy, useTheme } from './hooks'
 
 // ───────────── ช่องทางติดต่อ ─────────────
@@ -31,6 +32,7 @@ const CHANNELS = [
 // แต่ละบริการมีสามชั้น: desc = เราทำอะไร, gain = ลูกค้าได้อะไรกลับไป
 // ปรับให้ครอบคลุมบริการจริงทั้งหมด: การตลาด/เว็บ/AI/IoT/IT Audit/วางระบบ
 // visual = component key สำหรับ SVG abstract (ServiceVisuals.jsx)
+// who/how/sample = ข้อมูลสำหรับหน้าจอรายละเอียด (ServiceModal)
 const SERVICES = [
   {
     id: 'svc-marketing',
@@ -39,6 +41,13 @@ const SERVICES = [
     short: 'ยิงแอด · SEO · คอนเทนต์ · วิดีโอ',
     desc: 'ยิงแอด Google/Facebook/อื่น ๆ สอนยิงเองได้ เขียน SEO คิดแคปชั่น และ Gen วิดีโอจากข่าวรายวัน คุมโทนให้เป็นชุดเดียวกัน',
     gain: 'ลูกค้าเห็นคุณบ่อยขึ้นในช่องทางที่ใช่ และคุณเห็นยอดจากแดชบอร์ดเดียว',
+    who: 'ร้านค้าและ SME ที่อยากได้ลูกค้าใหม่ทุกเดือน แต่ไม่อยากนั่งเรียนรู้เครื่องมือโฆษณาเอง',
+    how: [
+      'คุยเป้าหมายและงบก่อน ไม่บังคับให้ใช้ช่องทางที่แพงแต่ไม่ใช่',
+      'ลงมือทำแคมเปญ + สอนวิธีดูผลให้คุณรู้เองว่าคุ้มไหม',
+      'ส่งรายงานสั้น ๆ เป็นระยะ ไม่มีศัพท์เทคนิคยัดใส่หัว',
+    ],
+    sample: 'ร้านกาแฟย่านบางมด — เปิดเพจใหม่ ยิงแอดเปิดร้าน 2 สัปดาห์ได้ลูกค้าใหม่เข้ากลุ่ม LINE ประจำ',
     includes: ['ยิงแอด + สอนยิง', 'SEO on-page', 'เขียนคอนเทนต์', 'Gen วิดีโอจากข่าว'],
   },
   {
@@ -48,6 +57,13 @@ const SERVICES = [
     short: 'Web App · Website · POS · ERP',
     desc: 'เว็บธุรกิจ ร้านค้าออนไลน์ Web App POS ERP และโปรแกรมทุกแบบ พร้อมแดชบอร์ดดูตัวเลขเรียลไทม์',
     gain: 'ลูกค้าเจอคุณบนเว็บ สั่งของได้ทันที ส่วนคุณเปิดดูยอดจากมือถือได้ทุกที่',
+    who: 'ธุรกิจที่ยังใช้กระดาษหรือ Excel จัดการออเดอร์และสต็อก จนมานั่งคีย์ซ้ำทุกวัน',
+    how: [
+      'ดูงานปัจจุบันของคุณก่อน ออกแบบให้เข้ากับวิธีที่คุณใช้อยู่จริง',
+      'ทำเวอร์ชันทดลองให้ลองกดก่อนเริ่มทำจริง',
+      'ติดตั้ง สอน และอยู่ดูแลหลังส่งมอบ',
+    ],
+    sample: 'ระบบ POS + สต็อกสำหรับร้านค้า พนักงานกดสั่งได้เอง ยอดตัดสต็อกอัตโนมัติ',
     includes: ['เว็บธุรกิจ', 'ร้านค้าออนไลน์', 'POS / ERP', 'แดชบอร์ดเรียลไทม์'],
   },
   {
@@ -57,6 +73,13 @@ const SERVICES = [
     short: 'Chatbot · โพส 24/7 · วิดีโออัตโนมัติ',
     desc: 'แชทบอทปิดยอด ตอบแทนคุณได้ 24 ชม. โพสอัตโนมัติทุกวัน และ Gen วิดีโอจากข่าวรายวัน เชื่อมกับข้อมูลธุรกิจจริงของคุณ',
     gain: 'ลูกค้าทักเมื่อไหร่ก็มีคนตอบ โพสไม่ต้องนั่งทำเองทุกวัน และปิดงานได้แม้คุณนอน',
+    who: 'ร้านค้าออนไลน์และธุรกิจบริการที่ลูกค้าทักเข้ามาทุกวัน จนตอบไม่ทันทั้งวันทั้งคืน',
+    how: [
+      'เก็บตัวอย่างบทสนทนาจริงของคุณ มาสอนบอทให้ตอบแบบที่คุณตอบ',
+      'ให้บอททำงานเบื้องต้นแล้วส่งต่อให้คนเฉพาะเรื่องที่ต้องใช้คน',
+      'เชื่อมกับ LINE/Messenger/เว็บ แล้วเทสต์กับสถานการณ์จริงก่อนเปิด',
+    ],
+    sample: 'ร้านอาหาร — ลูกค้าทักถามเวลาปิด-เปิด จองโต๊ะ บอทตอบเองได้ทั้งคืน ปิดยอดอัตโนมัติ',
     includes: ['Chatbot ปิดยอด', 'โพส 24/7', 'Gen วิดีโอจากข่าว', 'ส่งต่อคนเมื่อจำเป็น'],
   },
   {
@@ -66,6 +89,13 @@ const SERVICES = [
     short: 'เซ็นเซอร์ · หุ่นยนต์ · สมาร์ตโฮม',
     desc: 'ทุ่นน้ำวัดค่า หุ่นยนต์คลังสินค้า แจ้งเตือนไฟไหม้/ควัน กระถางต้นไม้รดน้ำใส่ปุ๋ยอัตโนมัติ สั่งงานผ่านมือถือหรือ LINE',
     gain: 'ของในคลัง/ในน้ำ/ในบ้าน ดูแลตัวเองได้ แจ้งเตือนเข้ามือถือคุณทันทีเมื่อมีเรื่อง',
+    who: 'ฟาร์ม คลังสินค้า บ้านหรือสำนักงานที่อยากให้ระบบคอยเฝ้าดูแทนคน และแจ้งเตือนก่อนเกิดปัญหา',
+    how: [
+      'ออกแบบอุปกรณ์ตามปัญหาจริงของคุณ ไม่ใช่ขายของสำเร็จรูป',
+      'ทำต้นแบบให้ลองใช้ก่อน แล้วปรับตามการใช้งานจริง',
+      'ติดตั้งหน้างาน + สอนใช้งานผ่านแอป/LINE',
+    ],
+    sample: 'ทุ่นวัดระดับน้ำในบ่อ — ระดับต่ำกว่าเกณฑ์แจ้งเตือนเข้าบัญชี LINE ทันที',
     includes: ['เซ็นเซอร์ตรวจค่า', 'หุ่นยนต์/ระบบอัตโนมัติ', 'แจ้งเตือนฉุกเฉิน', 'สั่งงานผ่านแอป/LINE'],
   },
   {
@@ -75,6 +105,13 @@ const SERVICES = [
     short: 'ตรวจสอบ · ประเมินความเสี่ยง · PDPA',
     desc: 'ตรวจสอบระบบ IT ประเมินความเสี่ยง และช่วยให้ธุรกิจผ่าน PDPA/มาตรฐานที่เกี่ยวข้อง พร้อมรายงานและแผนแก้ไข',
     gain: 'คุณรู้ทันว่าระบบไหนเสี่ยง แก้ก่อนถูกฟ้องร้องหรือถูกแฮ็ก และ audit ผ่านตามมาตรฐาน',
+    who: 'องค์กรที่ต้องส่งผลการตรวจสอบให้หน่วยงาน หรืออยากรู้ว่าระบบของตัวเองปลอดภัยแค่ไหน',
+    how: [
+      'เก็บข้อมูลระบบจริงของคุณ — ไม่ใช่แค่กรอกแบบฟอร์ม',
+      'ประเมินความเสี่ยง + จัดลำดับว่าอะไรด่วนต้องแก้ก่อน',
+      'ส่งรายงานพร้อมแผนแก้ไข อ่านรู้เรื่อง ไม่มีศัพท์วิชาการยัดใส่',
+    ],
+    sample: 'ตรวจพบช่องโหว่บัญชีพนักงานในระบบ POS แนะนำวิธีแก้ก่อนข้อมูลรั่ว',
     includes: ['ตรวจระบบ IT', 'ประเมินความเสี่ยง', 'PDPA / มาตรฐาน', 'แผนแก้ไข'],
   },
   {
@@ -84,6 +121,13 @@ const SERVICES = [
     short: 'ตั้งแต่คอนเซ็ปต์จนซัพพอร์ต',
     desc: 'ดูแลตั้งแต่คอนเซ็ปต์ ออกแบบ พัฒนา ติดตั้ง จนถึงเทรนทีมและซัพพอร์ตต่อเนื่อง รวมทุกบริการข้างบนในแพ็คเดียว',
     gain: 'คุยทีมเดียวจบ ไม่ต้องวิ่งประสานหลายเจ้าเอง และมีคนดูแลต่อหลังส่งมอบ',
+    who: 'ธุรกิจที่อยากได้ระบบแบบจบในที่เดียว ทั้งหน้าเว็บ หลังบ้าน บอท และการตลาด',
+    how: [
+      'วางคอนเซ็ปต์และแผนภาพรวมให้เห็นภาพก่อนเริ่ม',
+      'ทำทีละส่วนให้เห็นผลจริง ค่อย ๆ ต่อยอด ไม่ต้องรอจนเสร็จทั้งหมด',
+      'ส่งมอบพร้อมเทรนทีมและคู่มือ แล้วอยู่ดูแลต่อเนื่อง',
+    ],
+    sample: 'ร้านค้าออนไลน์ครบวงจร — เว็บขายของ + บอทตอบลูกค้า + ระบบหลังบ้านตัดสต็อก + รายงานยอด',
     includes: ['วางคอนเซ็ปต์', 'ออกแบบ', 'พัฒนา', 'ติดตั้ง', 'เทรนทีม', 'ซัพพอร์ตต่อเนื่อง'],
   },
 ]
@@ -183,11 +227,15 @@ function App() {
   const [status, setStatus] = useState('idle') // idle | sending | ok | error
   const [toast, setToast] = useState('')
   const [theme, setTheme] = useTheme()
+  const [svcOpen, setSvcOpen] = useState(null) // id ของบริการที่เปิดรายละเอียดอยู่ (ServiceModal)
+  const [topic, setTopic] = useState('') // หัวข้อที่เลือกไว้ในช่องติดต่อ (เติมข้อความให้อัตโนมัติ)
+  const [faqQ, setFaqQ] = useState('') // คำค้นหาใน FAQ
+  const [msg, setMsg] = useState('') // ข้อความในฟอร์ม — เติมให้อัตโนมัติจากหัวข้อที่เลือก
 
   const ddRef = useRef(null)
   const ddBtnRef = useRef(null)
 
-  const order = ['services', ...(WORKS.length ? ['work'] : []), 'process', 'faq', 'contact']
+  const order = ['services', 'why', ...(WORKS.length ? ['work'] : []), 'process', 'faq', 'contact']
   const numOf = (id) => String(order.indexOf(id) + 1).padStart(2, '0')
   const active = useScrollSpy(order)
   useReveal([WORKS.length, CONTACT.web3formsKey])
@@ -598,6 +646,44 @@ function App() {
           </div>
         </section>
 
+        {/* ทำไมถึงเลือกเรา — ข้อดีที่พิสูจน์ได้จริงจากวิธีทำงาน
+            ไม่ใช่คำโฆษณาที่ไม่มีหลักฐาน */}
+        <section className="sec why" aria-label="ทำไมถึงเลือกเรา" id="why" tabIndex={-1}>
+          <div className="wrap">
+            <SectionHead
+              num={numOf('why')}
+              title="ทำไมถึงเลือกเรา"
+              note="ไม่อยากให้คุณเชื่อเพราะเราบอกเอง ดูจากวิธีทำงานเราก็พอ"
+            />
+            <ul className="why-list">
+              <li data-reveal>
+                <Icon name="layers" />
+                <h3>ทีมเดียวจบ 6 ด้าน</h3>
+                <p>
+                  การตลาด เว็บ AI IoT IT Audit วางระบบ — ไม่ต้องวิ่งประสานหลายเจ้า
+                  ให้แต่ละคนเถียงกันเอง เราแปลความต้องการคุณให้เป็นงานแล้วดูแลจนจบ
+                </p>
+              </li>
+              <li data-reveal>
+                <Icon name="chat" />
+                <h3>สอนจนใช้เป็นจริง ๆ</h3>
+                <p>
+                  ส่งมอบพร้อมเทรนทีมและคู่มือ ถ้าทีมคุณยังใช้ไม่เป็น ถือว่างานยังไม่จบ
+                  แล้วยังมีคนคอยตอบคำถามหลังส่งมอบ ไม่ใช่ส่งงานแล้วหาย
+                </p>
+              </li>
+              <li data-reveal>
+                <Icon name="cube" />
+                <h3>มองด้วยสายตา IT Audit</h3>
+                <p>
+                  ตรวจระบบให้ปลอดภัยตั้งแต่แรก ไม่ใช่ทำเสร็จแล้วปล่อย
+                  รู้ว่าข้อมูลไหนเสี่ยง ก่อนที่ปัญหาจะกลายเป็นเรื่องใหญ่
+                </p>
+              </li>
+            </ul>
+          </div>
+        </section>
+
         <section className="sec" id="services" tabIndex={-1}>
           <div className="wrap">
             <SectionHead
@@ -608,11 +694,23 @@ function App() {
             <ul className="svc-list">
               {SERVICES.map((s) => {
                 const Visual = VISUAL_BY_KEY[s.visual]
+                const open = () => setSvcOpen(s.id)
                 return (
-                  <li className={`svc svc-${s.id}`} id={s.id} key={s.id} tabIndex={-1} data-reveal>
-                    <div className="svc-visual" aria-hidden="true">
+                  <li
+                    className={`svc svc-${s.id}`}
+                    id={s.id}
+                    key={s.id}
+                    tabIndex={-1}
+                    data-reveal
+                  >
+                    <button
+                      type="button"
+                      className="svc-visual"
+                      onClick={open}
+                      aria-label={`ดูรายละเอียด ${s.title}`}
+                    >
                       {Visual && <Visual label={s.title} />}
-                    </div>
+                    </button>
                     <div className="svc-body">
                       <h3>{s.title}</h3>
                       <p className="svc-short">{s.short}</p>
@@ -632,9 +730,14 @@ function App() {
                           จะใส่กลับได้ก็ต่อเมื่อเจ้าของยืนยันตัวเลขเองเท่านั้น */}
                       <div className="svc-foot">
                         <span className="svc-quote">ประเมินตามขอบเขตงาน</span>
-                        <a className="btn-line btn-sm" href="#contact" onClick={nav('contact')}>
-                          ขอใบเสนอราคา <Icon name="arrow" />
-                        </a>
+                        <div className="svc-actions">
+                          <button type="button" className="btn btn-line btn-sm" onClick={open}>
+                            ดูรายละเอียด
+                          </button>
+                          <a className="btn btn-solid btn-sm" href="#contact" onClick={nav('contact')}>
+                            ขอใบเสนอราคา
+                          </a>
+                        </div>
                       </div>
                     </div>
                   </li>
@@ -709,8 +812,18 @@ function App() {
               title="เรื่องที่หลายคนสงสัย"
               note="ถ้ายังมีข้อไหนค้างใจอยู่ ทักมาถามได้เลย ไม่ต้องเกรงใจ"
             />
+            <div className="faq-search" role="search">
+              <Icon name="search" />
+              <input
+                type="search"
+                placeholder="ค้นหาคำถาม เช่น ราคา ต่างจังหวัด บริการหลังขาย"
+                aria-label="ค้นหาคำถามที่พบบ่อย"
+                value={faqQ}
+                onChange={(e) => setFaqQ(e.target.value)}
+              />
+            </div>
             <ul className="faq">
-              {FAQS.map((f) => (
+              {FAQS.filter((f) => !faqQ.trim() || (f.q + f.a).includes(faqQ.trim())).map((f) => (
                 <li key={f.q} data-reveal>
                   <details>
                     <summary>
@@ -721,6 +834,13 @@ function App() {
                   </details>
                 </li>
               ))}
+              {faqQ.trim() && !FAQS.some((f) => (f.q + f.a).includes(faqQ.trim())) && (
+                <li className="faq-none">
+                  <p>
+                    ไม่เจอคำถามที่ค้นหา แต่ตอบได้แน่นอน — ทักมาถามตรง ๆ เลยครับ
+                  </p>
+                </li>
+              )}
             </ul>
           </div>
         </section>
@@ -735,19 +855,58 @@ function App() {
 
             <div className="contact-grid">
               <div data-reveal>
+                <div className="topic-pick">
+                  <p className="topic-label">อยากคุยเรื่องอะไร เลือกเลย — ข้อความจะถูกเตรียมให้อัตโนมัติ</p>
+                  <div className="topic-chips" role="group" aria-label="เลือกหัวข้อที่สนใจ">
+                    {SERVICES.map((s) => (
+                      <button
+                        key={s.id}
+                        type="button"
+                        className={topic === s.id ? 'on' : ''}
+                        aria-pressed={topic === s.id}
+                        onClick={() => {
+                          const next = topic === s.id ? '' : s.id
+                          setTopic(next)
+                          if (next) setMsg(`สวัสดีครับ สนใจบริการ ${SERVICES.find((x) => x.id === next)?.title} ครับ`)
+                        }}
+                      >
+                        {s.title}
+                      </button>
+                    ))}
+                  </div>
+                  {topic && (
+                    <p className="topic-ready">
+                      <strong>
+                        {SERVICES.find((s) => s.id === topic)?.title}
+                      </strong>
+                      {' · กดปุ่มด้านล่างเพื่อส่งข้อความสำเร็จรูป'}
+                    </p>
+                  )}
+                </div>
+
                 <ul className="channels">
                   {CHANNELS.map((c) => {
                     const external = c.href.startsWith('http')
+                    const topicText = topic
+                      ? ` สวัสดีครับ สนใจบริการ ${SERVICES.find((s) => s.id === topic)?.title} ครับ`
+                      : ''
+                    const href =
+                      c.key === 'messenger' && topic
+                        ? `${c.href}?text=${encodeURIComponent(topicText.trim())}`
+                        : c.href
                     return (
                       <li key={c.key}>
                         <a
                           className="channel"
-                          href={c.href}
+                          href={href}
                           target={external ? '_blank' : undefined}
                           rel={external ? 'noopener noreferrer' : undefined}
                         >
                           <Icon name={c.icon} />
-                          <span>{c.label}</span>
+                          <span>
+                            {c.label}
+                            {c.key === 'messenger' && topic && ' · ข้อความเตรียมไว้แล้ว'}
+                          </span>
                           <Icon name="arrow" className="channel-go" />
                         </a>
                       </li>
@@ -781,7 +940,14 @@ function App() {
                   </div>
                   <div className="field">
                     <label htmlFor="f-msg">อยากให้ช่วยเรื่องอะไร</label>
-                    <textarea id="f-msg" name="message" rows="4" required />
+                    <textarea
+                      id="f-msg"
+                      name="message"
+                      rows="4"
+                      required
+                      value={msg}
+                      onChange={(e) => setMsg(e.target.value)}
+                    />
                   </div>
 
                   <button type="submit" className="btn btn-solid" disabled={status === 'sending'}>
@@ -827,6 +993,15 @@ function App() {
         open={paletteOpen}
         onClose={() => setPaletteOpen(false)}
         actions={actions}
+      />
+
+      <ServiceModal
+        service={SERVICES.find((s) => s.id === svcOpen)}
+        onClose={() => setSvcOpen(null)}
+        onQuote={() => {
+          setSvcOpen(null)
+          goto('contact')
+        }}
       />
 
       <div className="toast" role="status" aria-live="polite">
