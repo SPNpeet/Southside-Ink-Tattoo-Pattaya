@@ -44,6 +44,7 @@ function useTypewriter(lines, resetKey) {
   const [done, setDone] = useState(false)
   useEffect(() => {
     let alive = true
+    let timer = 0
     setShown([])
     setDone(false)
     let i = 0
@@ -57,13 +58,16 @@ function useTypewriter(lines, resetKey) {
       const delay = next.who === 'in' ? 700 : 1100
       i++
       setShown((p) => [...p, next])
-      setTimeout(tick, delay)
+      timer = window.setTimeout(tick, delay)
     }
     tick()
     return () => {
       alive = false
+      window.clearTimeout(timer)
     }
-  }, [resetKey])
+    // lines มาจากค่าคงที่ระดับโมดูลและเปลี่ยนพร้อม resetKey เสมอ
+    // ใส่ไว้ใน deps ให้ตรงตามจริง จะได้ไม่ต้องปิดคำเตือนด้วย eslint-disable
+  }, [resetKey, lines])
   return { shown, done }
 }
 

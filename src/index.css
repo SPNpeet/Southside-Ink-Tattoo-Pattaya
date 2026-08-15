@@ -25,6 +25,8 @@
   --scrim: rgba(14, 14, 17, 0.5);
 
   /* ---- ตัวอักษร: สเกลเดียวทั้งเว็บ ---- */
+  /* nano ใช้เฉพาะป้ายในกล่องเทอร์มินัลจำลอง เดิมเป็น 9px ซึ่งอ่านไม่ออก */
+  --fs-nano: 11px;
   --fs-micro: 11.5px;
   --fs-xs: 13px;
   --fs-sm: 14.5px;
@@ -1613,7 +1615,7 @@ kbd {
   background: var(--bg);
   overflow: hidden;
   box-shadow: 0 1px 0 var(--rule);
-  font-family: var(--font-mono, ui-monospace, SFMono-Regular, monospace);
+  font-family: var(--mono);
 }
 
 .term-bar {
@@ -1672,7 +1674,7 @@ kbd {
 .term-tag {
   display: inline-flex;
   align-items: center;
-  font-size: 10px;
+  font-size: var(--fs-nano);
   font-weight: 700;
   text-transform: uppercase;
   padding: 2px 6px;
@@ -1684,8 +1686,12 @@ kbd {
 }
 
 .tag-in { color: var(--ink); background: var(--bg-2); border: 1px solid var(--rule); }
-.tag-agent { color: #fff; background: var(--accent); }
-.tag-sys { color: var(--green); background: rgba(40, 200, 64, 0.1); border: 1px solid rgba(40, 200, 64, 0.3); }
+.tag-agent { color: var(--on-accent); background: var(--accent); }
+.tag-sys {
+  color: var(--ok);
+  background: color-mix(in srgb, var(--ok) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--ok) 32%, transparent);
+}
 
 .term-text {
   flex: 1;
@@ -1693,7 +1699,7 @@ kbd {
 }
 
 .term-line.term-sys .term-text {
-  color: var(--green);
+  color: var(--ok);
   font-weight: 600;
 }
 
@@ -1733,7 +1739,14 @@ kbd {
 
 @media (max-width: 800px) {
   .term-body { min-height: 220px; padding: var(--s3); }
-  .term-tag { min-width: 48px; font-size: 9px; }
+  .term-tag { min-width: 52px; font-size: var(--fs-nano); }
+
+  /* ปุ่มสลับฉากสูงแค่ 30px บนมือถือ ต่ำกว่าเกณฑ์เป้ากดด้วยนิ้ว
+     ชนิดเดียวกับปุ่มเมนูที่เคยแก้ไปแล้ว */
+  .term-replay {
+    min-height: var(--h-md);
+    padding-inline: var(--s4);
+  }
 }
 
 /* ------------- Trust strip ------------- */
@@ -1762,7 +1775,7 @@ kbd {
 }
 
 .trust-num {
-  font-family: var(--font-mono, ui-monospace, monospace);
+  font-family: var(--mono);
   font-size: clamp(var(--fs-h2), 3.5vw, 38px);
   font-weight: 700;
   color: var(--ink);
@@ -1876,7 +1889,7 @@ kbd {
 }
 
 .svc-includes li {
-  font-size: 10px;
+  font-size: var(--fs-nano);
   color: var(--ink-2);
   border: 1px solid var(--rule);
   background: var(--bg-2);
@@ -1913,41 +1926,11 @@ kbd {
   flex-wrap: wrap;
 }
 
-.svc-price {
-  display: inline-flex;
-  align-items: baseline;
-  gap: var(--s2);
-  font-family: var(--font-mono, ui-monospace, monospace);
-}
-
-.svc-tier {
-  font-size: var(--fs-xs);
-  font-weight: 700;
-  color: var(--bg);
-  background: var(--ink);
-  padding: 2px 6px;
-  border-radius: var(--r-xs);
-  letter-spacing: 0.05em;
-}
-
-.svc-from {
-  font-size: var(--fs-micro);
-  color: var(--ink-2);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.svc-amount {
-  font-size: var(--fs-md);
-  font-weight: 700;
-  color: var(--ink);
-  letter-spacing: -0.01em;
-}
-
-.svc-unit {
+/* เคยเป็นบล็อกแสดงราคาเริ่มต้น ถอดออกเพราะตัวเลขไม่ได้มาจากเจ้าของ
+   เหลือเป็นข้อความกลาง ๆ ที่ไม่ผูกมัดแทน */
+.svc-quote {
   font-size: var(--fs-xs);
   color: var(--ink-2);
-  font-weight: 400;
 }
 
 .btn-sm {
@@ -1984,7 +1967,7 @@ kbd {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-family: var(--font-mono, ui-monospace, monospace);
+  font-family: var(--mono);
   font-size: var(--fs-xs);
   color: var(--ink);
   font-weight: 600;
