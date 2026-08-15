@@ -57,10 +57,13 @@ export default function FloatingContact({ channels }) {
   if (!channels.length) return null
 
   return (
+    // inert ตัดทั้งก้อนออกจากทั้ง tab order และ accessibility tree ในทีเดียว
+    // ดีกว่าไล่ใส่ tabIndex ทีละปุ่ม เพราะถ้ามีคนเพิ่มปุ่มใหม่แล้วลืมใส่
+    // ปุ่มนั้นจะ tab ไปถึงได้ทั้งที่มองไม่เห็น ซึ่งเป็นปัญหา a11y จริง
     <div
       className={`fab ${shown ? 'in' : ''} ${open ? 'open' : ''}`}
       ref={wrapRef}
-      aria-hidden={!shown}
+      inert={!shown}
     >
       <div className="fab-panel" ref={panelRef} hidden={!open}>
         <p className="fab-head">สะดวกทางไหนบอกได้เลย</p>
@@ -73,7 +76,6 @@ export default function FloatingContact({ channels }) {
                   href={c.href}
                   target={external ? '_blank' : undefined}
                   rel={external ? 'noopener noreferrer' : undefined}
-                  tabIndex={shown && open ? 0 : -1}
                 >
                   <Icon name={c.icon} />
                   <span>{c.label}</span>
@@ -90,7 +92,6 @@ export default function FloatingContact({ channels }) {
         ref={btnRef}
         aria-expanded={open}
         aria-label={open ? 'ปิดช่องทางติดต่อ' : 'เปิดช่องทางติดต่อ'}
-        tabIndex={shown ? 0 : -1}
         onClick={() => setOpen((v) => !v)}
       >
         <Icon name={open ? 'chevron' : 'chat'} className="fab-ic" />
