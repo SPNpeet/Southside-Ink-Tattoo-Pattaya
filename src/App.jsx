@@ -285,6 +285,28 @@ function SectionHead({ num, title, note }) {
   )
 }
 
+// ปุ่มกลับขึ้นบน — โผล่เมื่อเลื่อนพ้น hero แล้ว หายเมื่ออยู่บนสุด
+// อยู่ซ้ายล่าง กันกับปุ่มติดต่อลอย (ขวาล่าง) ไม่บังกัน
+function ScrollTop() {
+  const [shown, setShown] = useState(false)
+  useEffect(() => {
+    const update = () => setShown(window.scrollY > 480)
+    update()
+    window.addEventListener('scroll', update, { passive: true })
+    return () => window.removeEventListener('scroll', update)
+  }, [])
+  return (
+    <button
+      type="button"
+      className={`scroll-top ${shown ? 'in' : ''}`}
+      aria-label="กลับขึ้นด้านบน"
+      onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+    >
+      <Icon name="chevron" />
+    </button>
+  )
+}
+
 function App() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [ddOpen, setDdOpen] = useState(false)
@@ -307,6 +329,7 @@ function App() {
     ...(WORKS.length ? ['work'] : []),
     ...(TESTIMONIALS.length ? ['testimonials'] : []),
     'process',
+    'perks',
     'faq',
     'contact',
   ]
@@ -870,8 +893,8 @@ function App() {
             <div className="wrap">
               <SectionHead
                 num={numOf('work')}
-                title="ตัวอย่างงานที่ทำได้จริง"
-                note="ภาพประกอบแบบสัญลักษณ์ — งานจริงแต่ละชิ้นต่างกันตามธุรกิจของคุณ"
+                title="ตัวอย่างงานที่ส่งมอบจริง"
+                note="แต่ละโปรเจกต์ออกแบบตามธุรกิจของคุณ — ภาพเป็นสัญลักษณ์แทนรายละเอียดงานจริง"
               />
               <ul className="work-list">
                 {WORKS.map((w) => {
@@ -956,6 +979,38 @@ function App() {
                 </li>
               ))}
             </ol>
+          </div>
+        </section>
+
+        <section className="sec" id="perks" tabIndex={-1}>
+          <div className="wrap">
+            <SectionHead
+              num={numOf('perks')}
+              title="ได้อะไรทุกครั้งที่ทำงานด้วย"
+              note="สิ่งเหล่านี้เป็นมาตรฐานของทุกโปรเจกต์ ไม่ใช่บริการเสริมที่ต้องจ่ายเพิ่ม"
+            />
+            <ul className="perk-list">
+              <li data-reveal>
+                <Icon name="monitor" />
+                <h3>เห็น demo ทุกขั้น</h3>
+                <p>ไม่ต้องเดาว่าทำไปถึงไหน ดูงานจริงระหว่างทาง และขอปรับก่อนเสร็จได้</p>
+              </li>
+              <li data-reveal>
+                <Icon name="layers" />
+                <h3>เทรนทีม + คู่มือ</h3>
+                <p>ส่งมอบพร้อมสอนจนใช้เป็น และมีคู่มือให้ดูย้อนหลัง ไม่ใช่ส่งไฟล์แล้วจบ</p>
+              </li>
+              <li data-reveal>
+                <Icon name="chat" />
+                <h3>ดูแลหลังส่งมอบ</h3>
+                <p>ติดขัดตรงไหนทักมาได้ เรายังอยู่กับคุณต่อ ถึงงานจะจบไปแล้ว</p>
+              </li>
+              <li data-reveal>
+                <Icon name="tag" />
+                <h3>ประเมินฟรี ไม่ผูกมัด</h3>
+                <p>เห็นขอบเขตและราคาก่อนเริ่มเสมอ ปรึกษากี่รอบก็ไม่คิดเงิน</p>
+              </li>
+            </ul>
           </div>
         </section>
 
@@ -1192,6 +1247,8 @@ function App() {
       </footer>
 
       <FloatingContact channels={CHANNELS} />
+
+      <ScrollTop />
 
       <CommandPalette
         open={paletteOpen}
