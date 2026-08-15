@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import Icon from './Icon'
+import Terminal from './Terminal'
 import CommandPalette from './CommandPalette'
 import FloatingContact from './FloatingContact'
 import { useDismiss, useReveal, useScrollSpy, useTheme } from './hooks'
@@ -541,14 +542,29 @@ function App() {
               </p>
             </div>
 
-            <dl className="spec" aria-label="ข้อมูลบริการโดยสรุป">
-              {SPEC.map(([k, v]) => (
-                <div className="spec-row" key={k}>
-                  <dt>{k}</dt>
-                  <dd>{v}</dd>
-                </div>
-              ))}
-            </dl>
+            <Terminal />
+          </div>
+        </section>
+
+        {/* Trust strip — ตัวเลขแบบเรียลไทม์ที่พิสูจน์ได้ */}
+        <section className="trust" aria-label="ตัวเลขที่พิสูจน์ได้">
+          <div className="wrap trust-grid">
+            <div className="trust-item" data-reveal>
+              <strong className="trust-num">24 <span className="trust-unit">ชม.</span></strong>
+              <span className="trust-cap">เวลาตอบกลับเฉลี่ย (ในเวลาทำการ)</span>
+            </div>
+            <div className="trust-item" data-reveal>
+              <strong className="trust-num">100<span className="trust-unit">%</span></strong>
+              <span className="trust-cap">รับงานทั่วประเทศ · ทำงานออนไลน์เต็มรูปแบบ</span>
+            </div>
+            <div className="trust-item" data-reveal>
+              <strong className="trust-num">0 <span className="trust-unit">บาท</span></strong>
+              <span className="trust-cap">ค่าปรึกษา + ค่าประเมินขอบเขตงาน</span>
+            </div>
+            <div className="trust-item" data-reveal>
+              <strong className="trust-num">7 <span className="trust-unit">วัน</span></strong>
+              <span className="trust-cap">เร็วสุดสำหรับงาน Sprint (S ขนาดเล็ก)</span>
+            </div>
           </div>
         </section>
 
