@@ -98,6 +98,26 @@ const PATHS = {
       <circle cx="8" cy="8" r="1.2" fill="currentColor" stroke="none" />
     </>
   ),
+  megaphone: (
+    <>
+      <path d="M3 10.5v3a1.5 1.5 0 0 0 1.5 1.5H6l8 4.5v-15L6 9H4.5A1.5 1.5 0 0 0 3 10.5Z" />
+      <path d="M17.5 8.5a5 5 0 0 1 0 7" />
+      <path d="M14 8v8" />
+    </>
+  ),
+  chip: (
+    <>
+      <rect x="7" y="7" width="10" height="10" rx="2" />
+      <path d="M9.5 3.5V7M14.5 3.5V7M9.5 17v3.5M14.5 17v3.5M3.5 9.5H7M3.5 14.5H7M17 9.5h3.5M17 14.5h3.5" />
+      <path d="M10.5 10.5h3v3h-3z" />
+    </>
+  ),
+  shield: (
+    <>
+      <path d="M12 3 5 6v5.5C5 15.5 8 19 12 21c4-2 7-5.5 7-9.5V6z" />
+      <path d="m8.8 12 2.2 2.2 4.2-4.4" />
+    </>
+  ),
 }
 
 export default function Icon({ name, className = '' }) {

@@ -698,6 +698,31 @@ kbd {
   color: var(--ink-2);
 }
 
+/* หลักฐานงานจริงใน hero — badge เล็ก ๆ ที่ทำให้เห็นทันทีว่าไม่ใช่เพจเปล่า */
+.hero-proof {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+  margin-top: var(--s3);
+  padding: var(--s1) var(--s3);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  background: var(--bg-2);
+  font-size: var(--fs-sm);
+  color: var(--ink-2);
+}
+
+.hero-proof .icon {
+  width: 15px;
+  height: 15px;
+  color: var(--ok);
+}
+
+.hero-proof-client {
+  color: var(--accent);
+  font-weight: 700;
+}
+
 /* ---------------- แถบจุดเด่น ---------------- */
 .band {
   background: var(--bg-2);
@@ -849,23 +874,54 @@ kbd {
   color: var(--ink-2);
 }
 
-/* ---------------- ขั้นตอน ---------------- */
+/* ---------------- ขั้นตอน ----------------
+   timeline: จุดเลขต่อกันด้วยเส้น แสดงลำดับชัดเจนกว่าการ์ดทื่อ ๆ
+   เดสก์ท็อป = เส้นต่อแนวนอน / จอแคบ = เส้นต่อแนวตั้ง */
 .steps {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: var(--s5);
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--s4);
   counter-reset: none;
 }
 
 .steps li {
-  padding-top: var(--s4);
-  border-top: 2px solid var(--ink);
+  position: relative;
+  padding-top: var(--s6);
+  border-top: 2px solid var(--rule);
+}
+
+/* เส้นต่อระหว่างจุด — ต้องชิดขอบขวาของจุดก่อนหน้า พอหน้าจอแคบ
+   เส้นแนวนอนจะหาย (จอ 1-2 คอลัมน์เส้นไม่ต่อกัน) ใช้แนวตั้งแทน */
+.steps li::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  right: calc(-1 * var(--s4));
+  width: var(--s4);
+  height: 2px;
+  background: var(--accent);
+  opacity: 0.35;
+}
+
+.steps li:last-child::after {
+  display: none;
 }
 
 .step-num {
-  display: block;
+  position: absolute;
+  top: -17px;
+  left: 0;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  background: var(--bg);
+  border: 2px solid var(--accent);
+  border-radius: 50%;
   color: var(--accent);
-  margin-bottom: var(--s3);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0;
 }
 
 .steps h3 {
@@ -876,6 +932,36 @@ kbd {
 .steps p {
   font-size: var(--fs-sm);
   color: var(--ink-2);
+  max-width: 30ch;
+}
+
+/* 2 คอลัมน์ — เส้นแนวนอนพาดข้ามช่องว่างไม่ต่อเนื่อง ให้ซ่อนทั้งหมด
+   เหลือแค่จุดเลขที่ชัดเจนว่าลำดับไหนก่อนหลัง */
+@media (max-width: 900px) {
+  .steps {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .steps li::after {
+    display: none;
+  }
+}
+
+/* 1 คอลัมน์ — เส้นแนวตั้งลากจากล่างจุด ต่อถึงบนจุดถัดไป */
+@media (max-width: 600px) {
+  .steps {
+    grid-template-columns: 1fr;
+  }
+  .steps li::after {
+    display: block;
+    top: 15px;
+    left: 15px;
+    right: auto;
+    width: 2px;
+    height: calc(100% + var(--s4));
+  }
+  .steps li:last-child::after {
+    display: none;
+  }
 }
 
 /* ---------------- คำถามที่พบบ่อย ---------------- */
@@ -1049,6 +1135,24 @@ kbd {
 .field-label {
   font-size: var(--fs-sm);
   font-weight: 600;
+}
+
+/* ช่องฝากช่องทางติดต่อ (อีเมล / LINE / เบอร์โทร) — เรียง 3 ช่อง
+   ให้เห็นว่าเลือกช่องทางไหนก็ได้ ติดต่อกลับเอง ไม่บังคับกรอกครบ */
+.field-chan {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--s2);
+}
+
+.field-chan input {
+  min-width: 0;
+}
+
+@media (max-width: 480px) {
+  .field-chan {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* chips เลือกหัวข้อ/งบประมาณในฟอร์ม — ใหญ่พอแตะด้วยนิ้ว (44px) */
@@ -1975,27 +2079,28 @@ kbd {
   }
 }
 
-/* ------------- Process steps with time + price ------------- */
+/* ------------- Process steps with time + price -------------
+   meta เป็นป้ายเล็กบางเบา ไม่ใช่กล่องใหญ่ เพื่อไม่ให้แย่งความสนใจจากหัวข้อ */
 .step-meta {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--s3);
+  gap: var(--s1) var(--s2);
   margin: var(--s2) 0 var(--s3);
-  padding: var(--s2) var(--s3);
-  border: 1px dashed var(--rule);
-  border-radius: var(--r-sm);
-  background: var(--bg-2);
 }
 
 .step-time,
 .step-cost {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
   font-family: var(--mono);
   font-size: var(--fs-xs);
-  color: var(--ink);
+  color: var(--ink-2);
   font-weight: 600;
+  border: 1px solid var(--rule);
+  background: var(--bg-2);
+  border-radius: 999px;
+  padding: 3px 10px;
 }
 
 .step-time .icon,
@@ -2006,7 +2111,7 @@ kbd {
 }
 
 .step-cost {
-  color: var(--accent);
+  color: var(--accent-2);
 }
 
 /* ---------------- Service card actions ---------------- */
