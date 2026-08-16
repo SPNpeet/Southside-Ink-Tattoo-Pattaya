@@ -584,9 +584,13 @@ function App() {
       <header className="site-head">
         <div className="wrap head-inner">
           <a className="brand" href="#top" onClick={nav('top')}>
-            <span className="brand-mark" aria-hidden="true">
-              SC
-            </span>
+            <img
+              className="brand-mark"
+              src="/sudo-command/favicon.svg"
+              alt=""
+              width="32"
+              height="32"
+            />
             <span className="brand-name">
               Sudo Command
               <span className="brand-sub">Tech &amp; Creative Agency</span>

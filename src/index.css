@@ -295,17 +295,15 @@ kbd {
   margin-right: auto;
 }
 
+/* โลโก้ตัวเดียวกันกับ favicon ที่ browser tab แสดง — ให้ตรงกันเสมอ
+   เป็น <img> (SVG) จึงไม่ต้องตั้ง bg/color อีก */
 .brand-mark {
-  display: grid;
-  place-items: center;
+  display: block;
   width: 32px;
   height: 32px;
-  background: var(--ink);
-  color: var(--bg);
   border-radius: var(--r-sm);
-  font-family: var(--mono);
-  font-weight: 600;
-  font-size: var(--fs-xs);
+  flex: none;
+  object-fit: contain;
 }
 
 .brand-name {
