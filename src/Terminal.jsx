@@ -69,6 +69,14 @@ function useTypewriter(lines, resetKey) {
     let timer = 0
     setShown([])
     setDone(false)
+    // ผู้ใช้ที่ขอไม่ให้เคลื่อนไหว เห็นบทสนทนาครบในทันที ไม่ต้องรอพิมพ์ทีละบรรทัด
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setShown(lines)
+      setDone(true)
+      return () => {
+        alive = false
+      }
+    }
     let i = 0
     const tick = () => {
       if (!alive) return
@@ -130,6 +138,9 @@ export default function Terminal() {
         )}
         {done && (
           <div className="term-foot">
+            <span className="term-count" aria-hidden="true">
+              ตัวอย่าง {sceneIdx + 1}/{SCENES.length}
+            </span>
             <button
               type="button"
               className="term-replay"

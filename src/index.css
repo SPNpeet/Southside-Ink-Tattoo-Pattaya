@@ -134,6 +134,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 88px;
   -webkit-text-size-adjust: 100%;
 }
 
@@ -1493,7 +1494,8 @@ kbd {
   border: 1px solid var(--rule-strong);
   border-radius: 50%;
   background: var(--bg-2);
-  color: var(--ink-2);
+  color: var(--ink);
+  box-shadow: var(--shadow-md);
   cursor: pointer;
   opacity: 0;
   visibility: hidden;
@@ -1577,8 +1579,8 @@ kbd {
 
 .fab-panel {
   width: min(290px, calc(100vw - 32px));
-  background: var(--bg);
-  border: 1px solid var(--rule);
+  background: var(--bg-2);
+  border: 1px solid var(--rule-strong);
   border-radius: var(--r-lg);
   box-shadow: var(--shadow-lg);
   padding: var(--s2);
@@ -1998,6 +2000,17 @@ kbd {
   margin-top: var(--s3);
   padding-top: var(--s3);
   border-top: 1px dashed var(--rule);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s2);
+}
+
+.term-count {
+  font-size: var(--fs-nano);
+  color: var(--ink-2);
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
 }
 
 .term-replay {
@@ -2277,11 +2290,22 @@ kbd {
 }
 
 /* ---------------- Service card actions ---------------- */
-/* ปุ่มในท้ายการ์ด: ดูรายละเอียด (เปิดกล่อง) + ขอใบเสนอราคา (ไปหน้าติดต่อ) */
+/* ปุ่มในท้ายการ์ด: ดูรายละเอียด (เปิดกล่อง) + ขอใบเสนอราคา (ไปหน้าติดต่อ)
+   margin-top:auto ดันปุ่มลงล่างสุดเสมอ ให้ baseline เสมอกันทุกใบในแถว
+   ต่อให้เนื้อหาการ์ดยาว-สั้นไม่เท่ากัน */
 .svc-actions {
   display: flex;
   flex-wrap: wrap;
   gap: var(--s2);
+  margin-top: auto;
+  padding-top: var(--s2);
+}
+
+/* ปุ่มรองในท้ายการ์ด: ให้ hover/focus เด่นชัดขึ้น เวลาอยู่ใกล้ปุ่มหลักส้ม */
+.svc-actions .btn-line:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-bg);
 }
 
 /* ปุ่มไอคอนกล่องบริการ: เดิมเป็น div แสดงภาพเฉย ๆ
@@ -2327,7 +2351,8 @@ button.svc-visual:focus-visible {
 .svm {
   width: min(680px, 100%);
   max-height: min(86vh, 720px);
-  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
   background: var(--bg);
   border: 1px solid var(--rule);
   border-radius: var(--r-lg);
@@ -2405,6 +2430,26 @@ button.svc-visual:focus-visible {
   display: grid;
   gap: var(--s5);
   padding: var(--s5);
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--rule-strong) transparent;
+}
+
+.svm-body::-webkit-scrollbar {
+  width: 10px;
+}
+
+.svm-body::-webkit-scrollbar-thumb {
+  background: var(--rule-strong);
+  border-radius: 999px;
+  border: 3px solid var(--bg);
+}
+
+.svm-body::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 .svm-desc {
@@ -2483,6 +2528,7 @@ button.svc-visual:focus-visible {
   border-top: 1px solid var(--rule);
   background: var(--bg-2);
   border-radius: 0 0 var(--r-lg) var(--r-lg);
+  flex: none;
 }
 
 .svm-quote {
@@ -2518,64 +2564,9 @@ button.svc-visual:focus-visible {
   }
 }
 
-/* ---------------- เลือกหัวข้อก่อนทัก (หน้าติดต่อ) ---------------- */
-.topic-pick {
-  margin-bottom: var(--s5);
-  padding: var(--s4);
-  border: 1px dashed var(--rule-strong);
-  border-radius: var(--r-md);
-  background: var(--bg-2);
-}
+/* ---------------- ช่องทางติดต่อ (หน้าติดต่อ) ---------------- */
 
-.topic-label {
-  font-size: var(--fs-sm);
-  font-weight: 600;
-  color: var(--ink);
-  margin-bottom: var(--s3);
-}
-
-.topic-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--s2);
-}
-
-.topic-chips button {
-  min-height: var(--h-md);
-  padding: 0 var(--s4);
-  background: var(--bg);
-  border: 1px solid var(--rule);
-  border-radius: 999px;
-  color: var(--ink-2);
-  font-family: var(--sans);
-  font-size: var(--fs-sm);
-  font-weight: 500;
-  cursor: pointer;
-  transition: border-color 0.15s, color 0.15s, background 0.15s;
-}
-
-.topic-chips button:hover {
-  border-color: var(--accent);
-  color: var(--ink);
-}
-
-.topic-chips button.on {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: var(--on-accent);
-}
-
-.topic-ready {
-  margin-top: var(--s3);
-  font-size: var(--fs-sm);
-  color: var(--ink-2);
-}
-
-.topic-ready strong {
-  color: var(--accent-2);
-}
-
-/* ---------------- ค้นหา FAQ ---------------- */
+/* ---------------- ฟอร์มติดต่อ ---------------- *//* ---------------- ค้นหา FAQ ---------------- */
 .faq-search {
   display: flex;
   align-items: center;
@@ -2613,6 +2604,38 @@ button.svc-visual:focus-visible {
 
 .faq-search input::placeholder {
   color: var(--ink-2);
+}
+
+.faq-clear {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s1);
+  background: none;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: var(--s1) var(--s2);
+  color: var(--ink-2);
+  font: inherit;
+  font-size: var(--fs-xs);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.faq-clear:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.faq-clear .icon {
+  width: 12px;
+  height: 12px;
+  flex: none;
+}
+
+/* ลดระยะฟรีระหว่าง FAQ กับ section ถัดไปเวลาถูกกรองเหลือไม่กี่ข้อ */
+.faq.faq-filtered {
+  margin-bottom: 0;
 }
 
 .faq-none {

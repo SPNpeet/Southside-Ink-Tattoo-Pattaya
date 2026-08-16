@@ -593,7 +593,7 @@ function App() {
             </span>
           </a>
 
-          <nav className={`site-nav ${menuOpen ? 'open' : ''}`} aria-label="เมนูหลัก">
+          <nav id="site-nav" className={`site-nav ${menuOpen ? 'open' : ''}`} aria-label="เมนูหลัก">
             <div className="dd" ref={ddRef}>
               <button
                 type="button"
@@ -700,6 +700,7 @@ function App() {
             type="button"
             className="menu-btn"
             aria-expanded={menuOpen}
+            aria-controls="site-nav"
             onClick={() => setMenuOpen((v) => !v)}
           >
             {menuOpen ? 'ปิด' : 'เมนู'}
@@ -1040,8 +1041,14 @@ function App() {
                 value={faqQ}
                 onChange={(e) => setFaqQ(e.target.value)}
               />
+              {faqQ.trim() && (
+                <button type="button" className="faq-clear" onClick={() => setFaqQ('')}>
+                  ล้างการค้นหา
+                  <Icon name="close" />
+                </button>
+              )}
             </div>
-            <ul className="faq">
+            <ul className={`faq ${faqQ.trim() ? 'faq-filtered' : ''}`}>
               {FAQS.filter((f) => !faqQ.trim() || (f.q + f.a).includes(faqQ.trim())).map((f) => (
                 <li key={f.q} data-reveal>
                   <details>
@@ -1076,35 +1083,6 @@ function App() {
 
             <div className="contact-grid">
               <div data-reveal>
-                <div className="topic-pick">
-                  <p className="topic-label">อยากคุยเรื่องอะไร เลือกเลย — ข้อความจะถูกเตรียมให้อัตโนมัติ</p>
-                  <div className="topic-chips" role="group" aria-label="เลือกหัวข้อที่สนใจ">
-                    {SERVICES.map((s) => (
-                      <button
-                        key={s.id}
-                        type="button"
-                        className={topic === s.id ? 'on' : ''}
-                        aria-pressed={topic === s.id}
-                        onClick={() => {
-                          const next = topic === s.id ? '' : s.id
-                          setTopic(next)
-                          if (next) setMsg(`สวัสดีครับ สนใจบริการ ${SERVICES.find((x) => x.id === next)?.title} ครับ`)
-                        }}
-                      >
-                        {s.title}
-                      </button>
-                    ))}
-                  </div>
-                  {topic && (
-                    <p className="topic-ready">
-                      <strong>
-                        {SERVICES.find((s) => s.id === topic)?.title}
-                      </strong>
-                      {' · กดปุ่มด้านล่างเพื่อส่งข้อความสำเร็จรูป'}
-                    </p>
-                  )}
-                </div>
-
                 <ul className="channels">
                   {CHANNELS.map((c) => {
                     const external = c.href.startsWith('http')
@@ -1146,7 +1124,7 @@ function App() {
               <form className="form" onSubmit={sendForm} data-reveal>
                 <div className="field">
                   <label htmlFor="f-name">ชื่อ หรือ ชื่อบริษัท</label>
-                  <input id="f-name" name="name" type="text" required />
+                  <input id="f-name" name="name" type="text" required placeholder="เช่น สมชาย ร้านโชคชัย" />
                 </div>
                 <div className="field">
                   <span className="field-label" id="f-chan-label">
@@ -1154,8 +1132,11 @@ function App() {
                     <span className="opt"> (เลือกอย่างน้อย 1 ช่องทาง)</span>
                   </span>
                   <div className="field-chan" role="group" aria-labelledby="f-chan-label">
+                    <label className="sr-only" htmlFor="f-email">อีเมล</label>
                     <input id="f-email" name="email" type="email" placeholder="อีเมล เช่น name@example.com" />
+                    <label className="sr-only" htmlFor="f-line">LINE ID</label>
                     <input id="f-line" name="line" type="text" placeholder="LINE ID" />
+                    <label className="sr-only" htmlFor="f-phone">เบอร์โทร</label>
                     <input id="f-phone" name="phone" type="tel" placeholder="เบอร์โทร" />
                   </div>
                 </div>

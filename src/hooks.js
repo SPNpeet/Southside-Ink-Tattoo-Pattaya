@@ -16,6 +16,12 @@ export function useTheme() {
     const root = document.documentElement
     if (theme === 'system') root.removeAttribute('data-theme')
     else root.setAttribute('data-theme', theme)
+    // ตั้งสีแถบเบราว์เซอร์ให้ตรงกับธีมที่ผู้ใช้เลือกเอง
+    // ตอน system ปล่อยให้ <meta media> เดิมใน index.html ตอบสนองเครื่องผู้ใช้
+    if (theme !== 'system') {
+      const m = document.querySelector('meta[name="theme-color"]')
+      if (m) m.setAttribute('content', theme === 'dark' ? '#09090b' : '#ffffff')
+    }
     try {
       localStorage.setItem(THEME_KEY, theme)
     } catch {

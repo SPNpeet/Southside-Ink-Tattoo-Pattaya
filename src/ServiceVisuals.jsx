@@ -31,7 +31,7 @@ export function VMarketing({ label }) {
       <circle cx="12" cy="11" r="2" fill="var(--accent-2)" opacity="0.7" />
       <circle cx="18" cy="11" r="2" fill="var(--accent)" opacity="0.85" />
       <circle cx="24" cy="11" r="2" fill="var(--ok)" />
-      <text x="34" y="13.5" fontSize="5" fontFamily={MONO} fill="var(--ink-2)" fontWeight="700">ROAS ▸ 3.8</text>
+      <text x="26" y="13.5" fontSize="5" fontFamily={MONO} fill="var(--ink-2)" fontWeight="700">แคมเปญ ▸ auto</text>
       <rect x="12" y="44" width="8" height="8" rx="1.5" fill="var(--accent-2)" opacity="0.45" />
       <rect x="24" y="40" width="8" height="12" rx="1.5" fill="var(--accent-2)" opacity="0.7" />
       <rect x="36" y="34" width="8" height="18" rx="1.5" fill="var(--accent)" />

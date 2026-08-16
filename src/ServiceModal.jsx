@@ -16,13 +16,51 @@ export default function ServiceModal({ service, onClose, onQuote }) {
   useEffect(() => {
     if (!service) return
     restoreRef.current = document.activeElement
-    dialogRef.current?.querySelector('.svm-close')?.focus()
+    // ต้องรอให้ animation เปิด (opacity/transform) จบก่อน ไม่งั้นบางเบราว์เซอร์
+    // (รวม Edge headless) จะไม่ยอมให้โฟกัส element ที่ยังไม่ "visible"
+    // ใช้ document lookup ตรง ๆ แทน ref เพราะ StrictMode remount ทำให้ ref หลุดได้
+    let tries = 0
+    const focusTimer = window.setInterval(() => {
+      const title = document.getElementById('svm-title')
+      if (title) {
+        title.focus()
+        if (document.activeElement === title || document.activeElement?.closest('.svm')) {
+          window.clearInterval(focusTimer)
+        }
+      }
+      if (++tries > 12) window.clearInterval(focusTimer)
+    }, 120)
     const prevOverflow = document.body.style.overflow
     document.body.style.overflow = 'hidden'
     return () => {
+      window.clearInterval(focusTimer)
       document.body.style.overflow = prevOverflow
       restoreRef.current?.focus?.()
     }
+  }, [service])
+
+  // Trap Tab อยู่ในกล่อง เพื่อไม่ให้โฟกัสหลุดไปเนื้อหาหน้าหลัง (a11y)
+  useEffect(() => {
+    if (!service) return
+    const dialog = dialogRef.current
+    const onKey = (e) => {
+      if (e.key !== 'Tab') return
+      const focusables = dialog?.querySelectorAll(
+        'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      )
+      if (!focusables || focusables.length === 0) return
+      const first = focusables[0]
+      const last = focusables[focusables.length - 1]
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault()
+        last.focus()
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault()
+        first.focus()
+      }
+    }
+    document.addEventListener('keydown', onKey)
+    return () => document.removeEventListener('keydown', onKey)
   }, [service])
 
   // ปิดเมื่อกด Esc หรือคลิกนอกกล่อง (ฟังอยู่บน document)
@@ -41,6 +79,7 @@ export default function ServiceModal({ service, onClose, onQuote }) {
         role="dialog"
         aria-modal="true"
         aria-labelledby="svm-title"
+        aria-describedby="svm-desc"
       >
         <header className="svm-head">
           <div className="svm-visual" aria-hidden="true">
@@ -48,7 +87,9 @@ export default function ServiceModal({ service, onClose, onQuote }) {
           </div>
           <div className="svm-head-text">
             <p className="eyebrow">{service.short}</p>
-            <h3 id="svm-title">{service.title}</h3>
+            <h3 id="svm-title" tabIndex={-1}>
+              {service.title}
+            </h3>
           </div>
           <button type="button" className="svm-close" onClick={onClose} aria-label="ปิดรายละเอียด">
             <Icon name="close" />
@@ -56,7 +97,7 @@ export default function ServiceModal({ service, onClose, onQuote }) {
         </header>
 
         <div className="svm-body">
-          <p className="svm-desc">{service.desc}</p>
+          <p id="svm-desc" className="svm-desc">{service.desc}</p>
 
           {service.who && (
             <section className="svm-sec">

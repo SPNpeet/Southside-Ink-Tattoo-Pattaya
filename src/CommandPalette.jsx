@@ -144,7 +144,11 @@ export default function CommandPalette({ open, onClose, actions }) {
               </button>
             </li>
           ))}
-          {results.length === 0 && <li className="cmdk-empty">ไม่พบรายการที่ค้นหา</li>}
+          {results.length === 0 && (
+            <li className="cmdk-empty">
+              ไม่พบรายการที่ค้นหา — ทักมาถามตรง ๆ ได้เลยครับ
+            </li>
+          )}
         </ul>
 
         <footer className="cmdk-foot">
