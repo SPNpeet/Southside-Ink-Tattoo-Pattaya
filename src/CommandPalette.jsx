@@ -15,12 +15,13 @@ function norm(s) {
   return String(s).normalize('NFKD').replace(NORMALIZE, '').toLowerCase()
 }
 
-export default function CommandPalette({ open, onClose, actions }) {
+export default function CommandPalette({ open, onClose, actions, t }) {
   const dialogRef = useRef(null)
   const inputRef = useRef(null)
   const listRef = useRef(null)
   const [q, setQ] = useState('')
   const [cursor, setCursor] = useState(0)
+  const P = t.palette
 
   const results = useMemo(() => {
     const term = norm(q)
@@ -126,7 +127,7 @@ export default function CommandPalette({ open, onClose, actions }) {
     <dialog
       className="cmdk"
       ref={dialogRef}
-      aria-label="ค้นหาและลัดไปยังเมนู"
+      aria-label={P.title}
       onClick={onDialogClick}
     >
       <div className="cmdk-box" onKeyDown={onKeyDown}>
@@ -139,12 +140,12 @@ export default function CommandPalette({ open, onClose, actions }) {
             type="text"
             value={q}
             onChange={(e) => setQ(e.target.value)}
-            placeholder="พิมพ์เพื่อค้นหา เช่น บริการ ติดต่อ ธีม…"
-            aria-label="ค้นหาเมนู"
+            placeholder={P.ph}
+            aria-label={P.aria}
             autoComplete="off"
             spellCheck="false"
           />
-          <button type="button" className="cmdk-close" onClick={onClose} aria-label="ปิดการค้นหา">
+          <button type="button" className="cmdk-close" onClick={onClose} aria-label={P.close}>
             <Icon name="close" />
           </button>
         </div>
@@ -153,7 +154,7 @@ export default function CommandPalette({ open, onClose, actions }) {
           className="cmdk-list"
           ref={listRef}
           role="listbox"
-          aria-label="ผลการค้นหา"
+          aria-label={P.results}
           aria-activedescendant={results.length ? `cmdk-opt-${cursor}` : undefined}
         >
           {results.map((a, i) => (
@@ -176,7 +177,7 @@ export default function CommandPalette({ open, onClose, actions }) {
           ))}
           {results.length === 0 && (
             <li className="cmdk-empty">
-              ไม่พบรายการที่ค้นหา — ทักมาถามตรง ๆ ได้เลยครับ
+              {P.empty}
             </li>
           )}
         </ul>
@@ -184,12 +185,12 @@ export default function CommandPalette({ open, onClose, actions }) {
         <footer className="cmdk-foot">
           <span>
             <kbd>↑</kbd>
-            <kbd>↓</kbd> เลื่อน
+            <kbd>↓</kbd> {P.nav}
           </span>
           <span>
-            <kbd>enter</kbd> เลือก
+            <kbd>enter</kbd> {P.select}
           </span>
-          <span className="cmdk-foot-end">แตะนอกกรอบเพื่อปิด</span>
+          <span className="cmdk-foot-end">{P.outside}</span>
         </footer>
       </div>
     </dialog>

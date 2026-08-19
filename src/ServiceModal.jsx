@@ -8,9 +8,10 @@ import { useDismiss } from './hooks'
 // เปิดได้ 3 ทาง: คลิกการ์ด / ปุ่ม "ดูรายละเอียด" / เปิดจากภายนอก (openServiceId)
 // ปิดด้วย: Esc, คลิกพื้นหลัง, ปุ่มปิด — และคืนโฟกัสให้ปุ่มที่เปิดมา
 
-export default function ServiceModal({ service, onClose, onQuote }) {
+export default function ServiceModal({ service, t, onClose, onQuote }) {
   const dialogRef = useRef(null)
   const restoreRef = useRef(null)
+  const M = t.modal
 
   // บันทึกโฟกัสเดิมตอนเปิด เพื่อคืนให้หลังปิด (a11y)
   useEffect(() => {
@@ -91,7 +92,7 @@ export default function ServiceModal({ service, onClose, onQuote }) {
               {service.title}
             </h3>
           </div>
-          <button type="button" className="svm-close" onClick={onClose} aria-label="ปิดรายละเอียด">
+          <button type="button" className="svm-close" onClick={onClose} aria-label={M.close}>
             <Icon name="close" />
           </button>
         </header>
@@ -101,14 +102,14 @@ export default function ServiceModal({ service, onClose, onQuote }) {
 
           {service.who && (
             <section className="svm-sec">
-              <h4>เหมาะกับใคร</h4>
+              <h4>{M.who}</h4>
               <p>{service.who}</p>
             </section>
           )}
 
           {service.how && service.how.length > 0 && (
             <section className="svm-sec">
-              <h4>ทำงานกันยังไง</h4>
+              <h4>{M.how}</h4>
               <ol className="svm-how">
                 {service.how.map((step, i) => (
                   <li key={step}>
@@ -122,7 +123,7 @@ export default function ServiceModal({ service, onClose, onQuote }) {
 
           {service.includes && service.includes.length > 0 && (
             <section className="svm-sec">
-              <h4>ในแพ็คมีอะไรบ้าง</h4>
+              <h4>{M.includes}</h4>
               <ul className="svc-includes svm-includes">
                 {service.includes.map((it) => (
                   <li key={it}>{it}</li>
@@ -132,26 +133,26 @@ export default function ServiceModal({ service, onClose, onQuote }) {
           )}
 
           <section className="svm-sec svm-gain">
-            <h4>คุณจะได้</h4>
+            <h4>{M.gain}</h4>
             <p>{service.gain}</p>
           </section>
 
           {service.sample && (
             <section className="svm-sec">
-              <h4>ตัวอย่างที่ทำได้จริง</h4>
+              <h4>{M.sample}</h4>
               <p className="svm-sample">{service.sample}</p>
             </section>
           )}
         </div>
 
         <footer className="svm-foot">
-          <p className="svm-quote">ประเมินตามขอบเขตงาน · ปรึกษาและประเมินฟรี</p>
+          <p className="svm-quote">{M.quote}</p>
           <div className="svm-actions">
             <button type="button" className="btn btn-line" onClick={onClose}>
-              ดูบริการอื่น
+              {M.other}
             </button>
             <button type="button" className="btn btn-solid" onClick={onQuote}>
-              ขอใบเสนอราคา <Icon name="arrow" />
+              {M.quoteBtn} <Icon name="arrow" />
             </button>
           </div>
         </footer>

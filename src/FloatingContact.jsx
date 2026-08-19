@@ -10,12 +10,13 @@ import { useDismiss } from './hooks'
  * ซ่อนตัวเองเมื่อเลื่อนถึงส่วนติดต่อแล้ว เพราะตรงนั้นมีช่องทางครบอยู่แล้ว
  * ไม่มีเหตุผลที่จะเอาปุ่มไปบังเนื้อหา
  */
-export default function FloatingContact({ channels }) {
+export default function FloatingContact({ channels, t }) {
   const [shown, setShown] = useState(false)
   const [open, setOpen] = useState(false)
   const wrapRef = useRef(null)
   const btnRef = useRef(null)
   const panelRef = useRef(null)
+  const F = t.fab
 
   useDismiss(wrapRef, open, () => {
     setOpen(false)
@@ -66,7 +67,7 @@ export default function FloatingContact({ channels }) {
       inert={!shown}
     >
       <div className="fab-panel" ref={panelRef} hidden={!open}>
-        <p className="fab-head">ฝากช่องทางไว้เลย — เดี๋ยวเราติดต่อกลับเอง</p>
+        <p className="fab-head">{F.head}</p>
         <ul>
           {channels.map((c) => {
             const external = c.href.startsWith('http')
@@ -91,11 +92,11 @@ export default function FloatingContact({ channels }) {
         className="fab-btn"
         ref={btnRef}
         aria-expanded={open}
-        aria-label={open ? 'ปิดช่องทางติดต่อ' : 'เปิดช่องทางติดต่อ'}
+        aria-label={open ? F.close : F.open}
         onClick={() => setOpen((v) => !v)}
       >
         <Icon name={open ? 'chevron' : 'chat'} className="fab-ic" />
-        <span className="fab-text">ทักเราเลย</span>
+        <span className="fab-text">{F.text}</span>
       </button>
     </div>
   )

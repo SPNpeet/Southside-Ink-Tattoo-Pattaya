@@ -2,63 +2,7 @@ import { useEffect, useState } from 'react'
 
 // ─────────── Terminal: hero proof ───────────
 // โชว์ให้เห็นว่า "agent ทำงานจริง" — ไม่ใช่แค่ข้อความโฆษณา
-// สลับระหว่าง 3 สถานการณ์ (LOOP) เพื่อให้ดูมีชีวิต ไม่ใช่ภาพนิ่ง
-const SCENES = [
-  {
-    title: 'ร้านเปิดอยู่ไหม · LINE OA',
-    sub: '23:47',
-    lines: [
-      { who: 'in', text: 'สวัสดีค่ะ ร้านเปิดกี่โมงคะ' },
-      { who: 'agent', text: 'สวัสดีค่ะ เปิด 11:00-21:00 น. วันนี้จองโต๊ะไหมคะ' },
-      { who: 'in', text: 'จอง 2 คน คืนนี้ 19:00 ได้ไหม' },
-      { who: 'agent', text: 'ได้ค่ะ จองให้แล้วนะคะ ✓' },
-      { who: 'sys', text: '✓ ปิดงาน 23:52' },
-    ],
-  },
-  {
-    title: 'เพจร้านกาแฟ · Messenger',
-    sub: '14:03',
-    lines: [
-      { who: 'in', text: 'เมนู oat latte ยังมีอยู่ไหมครับ' },
-      { who: 'agent', text: 'มีค่ะ ราคา 95 บาท จะสั่งเลยไหมคะ' },
-      { who: 'in', text: 'เอา 1 แก้ว รับที่ร้าน 15 นาที' },
-      { who: 'agent', text: 'รับทราบค่ะ รอสักครู่นะคะ ☕' },
-      { who: 'sys', text: '✓ ส่งต่อให้บาริสต้า' },
-    ],
-  },
-  {
-    title: 'หลังร้าน POS · บัญชี',
-    sub: '02:14',
-    lines: [
-      { who: 'in', text: 'ส่งสลิปค่ะ [ภาพแนบ]' },
-      { who: 'agent', text: 'อ่านสลิปแล้ว · 950 บาท · จับคู่รายการให้แล้วค่ะ' },
-      { who: 'agent', text: 'บันทึกบัญชี: รายได้ 950 / ลูกค้า #A124' },
-      { who: 'sys', text: '✓ ปิดงบรายวัน 02:15' },
-    ],
-  },
-  {
-    title: 'เว็บร้านผ้าม่าน · curtainstoryhome.com',
-    sub: '10:12',
-    lines: [
-      { who: 'in', text: 'แคตตาล็อคมู่ลี่ไม้มีไหมคะ' },
-      { who: 'agent', text: 'มีค่ะ 3 สาย ดูภาพจริง + ราคาได้ในเว็บเลย' },
-      { who: 'in', text: 'ขอสั่งตัวอย่างผ้าได้มั้ย' },
-      { who: 'agent', text: 'ได้ค่ะ แจ้งรุ่นกับชื่อที่อยู่ เดี๋ยวจัดส่งให้' },
-      { who: 'sys', text: '✓ อัปเดตออเดอร์ในระบบ 10:15' },
-    ],
-  },
-  {
-    title: 'คอร์สยิงแอด · สอนสด',
-    sub: '19:40',
-    lines: [
-      { who: 'in', text: 'ไม่เคยยิงแอดเลย เริ่มยังไงดี' },
-      { who: 'agent', text: 'คอร์สนี้สอนลงมือจริง 4-5 ชม. พร้อมคู่มือ 15 เครื่องมือ' },
-      { who: 'in', text: 'จบแล้วยิงเองได้จริงไหม' },
-      { who: 'agent', text: 'ได้จริงค่ะ สอนจนตั้งแคมเปญแรกเองได้ ไม่ต้องจ้างต่อ' },
-      { who: 'sys', text: '✓ ส่งสรุปคอร์สให้แล้ว 19:45' },
-    ],
-  },
-]
+// scenes + ข้อความมาจาก i18n (App ส่ง prop มา)
 
 // แสดงทีละบรรทัดด้วย typewriter effect
 function useTypewriter(lines, resetKey) {
@@ -95,26 +39,25 @@ function useTypewriter(lines, resetKey) {
       alive = false
       window.clearTimeout(timer)
     }
-    // lines มาจากค่าคงที่ระดับโมดูลและเปลี่ยนพร้อม resetKey เสมอ
-    // ใส่ไว้ใน deps ให้ตรงตามจริง จะได้ไม่ต้องปิดคำเตือนด้วย eslint-disable
+    // lines มาจาก prop และเปลี่ยนพร้อม resetKey เสมอ
   }, [resetKey, lines])
   return { shown, done }
 }
 
-export default function Terminal() {
+export default function Terminal({ scenes, ui }) {
   const [sceneIdx, setSceneIdx] = useState(0)
-  const scene = SCENES[sceneIdx]
+  const scene = scenes[sceneIdx]
   const { shown, done } = useTypewriter(scene.lines, sceneIdx)
 
   // วน scene อัตโนมัติหลังจบ 8 วิ
   useEffect(() => {
     if (!done) return
-    const t = setTimeout(() => setSceneIdx((i) => (i + 1) % SCENES.length), 8000)
+    const t = setTimeout(() => setSceneIdx((i) => (i + 1) % scenes.length), 8000)
     return () => clearTimeout(t)
-  }, [done, sceneIdx])
+  }, [done, sceneIdx, scenes.length])
 
   return (
-    <div className="terminal" aria-label="ตัวอย่างการทำงานของ AI agent" data-reveal>
+    <div className="terminal" aria-label={ui.termLabel} data-reveal>
       <div className="term-bar">
         <span className="term-dot" style={{ background: '#ff5f57' }} aria-hidden="true" />
         <span className="term-dot" style={{ background: '#febc2e' }} aria-hidden="true" />
@@ -125,9 +68,9 @@ export default function Terminal() {
       <div className="term-body" role="log" aria-live="off">
         {shown.map((l, i) => (
           <p key={i} className={`term-line term-${l.who}`}>
-            {l.who === 'in' && <span className="term-tag tag-in">ลูกค้า</span>}
+            {l.who === 'in' && <span className="term-tag tag-in">{ui.termIn}</span>}
             {l.who === 'agent' && <span className="term-tag tag-agent">agent</span>}
-            {l.who === 'sys' && <span className="term-tag tag-sys">ระบบ</span>}
+            {l.who === 'sys' && <span className="term-tag tag-sys">{ui.termSys}</span>}
             <span className="term-text">{l.text}</span>
           </p>
         ))}
@@ -139,15 +82,15 @@ export default function Terminal() {
         {done && (
           <div className="term-foot">
             <span className="term-count" aria-hidden="true">
-              ตัวอย่าง {sceneIdx + 1}/{SCENES.length}
+              {ui.count} {sceneIdx + 1}/{scenes.length}
             </span>
             <button
               type="button"
               className="term-replay"
-              onClick={() => setSceneIdx((i) => (i + 1) % SCENES.length)}
-              aria-label="ดูตัวอย่างอื่น"
+              onClick={() => setSceneIdx((i) => (i + 1) % scenes.length)}
+              aria-label={ui.replay}
             >
-              ดูตัวอย่างอื่น →
+              {ui.replay}
             </button>
           </div>
         )}

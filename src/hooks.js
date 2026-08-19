@@ -1,6 +1,28 @@
 import { useEffect, useState } from 'react'
 
 const THEME_KEY = 'sc-theme'
+const LANG_KEY = 'sc-lang'
+
+/** ภาษาเว็บ: th | en (default th) */
+export function useLang() {
+  const [lang, setLang] = useState(() => {
+    try {
+      return localStorage.getItem(LANG_KEY) || 'th'
+    } catch {
+      return 'th'
+    }
+  })
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(LANG_KEY, lang)
+    } catch {
+      /* โหมดส่วนตัวบางเบราว์เซอร์เขียนไม่ได้ ปล่อยผ่าน */
+    }
+  }, [lang])
+
+  return [lang, setLang]
+}
 
 /** ธีม 3 สถานะ: light | dark | system (system = ตามเครื่องผู้ใช้) */
 export function useTheme() {

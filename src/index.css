@@ -497,6 +497,17 @@ kbd {
   height: var(--ic-sm);
 }
 
+/* ปุ่มสลับภาษา — ข้อความ ไทย/EN ไม่ใช่ไอคอน จึงกว้างตามเนื้อหา */
+.lang-switch button {
+  width: auto;
+  min-width: var(--h-xs);
+  padding: 0 var(--s2);
+  font-family: var(--sans);
+  font-size: var(--fs-micro);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
 /* ---------------- Palette trigger ---------------- */
 .cmdk-trigger {
   display: inline-flex;
@@ -638,7 +649,18 @@ kbd {
   grid-template-columns: 1.5fr 1fr;
   gap: clamp(var(--s6), 5vw, var(--s8));
   align-items: center;
-  padding-block: clamp(var(--s8), 8vw, 112px);
+  padding-block: clamp(var(--s8), 7vw, 96px);
+}
+
+/* terminal ยืดเต็มความสูงคอลัมน์ — ไม่ให้เหลือช่องว่างลอย ๆ ใต้กล่อง */
+.hero .terminal {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.hero .term-body {
+  flex: 1;
 }
 
 .eyebrow {
@@ -733,6 +755,16 @@ kbd {
   grid-template-columns: repeat(3, 1fr);
   gap: var(--s6);
   padding-block: var(--s7);
+}
+
+.band-num {
+  display: block;
+  font-family: var(--mono);
+  font-size: var(--fs-micro);
+  letter-spacing: var(--ls-label);
+  color: var(--accent-2);
+  opacity: 0.8;
+  margin-bottom: var(--s2);
 }
 
 .band-grid p {
@@ -1150,7 +1182,8 @@ kbd {
 .fine {
   margin-top: var(--s5);
   font-size: var(--fs-sm);
-  color: var(--ink-2);
+  color: var(--ink);
+  opacity: 0.82;
 }
 
 .fine a {
@@ -1664,9 +1697,17 @@ kbd {
 }
 
 .foot-name {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
   font-weight: 700;
   font-size: var(--fs-md);
   margin: 0 0 var(--s1);
+}
+
+.foot-name img {
+  border-radius: var(--r-xs);
+  flex: none;
 }
 
 .foot-tag {
