@@ -343,6 +343,12 @@ function App() {
   // คีย์บอร์ดใน dropdown: ArrowDown/ArrowUp เลื่อนเลือก, Enter เลือก, Esc ปิด
   const onDdKeyDown = useCallback(
     (e) => {
+      // กด ArrowDown ตอนปิด = เปิดเมนู (คีย์บอร์ดล้วน ตาม APG menu button)
+      if (e.key === 'ArrowDown' && !ddOpen) {
+        e.preventDefault()
+        setDdOpen(true)
+        return
+      }
       const links = [...(ddRef.current?.querySelectorAll('a') || [])]
       if (!links.length) return
       const idx = links.indexOf(document.activeElement)
@@ -360,8 +366,14 @@ function App() {
         links[e.key === 'Home' ? 0 : links.length - 1].focus()
       }
     },
-    [],
+    [ddOpen],
   )
+
+  // เปิดเมนูแล้ว focus ลิงก์แรกทันที — คนที่เปิดด้วยคีย์บอร์ดเดินต่อได้เลย
+  useEffect(() => {
+    if (!ddOpen) return
+    ddRef.current?.querySelector('a')?.focus()
+  }, [ddOpen])
 
   const goto = useCallback((id) => {
     const el = document.getElementById(id)
@@ -598,19 +610,20 @@ function App() {
           </a>
 
           <nav id="site-nav" className={`site-nav ${menuOpen ? 'open' : ''}`} aria-label="เมนูหลัก">
-            <div className="dd" ref={ddRef}>
+            <div className="dd" ref={ddRef} onKeyDown={onDdKeyDown}>
               <button
                 type="button"
                 ref={ddBtnRef}
                 className={`dd-btn ${active === 'services' ? 'is-active' : ''}`}
                 aria-expanded={ddOpen}
+                aria-controls="dd-panel"
                 onClick={() => setDdOpen((v) => !v)}
               >
                 บริการ
                 <Icon name="chevron" className={`dd-caret ${ddOpen ? 'up' : ''}`} />
               </button>
 
-              <div className="dd-panel" hidden={!ddOpen} onKeyDown={onDdKeyDown}>
+              <div id="dd-panel" className="dd-panel" hidden={!ddOpen}>
                 <ul>
                   {SERVICES.map((s) => (
                     <li key={s.id}>

@@ -38,13 +38,25 @@ export default function CommandPalette({ open, onClose, actions }) {
       el.showModal()
       setQ('')
       setCursor(0)
-      inputRef.current?.focus()
+      // บางเบราว์เซอร์ไม่ยอมให้โฟกัส input ทันทีหลัง showModal (อยู่ระหว่าง animation)
+      // ถ้าโฟกัสไม่ได้ Escape จะไม่ส่ง cancel event ให้ dialog → กด Esc ไม่ปิด
+      // เลยลองใหม่เป็นช่วงจนกว่าจะติด หรือครบ 12 ครั้ง
+      let tries = 0
+      const focusTimer = window.setInterval(() => {
+        if (!inputRef.current) return
+        inputRef.current.focus()
+        if (document.activeElement === inputRef.current) window.clearInterval(focusTimer)
+        if (++tries > 12) window.clearInterval(focusTimer)
+      }, 80)
+      return () => window.clearInterval(focusTimer)
     } else if (!open && el.open) {
       el.close()
     }
   }, [open])
 
   // ปุ่ม Escape ของ <dialog> ยิง cancel ต้องส่งกลับให้ React รู้
+  // แต่ cancel จะยิงเฉพาะตอนโฟกัสอยู่ใน dialog — ถ้าโฟกัสหลุดออกข้างนอก
+  // ผู้ใช้กด Esc แล้วจะไม่เกิดอะไรเลย เลยมี document listener คอยดักเป็นชั้นสำรอง
   useEffect(() => {
     const el = dialogRef.current
     if (!el) return
@@ -52,11 +64,16 @@ export default function CommandPalette({ open, onClose, actions }) {
       e.preventDefault()
       onClose()
     }
+    const onKey = (e) => {
+      if (e.key === 'Escape' && el.open) onClose()
+    }
     el.addEventListener('cancel', onCancel)
     el.addEventListener('close', onClose)
+    document.addEventListener('keydown', onKey)
     return () => {
       el.removeEventListener('cancel', onCancel)
       el.removeEventListener('close', onClose)
+      document.removeEventListener('keydown', onKey)
     }
   }, [onClose])
 
@@ -86,6 +103,12 @@ export default function CommandPalette({ open, onClose, actions }) {
     } else if (e.key === 'ArrowUp') {
       e.preventDefault()
       setCursor((c) => (results.length ? (c - 1 + results.length) % results.length : 0))
+    } else if (e.key === 'Home') {
+      e.preventDefault()
+      setCursor(0)
+    } else if (e.key === 'End') {
+      e.preventDefault()
+      setCursor(results.length ? results.length - 1 : 0)
     } else if (e.key === 'Enter') {
       e.preventDefault()
       const a = results[cursor]
@@ -126,11 +149,18 @@ export default function CommandPalette({ open, onClose, actions }) {
           </button>
         </div>
 
-        <ul className="cmdk-list" ref={listRef} role="listbox" aria-label="ผลการค้นหา">
+        <ul
+          className="cmdk-list"
+          ref={listRef}
+          role="listbox"
+          aria-label="ผลการค้นหา"
+          aria-activedescendant={results.length ? `cmdk-opt-${cursor}` : undefined}
+        >
           {results.map((a, i) => (
             <li key={a.id}>
               <button
                 type="button"
+                id={`cmdk-opt-${i}`}
                 data-i={i}
                 role="option"
                 aria-selected={i === cursor}

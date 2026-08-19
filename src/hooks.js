@@ -97,17 +97,35 @@ export function useReveal(deps = []) {
       { rootMargin: '0px 0px -8% 0px', threshold: 0.06 }
     )
 
-    const observeAll = () =>
-      document.querySelectorAll('[data-reveal]:not(.revealed)').forEach((el) => io.observe(el))
-    observeAll()
-
-    // ชั้นสำรอง: กวาดด้วยตำแหน่งจริงเวลาเลื่อนหรือปรับขนาดจอ
-    // เผื่อกรณี IntersectionObserver ยิงรอบแรกแล้วเงียบไปเลย ซึ่งเกิดได้จริง
     const inView = (el) => {
       const r = el.getBoundingClientRect()
       return r.top < window.innerHeight * 0.94 && r.bottom > 0
     }
 
+    const observeAll = () =>
+      document.querySelectorAll('[data-reveal]:not(.revealed)').forEach((el) => io.observe(el))
+    observeAll()
+
+    // เนื้อหาที่ render ทีหลัง (เช่น FAQ หลังกรอง) ไม่ถูก observe รอบแรก
+    // ถ้าปล่อยไว้จะค้างซ่อนทั้งที่อยู่ในจอ — ต้องสแกนใหม่ทุกครั้งที่มี node เพิ่ม
+    const mo = new MutationObserver((muts) => {
+      let added = false
+      for (const m of muts) {
+        if (m.addedNodes.length) {
+          added = true
+          break
+        }
+      }
+      if (!added) return
+      document.querySelectorAll('[data-reveal]:not(.revealed)').forEach((el) => {
+        io.observe(el)
+        if (inView(el)) el.classList.add('revealed')
+      })
+    })
+    mo.observe(document.body, { childList: true, subtree: true })
+
+    // ชั้นสำรอง: กวาดด้วยตำแหน่งจริงเวลาเลื่อนหรือปรับขนาดจอ
+    // เผื่อกรณี IntersectionObserver ยิงรอบแรกแล้วเงียบไปเลย ซึ่งเกิดได้จริง
     const sweep = () => {
       document.querySelectorAll('[data-reveal]:not(.revealed)').forEach((el) => {
         if (inView(el)) el.classList.add('revealed')
@@ -135,6 +153,7 @@ export function useReveal(deps = []) {
       window.clearTimeout(watchdog)
       window.removeEventListener('scroll', sweep)
       window.removeEventListener('resize', sweep)
+      mo.disconnect()
       io.disconnect()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
