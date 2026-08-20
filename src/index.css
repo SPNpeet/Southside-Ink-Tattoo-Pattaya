@@ -621,6 +621,8 @@ kbd {
   height: var(--h-sm);
   padding: 0 var(--s4);
   margin-left: var(--s2);
+  white-space: nowrap;
+  min-width: 116px;
 }
 
 /* ---------------- Hero ---------------- */
@@ -812,7 +814,126 @@ kbd {
   color: var(--ink-2);
 }
 
+/* ---------------- เลือกเส้นทาง ---------------- */
+.paths-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--s5);
+}
+
+.path {
+  border: 1px solid var(--rule);
+  border-radius: var(--r-lg);
+  background: var(--bg-2);
+  padding: var(--s6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s4);
+}
+
+.path-eyebrow {
+  font-family: var(--mono);
+  font-size: var(--fs-micro);
+  letter-spacing: var(--ls-label);
+  color: var(--accent-2);
+}
+
+.path h3 {
+  font-size: var(--fs-h3);
+  letter-spacing: var(--ls-tight);
+}
+
+.path-desc {
+  color: var(--ink-2);
+  font-size: var(--fs-sm);
+}
+
+.path-items {
+  display: grid;
+  gap: var(--s2);
+}
+
+.path-items li {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  font-size: var(--fs-sm);
+}
+
+.path-items .icon {
+  width: 18px;
+  height: 18px;
+  color: var(--accent);
+  flex: none;
+}
+
+.path .btn {
+  margin-top: auto;
+  align-self: flex-start;
+}
+
 /* ---------------- บริการ ---------------- */
+.svc-ladder {
+  display: flex;
+  align-items: center;
+  gap: var(--s4);
+  flex-wrap: wrap;
+  margin-bottom: var(--s7);
+  padding: var(--s4) var(--s5);
+  border: 1px dashed var(--rule-strong);
+  border-radius: var(--r-lg);
+  background: var(--bg-2);
+}
+
+.svc-ladder-label {
+  font-family: var(--mono);
+  font-size: var(--fs-micro);
+  letter-spacing: var(--ls-label);
+  color: var(--accent-2);
+  flex: none;
+}
+
+.svc-ladder ol {
+  display: flex;
+  gap: var(--s3);
+  flex-wrap: wrap;
+  margin: 0;
+}
+
+.svc-ladder li {
+  font-size: var(--fs-xs);
+  color: var(--ink-2);
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+}
+
+.svc-ladder li:not(:last-child)::after {
+  content: '→';
+  color: var(--rule-strong);
+}
+
+.svc-group + .svc-group {
+  margin-top: var(--s7);
+}
+
+.svc-group-title {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s3);
+  margin-bottom: var(--s5);
+}
+
+.svc-group-title strong {
+  font-size: var(--fs-h3);
+  letter-spacing: var(--ls-tight);
+}
+
+.svc-group-title span {
+  font-size: var(--fs-xs);
+  color: var(--ink-2);
+}
+
 .svc-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
@@ -902,6 +1023,46 @@ kbd {
   padding: 3px var(--s2);
   border-radius: var(--r-xs);
   background: var(--bg-3);
+  color: var(--ink-2);
+}
+
+/* ---------------- ภาพจากงานจริง ---------------- */
+.gallery-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--s4);
+}
+
+.gallery-item {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s3);
+}
+
+.gallery-photo {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border: 1px solid var(--rule);
+  border-radius: var(--r-lg);
+  background: var(--bg-2);
+}
+
+.gallery-item figcaption {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 0 var(--s1);
+}
+
+.gallery-item figcaption strong {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+}
+
+.gallery-item figcaption span {
+  font-size: var(--fs-xs);
   color: var(--ink-2);
 }
 
@@ -1777,6 +1938,21 @@ kbd {
   transform: rotate(180deg);
 }
 
+/* ปุ่ม/ลิงก์ในท้ายหน้าให้สูงถึงเกณฑ์แตะด้วยนิ้วบนจอเล็ก */
+@media (max-width: 600px) {
+  .foot-nav a,
+  .foot-channels a {
+    display: flex;
+    align-items: center;
+    min-height: var(--h-md);
+    padding-block: var(--s1);
+  }
+
+  .foot-top {
+    min-height: var(--h-md);
+  }
+}
+
 @media (max-width: 800px) {
   .foot-grid {
     grid-template-columns: 1fr;
@@ -1810,6 +1986,11 @@ kbd {
   .cmdk-trigger kbd {
     display: none;
   }
+
+  /* ย่อแบรนด์ให้เหลือชื่อ พอพื้นที่เริ่มคับ — ป้องกัน header แตกบรรทัด */
+  .brand-sub {
+    display: none;
+  }
 }
 
 @media (max-width: 900px) {
@@ -1825,7 +2006,7 @@ kbd {
   }
 }
 
-@media (max-width: 980px) {
+@media (max-width: 1120px) {
   .menu-btn {
     display: block;
   }
@@ -1889,6 +2070,8 @@ kbd {
 
   .cmdk-trigger {
     height: var(--h-md);
+    min-width: var(--h-md);
+    justify-content: center;
   }
 
   .nav-cta {

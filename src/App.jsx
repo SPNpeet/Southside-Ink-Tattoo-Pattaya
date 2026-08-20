@@ -15,9 +15,9 @@ const CONTACT = {
   facebook: 'https://www.facebook.com/profile.php?id=61590190966678',
   email: 'sudocoffee.home@gmail.com',
   // ใส่ลิงก์ LINE OA เช่น 'https://lin.ee/xxxxxxx'
-  line: '',
+  line: 'https://line.me/ti/p/~nongpeetza',
   // ใส่เบอร์จริงแบบสากล เช่น '+66811234567'
-  phone: '',
+  phone: '+66611699332',
   // สมัครฟรีที่ web3forms.com แล้ววาง Access Key ตรงนี้ (ต้องเป็นรูปแบบ UUID)
   // ยังไม่ใส่ = ฟอร์มจะส่งผ่าน mailto แทน
   web3formsKey: '',
@@ -75,6 +75,7 @@ function App() {
   const L = L10N[lang]
   const D = DATA[lang]
   const { services: SERVICES, works: WORKS, steps: STEPS, faqs: FAQS, scenes: SCENES } = D
+  const GALLERY = L.gallery.items
   const BUDGETS = L.contact.budgets.map((label, i) => ({ id: `b-${i}`, label }))
   const THEMES = [
     { id: 'light', icon: 'sun', label: L.ui.themeLight },
@@ -100,9 +101,12 @@ function App() {
   const ddBtnRef = useRef(null)
 
   const order = [
+    'paths',
     'services',
     'why',
+    'about',
     ...(WORKS.length ? ['work'] : []),
+    'gallery',
     ...(TESTIMONIALS.length ? ['testimonials'] : []),
     'process',
     'perks',
@@ -111,7 +115,7 @@ function App() {
   ]
   const numOf = (id) => String(order.indexOf(id) + 1).padStart(2, '0')
   const active = useScrollSpy(order)
-  useReveal([WORKS.length, CONTACT.web3formsKey, lang])
+  useReveal([WORKS.length, CONTACT.web3formsKey, lang, GALLERY.length])
 
   const closeDd = useCallback(() => setDdOpen(false), [])
   useDismiss(ddRef, ddOpen, closeDd)
@@ -210,6 +214,17 @@ function App() {
             label: L.paletteActions.goWork,
             keywords: L.paletteActions.kw.work,
             run: () => goto('work'),
+          },
+        ]
+      : []),
+    ...(GALLERY.length
+      ? [
+          {
+            id: 'go-gallery',
+            icon: 'grid',
+            label: L.paletteActions.goGallery,
+            keywords: L.paletteActions.kw.gallery,
+            run: () => goto('gallery'),
           },
         ]
       : []),
@@ -534,11 +549,10 @@ function App() {
                   {L.hero.cta1}
                   <Icon name="arrow" />
                 </a>
-                <button type="button" className="btn btn-line" onClick={() => setPaletteOpen(true)}>
-                  <Icon name="search" />
+                <a className="btn btn-line" href="#services" onClick={nav('services')}>
+                  <Icon name="layers" />
                   {L.hero.cta2}
-                  <kbd className="btn-kbd">Ctrl K</kbd>
-                </button>
+                </a>
               </div>
               <p className="hero-note">{L.hero.note}</p>
               <p className="hero-proof">
@@ -577,6 +591,37 @@ function App() {
           </div>
         </section>
 
+        <section className="sec" aria-label={L.paths.label} id="paths" tabIndex={-1}>
+          <div className="wrap">
+            <SectionHead num={numOf('paths')} title={L.paths.head} note={L.paths.note} />
+            <div className="paths-grid">
+              {[L.paths.sme, L.paths.gov].map((p, i) => (
+                <div className={`path path-${i === 0 ? 'sme' : 'gov'}`} key={p.title} data-reveal>
+                  <p className="path-eyebrow">{p.eyebrow}</p>
+                  <h3>{p.title}</h3>
+                  <p className="path-desc">{p.desc}</p>
+                  <ul className="path-items">
+                    {p.items.map((it) => (
+                      <li key={it}>
+                        <Icon name="check" />
+                        {it}
+                      </li>
+                    ))}
+                  </ul>
+                  <a
+                    className="btn btn-line"
+                    href={i === 0 ? '#services' : '#contact'}
+                    onClick={i === 0 ? nav('services') : nav('contact')}
+                  >
+                    {p.cta}
+                    <Icon name="arrow" />
+                  </a>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         <section className="sec why" aria-label={L.why.label} id="why" tabIndex={-1}>
           <div className="wrap">
             <SectionHead num={numOf('why')} title={L.why.head} note={L.why.note} />
@@ -595,66 +640,101 @@ function App() {
           </div>
         </section>
 
+        <section className="sec" aria-label={L.about.label} id="about" tabIndex={-1}>
+          <div className="wrap">
+            <SectionHead num={numOf('about')} title={L.about.head} note={L.about.note} />
+            <ul className="perk-list about-list">
+              {L.about.items.map((p) => (
+                <li key={p.title} data-reveal>
+                  <Icon name={p.icon} />
+                  <h3>{p.title}</h3>
+                  <p>{p.text}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
         <section className="sec" id="services" tabIndex={-1}>
           <div className="wrap">
             <SectionHead num={numOf('services')} title={L.services.head} note={L.services.note} />
-            <ul className="svc-list">
-              {SERVICES.map((s) => {
-                const Visual = VISUAL_BY_KEY[s.visual]
-                const open = () => setSvcOpen(s.id)
-                return (
-                  <li
-                    className={`svc svc-${s.id}`}
-                    id={s.id}
-                    key={s.id}
-                    tabIndex={-1}
-                    data-reveal
-                  >
-                    <button
-                      type="button"
-                      className="svc-visual"
-                      onClick={open}
-                      aria-label={`${L.services.viewAria} ${s.title}`}
-                    >
-                      {Visual && <Visual label={s.title} />}
-                    </button>
-                    <div className="svc-body">
-                      <h3>{s.title}</h3>
-                      <p className="svc-short">{s.short}</p>
-                      <p className="svc-desc">{s.desc}</p>
-                      {s.includes?.length > 0 && (
-                        <ul className="svc-includes">
-                          {s.includes.map((it) => (
-                            <li key={it}>{it}</li>
-                          ))}
-                        </ul>
-                      )}
-                      <p className="svc-gain">
-                        <span className="svc-gain-label">{L.services.gainLabel}</span>
-                        {s.gain}
-                      </p>
-                      {s.sample && (
-                        <p className="svc-sample">
-                          <span className="svc-gain-label">{L.services.sampleLabel}</span>
-                          {s.sample}
-                        </p>
-                      )}
-                      <div className="svc-foot">
-                        <span className="svc-quote">{L.services.quote}</span>
-                        <div className="svc-actions">
-                          <button type="button" className="btn btn-line btn-sm" onClick={open}>
-                            {L.services.details}
+            <div className="svc-ladder" aria-label={L.services.ladderLabel}>
+              <span className="svc-ladder-label">{L.services.ladderLabel}</span>
+              <ol>
+                {L.services.ladder.map((rung, i) => (
+                  <li key={i}>{rung}</li>
+                ))}
+              </ol>
+            </div>
+            {['sme', 'gov'].map((grp) => {
+              const group = SERVICES.filter((s) => s.group === grp)
+              if (!group.length) return null
+              return (
+                <div className="svc-group" key={grp}>
+                  <p className="svc-group-title">
+                    <strong>{grp === 'sme' ? L.services.groupSme : L.services.groupGov}</strong>
+                    <span>{grp === 'sme' ? L.services.groupSmeNote : L.services.groupGovNote}</span>
+                  </p>
+                  <ul className="svc-list">
+                    {group.map((s) => {
+                      const Visual = VISUAL_BY_KEY[s.visual]
+                      const open = () => setSvcOpen(s.id)
+                      return (
+                        <li
+                          className={`svc svc-${s.id}`}
+                          id={s.id}
+                          key={s.id}
+                          tabIndex={-1}
+                          data-reveal
+                        >
+                          <button
+                            type="button"
+                            className="svc-visual"
+                            onClick={open}
+                            aria-label={`${L.services.viewAria} ${s.title}`}
+                          >
+                            {Visual && <Visual label={s.title} />}
                           </button>
-                          <a className="btn btn-solid btn-sm" href="#contact" onClick={nav('contact')}>
-                            {L.services.quoteBtn}
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                )
-              })}
-            </ul>
+                          <div className="svc-body">
+                            <h3>{s.title}</h3>
+                            <p className="svc-short">{s.short}</p>
+                            <p className="svc-desc">{s.desc}</p>
+                            {s.includes?.length > 0 && (
+                              <ul className="svc-includes">
+                                {s.includes.map((it) => (
+                                  <li key={it}>{it}</li>
+                                ))}
+                              </ul>
+                            )}
+                            <p className="svc-gain">
+                              <span className="svc-gain-label">{L.services.gainLabel}</span>
+                              {s.gain}
+                            </p>
+                            {s.sample && (
+                              <p className="svc-sample">
+                                <span className="svc-gain-label">{L.services.sampleLabel}</span>
+                                {s.sample}
+                              </p>
+                            )}
+                            <div className="svc-foot">
+                              <span className="svc-quote">{L.services.quote}</span>
+                              <div className="svc-actions">
+                                <button type="button" className="btn btn-line btn-sm" onClick={open}>
+                                  {L.services.details}
+                                </button>
+                                <a className="btn btn-solid btn-sm" href="#contact" onClick={nav('contact')}>
+                                  {L.services.quoteBtn}
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                      )
+                    })}
+                  </ul>
+                </div>
+              )
+            })}
           </div>
         </section>
 
@@ -708,6 +788,34 @@ function App() {
                       <strong>{t.from}</strong>
                       {t.context && <span>{t.context}</span>}
                     </footer>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+        )}
+
+        {GALLERY.length > 0 && (
+          <section className="sec sec-alt" id="gallery" tabIndex={-1}>
+            <div className="wrap">
+              <SectionHead num={numOf('gallery')} title={L.gallery.head} note={L.gallery.note} />
+              <ul className="gallery-list">
+                {GALLERY.map((g) => (
+                  <li key={g.src} data-reveal>
+                    <figure className="gallery-item">
+                      <img
+                        className="gallery-photo"
+                        src={g.src}
+                        alt={g.title}
+                        width="720"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                      <figcaption>
+                        <strong>{g.title}</strong>
+                        <span>{g.cap}</span>
+                      </figcaption>
+                    </figure>
                   </li>
                 ))}
               </ul>

@@ -144,6 +144,29 @@ export function VAudit({ label }) {
   )
 }
 
+/* AI Governance — นโยบาย/เอกสารกลาง + โล่กำกับ คุมทุกโมดูล */
+export function VGovernance({ label }) {
+  return (
+    <S label={label}>
+      <path d="M 40 6 L 62 13 L 62 33 Q 62 50 40 66 Q 18 50 18 33 L 18 13 Z" fill="var(--bg-2)" stroke="var(--ink)" strokeWidth="1.5" strokeLinejoin="round" />
+      <rect x="14" y="12" width="13" height="11" rx="2" fill="var(--bg)" stroke="var(--rule-strong)" strokeWidth="1.5" />
+      <rect x="16" y="14" width="9" height="2.5" rx="1.25" fill="var(--accent)" />
+      <rect x="16" y="18" width="7" height="2.5" rx="1.25" fill="var(--ink-2)" />
+      <rect x="54" y="12" width="13" height="11" rx="2" fill="var(--bg)" stroke="var(--rule-strong)" strokeWidth="1.5" />
+      <rect x="56" y="14" width="9" height="2.5" rx="1.25" fill="var(--accent-2)" opacity="0.7" />
+      <rect x="56" y="18" width="7" height="2.5" rx="1.25" fill="var(--ink-2)" />
+      <path d="M 27 18 L 40 12 L 54 18" stroke="var(--ink-2)" strokeWidth="1" strokeDasharray="2 2" />
+      <path d="M 31 44 L 36 49 L 49 35" stroke="var(--accent)" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
+      <rect x="22" y="53" width="36" height="13" rx="3" fill="var(--bg)" stroke="var(--rule-strong)" strokeWidth="1.5" />
+      <rect x="25" y="56" width="5" height="5" rx="1" fill="var(--accent)" />
+      <path d="M 26.3 58.5 L 27.7 59.8 L 29.8 56.8" stroke="var(--bg)" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
+      <rect x="33" y="57" width="14" height="2.5" rx="1.25" fill="var(--ink)" />
+      <rect x="25" y="63" width="5" height="5" rx="1" fill="none" stroke="var(--ink-2)" strokeWidth="1" />
+      <rect x="33" y="64" width="11" height="2.5" rx="1.25" fill="var(--ink-2)" />
+    </S>
+  )
+}
+
 /* วางระบบครบวงจร — hub กลางเชื่อมทุกโมดูล */
 export function VFull({ label }) {
   return (
@@ -171,5 +194,6 @@ export const VISUAL_BY_KEY = {
   ai: VAI,
   iot: VIoT,
   audit: VAudit,
+  governance: VGovernance,
   full: VFull,
 }
