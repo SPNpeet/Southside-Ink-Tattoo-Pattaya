@@ -146,7 +146,10 @@ export default function ServiceModal({ service, t, onClose, onQuote }) {
         </div>
 
         <footer className="svm-foot">
-          <p className="svm-quote">{M.quote}</p>
+          <p className="svm-quote">
+            {service.price && <strong className="svc-price">{service.price}</strong>}
+            {M.quote}
+          </p>
           <div className="svm-actions">
             <button type="button" className="btn btn-line" onClick={onClose}>
               {M.other}

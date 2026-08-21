@@ -2452,8 +2452,15 @@ kbd {
   flex-wrap: wrap;
 }
 
-/* เคยเป็นบล็อกแสดงราคาเริ่มต้น ถอดออกเพราะตัวเลขไม่ได้มาจากเจ้าของ
-   เหลือเป็นข้อความกลาง ๆ ที่ไม่ผูกมัดแทน */
+/* ราคาประเมินจาก rate card จริง (REV 1.0) — แสดงเด่นเหนือข้อความไม่ผูกมัด */
+.svc-price {
+  display: block;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: var(--s1);
+}
+
 .svc-quote {
   font-size: var(--fs-xs);
   color: var(--ink-2);

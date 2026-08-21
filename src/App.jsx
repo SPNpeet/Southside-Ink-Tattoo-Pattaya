@@ -717,7 +717,10 @@ function App() {
                               </p>
                             )}
                             <div className="svc-foot">
-                              <span className="svc-quote">{L.services.quote}</span>
+                              <span className="svc-quote">
+                                {s.price && <strong className="svc-price">{s.price}</strong>}
+                                {L.services.quote}
+                              </span>
                               <div className="svc-actions">
                                 <button type="button" className="btn btn-line btn-sm" onClick={open}>
                                   {L.services.details}
