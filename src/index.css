@@ -37,8 +37,8 @@
   --fs-h2: clamp(23px, 3vw, 32px);
   --fs-h1: clamp(29px, 4.4vw, 50px);
 
-  --lh-tight: 1.32;
-  --lh-head: 1.38;
+  --lh-tight: 1.42;
+  --lh-head: 1.5;
   --lh-body: 1.65;
 
   --ls-tight: -0.022em;
@@ -311,7 +311,7 @@ kbd {
   flex-direction: column;
   font-weight: 600;
   font-size: var(--fs-sm);
-  line-height: 1.38;
+  line-height: 1.52;
   letter-spacing: -0.012em;
 }
 
@@ -682,11 +682,11 @@ kbd {
 
 .hero h1 {
   font-size: var(--fs-h1);
-  line-height: 1.38;
+  line-height: 1.52;
   margin-bottom: var(--s5);
   text-wrap: balance;
   overflow: visible;
-  padding-block: 0.12em;
+  padding-block: 0.18em;
 }
 
 /* ไฮไลต์ใช้พื้นหลัง ไม่ใช่เส้นใต้ เพราะสระล่างของไทย (ุ ู) เคยโดนทับ
@@ -695,10 +695,10 @@ kbd {
   font-style: normal;
   color: var(--accent-2);
   background: var(--accent-bg);
-  padding: 0.08em 0.14em;
+  padding: 0.14em 0.14em;
   margin-inline: -0.14em;
   border-radius: var(--r-xs);
-  line-height: 1.38;
+  line-height: 1.52;
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
 }
@@ -1026,6 +1026,24 @@ kbd {
   border-radius: var(--r-xs);
   background: var(--bg-3);
   color: var(--ink-2);
+}
+
+.work-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s1);
+  margin-top: var(--s3);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--accent);
+  padding-bottom: 1px;
+}
+
+.work-link:hover {
+  color: var(--accent-2);
+  border-color: var(--accent-2);
 }
 
 /* ---------------- ภาพจากงานจริง ---------------- */

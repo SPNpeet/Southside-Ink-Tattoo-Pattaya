@@ -55,7 +55,7 @@ export const L10N = {
     trust: [
       { num: '24', unit: 'ชม.', cap: 'เวลาตอบกลับเฉลี่ย (ในเวลาทำการ)' },
       { num: 'ITGC', unit: '', cap: 'ITGC · ISO 27001 · COBIT · PDPA — กรอบที่เราอิง' },
-      { num: '0', unit: 'บาท', cap: 'ค่าปรึกษา + ค่าประเมินขอบเขตงาน' },
+      { num: 'ฟรี', unit: '', cap: 'ค่าปรึกษา + ค่าประเมินขอบเขตงาน' },
       { num: '4', unit: 'งานจริง', cap: 'ที่ส่งมอบและพิสูจน์ได้ — LINE OA, เว็บ, แคตตาล็อค, คอร์ส' },
     ],
     trustLabel: 'ตัวเลขที่พิสูจน์ได้',
@@ -153,6 +153,7 @@ export const L10N = {
       head: 'ตัวอย่างงานที่ส่งมอบจริง',
       note: 'แต่ละโปรเจกต์ออกแบบตามธุรกิจของคุณ — ภาพเป็นสัญลักษณ์แทนรายละเอียดงานจริง',
       metricLabel: 'ผลลัพธ์',
+      visitLabel: 'เปิดเว็บจริง',
     },
     gallery: {
       head: 'ภาพจากงานจริง',
@@ -339,7 +340,7 @@ export const L10N = {
     trust: [
       { num: '24', unit: 'h', cap: 'Average response time (business hours)' },
       { num: 'ITGC', unit: '', cap: 'ITGC · ISO 27001 · COBIT · PDPA — our reference frameworks' },
-      { num: '0', unit: 'THB', cap: 'Consultation + scope assessment' },
+      { num: 'Free', unit: '', cap: 'Consultation + scope assessment' },
       { num: '4', unit: 'real', cap: 'projects delivered & verifiable — LINE OA, website, catalog, course' },
     ],
     trustLabel: 'Numbers you can verify',
@@ -437,6 +438,7 @@ export const L10N = {
       head: 'Work we have delivered',
       note: "Each project is tailored to the client's business — visuals are symbolic stand-ins for the actual work.",
       metricLabel: 'Result',
+      visitLabel: 'Visit live site',
     },
     gallery: {
       head: 'Photos from real work',
@@ -701,19 +703,21 @@ export const DATA = {
     works: [
       {
         title: 'เว็บแอป + SEO + ดูแล Google Ads รายเดือน — ต่อเนื่อง 1 ปี',
-        client: 'CURTAIN STORY HOME · curtainstoryhome.com',
+        client: 'CURTAIN STORY HOME · curtainstoryhome.com — เราทำเว็บ/ระบบให้ร้านม่าน (ไม่ได้เป็นร้านม่าน)',
         tags: ['Web App', 'SEO', 'Google Ads · รายเดือน'],
-        desc: 'ทำเว็บแอปร้านผ้าม่านบน curtainstoryhome.com พร้อมทำ SEO ให้ติดค้นหา และดูแล Google Ads รายเดือนให้ทั้งหมด — ลูกค้าพึงพอใจต่อสัญญายาวต่อเนื่องถึง 1 ปี',
+        desc: 'รับทำเว็บแอปร้านม่านบน curtainstoryhome.com พร้อมทำ SEO ให้ติดค้นหา และดูแล Google Ads รายเดือนให้ทั้งหมด — ปรับระบบลดต้นทุนคลิกจาก ~7 บาท เหลือ 4.66 บาท/คลิก ลูกค้าพึงพอใจต่อสัญญายาวต่อเนื่องถึง 1 ปี',
         visual: 'web',
-        metric: 'ดูแล Google Ads รายเดือนต่อเนื่อง 1 ปี · ต่อสัญญายาว',
+        metric: 'CPC 4.66 บาท จาก ~7 บาท · ดูแลรายเดือนต่อเนื่อง 1 ปี',
+        href: 'https://www.curtainstoryhome.com',
       },
       {
-        title: 'เว็บไซต์ร้านค้า — แคตตาล็อคและช่องทางติดต่อครบ',
+        title: 'เว็บไซต์ร้านค้า — โชว์ผลงานติดตั้งจริงของลูกค้าบนเว็บที่เราทำ',
         client: 'CURTAIN STORY HOME',
         tags: ['Website', 'E-commerce', 'Catalog'],
-        desc: 'เว็บร้านครบชุด — แนะนำบริการ ภาพหน้างานของลูกค้า แคตตาล็อคสินค้า และช่องทางติดต่อรวมทุกจุด (เราไม่ได้รับงานติดตั้งผ้าม่าน)',
+        desc: 'เว็บร้านครบชุดที่เราทำให้ — หน้าแรก, หมวดบริการ, และหน้าโชว์ผลงานติดตั้งจริงของทางร้าน (ภาพตัวอย่างในเว็บเป็นผลงานของลูกค้า) พร้อมช่องทางติดต่อครบทุกจุด',
         visual: 'web',
-        metric: 'หน้าร้านออนไลน์เปิด 24 ชม.',
+        metric: 'เว็บเป็นเจ้าของร้านม่าน 100% · เปิด 24 ชม.',
+        href: 'https://www.curtainstoryhome.com',
       },
       {
         title: 'LINE OA — ตอบลูกค้าและรับออเดอร์',
@@ -980,19 +984,21 @@ export const DATA = {
     works: [
       {
         title: 'Web app + SEO + monthly Google Ads — retained for 1 year',
-        client: 'CURTAIN STORY HOME · curtainstoryhome.com',
+        client: 'CURTAIN STORY HOME · curtainstoryhome.com — we built the site for the curtain store',
         tags: ['Web App', 'SEO', 'Google Ads · Monthly'],
-        desc: 'Built the curtain store web app at curtainstoryhome.com, did SEO, and ran monthly Google Ads for the client — retained for a full year.',
+        desc: 'Built the web app at curtainstoryhome.com, did SEO, and ran monthly Google Ads — cut CPC from ~7 THB to 4.66 THB, retained for a full year (we do not do curtain installation).',
         visual: 'web',
-        metric: 'Monthly Google Ads for 1 year · long-term retainer',
+        metric: 'CPC 4.66 THB from ~7 THB · 1-year retainer',
+        href: 'https://www.curtainstoryhome.com',
       },
       {
-        title: 'Store website — catalog and contact hub',
+        title: 'Store website — client portfolio on the site we built',
         client: 'CURTAIN STORY HOME',
         tags: ['Website', 'E-commerce', 'Catalog'],
-        desc: 'Full store site — services, client site photos, product catalog and every contact channel in one place (we do not do curtain installation).',
+        desc: 'Full store site we built — homepage, service sections, and a portfolio of the client’s real installation work (photos are the client’s work displayed on the site) with every contact channel.',
         visual: 'web',
-        metric: 'Online storefront open 24h',
+        metric: 'Client owns the site 100% · open 24h',
+        href: 'https://www.curtainstoryhome.com',
       },
       {
         title: 'LINE OA — auto-replies and order intake',

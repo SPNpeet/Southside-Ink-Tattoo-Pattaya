@@ -770,6 +770,11 @@ function App() {
                             ))}
                           </ul>
                         )}
+                        {w.href && (
+                          <a className="work-link" href={w.href} target="_blank" rel="noopener noreferrer">
+                            {L.work.visitLabel} <Icon name="arrow" />
+                          </a>
+                        )}
                       </div>
                     </li>
                   )
