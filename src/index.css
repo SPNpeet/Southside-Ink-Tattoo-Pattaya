@@ -37,8 +37,8 @@
   --fs-h2: clamp(23px, 3vw, 32px);
   --fs-h1: clamp(29px, 4.4vw, 50px);
 
-  --lh-tight: 1.2;
-  --lh-head: 1.32;
+  --lh-tight: 1.32;
+  --lh-head: 1.38;
   --lh-body: 1.65;
 
   --ls-tight: -0.022em;
@@ -311,7 +311,7 @@ kbd {
   flex-direction: column;
   font-weight: 600;
   font-size: var(--fs-sm);
-  line-height: 1.25;
+  line-height: 1.38;
   letter-spacing: -0.012em;
 }
 
@@ -629,7 +629,7 @@ kbd {
 .hero {
   position: relative;
   border-bottom: 1px solid var(--rule);
-  overflow: hidden;
+  overflow: clip;
 }
 
 /* เส้นตารางจาง ๆ ให้ความรู้สึกเครื่องมือวิศวกรรม แต่เบามากจนไม่รบกวนการอ่าน */
@@ -682,21 +682,23 @@ kbd {
 
 .hero h1 {
   font-size: var(--fs-h1);
-  line-height: var(--lh-tight);
+  line-height: 1.38;
   margin-bottom: var(--s5);
   text-wrap: balance;
+  overflow: visible;
+  padding-block: 0.12em;
 }
 
-/* ไฮไลต์ใช้พื้นหลัง ไม่ใช่เส้นใต้ เพราะสระล่างของไทย (ุ ู) จะโดนทับ
-   clone ให้แต่ละบรรทัดได้พื้นหลังของตัวเองเวลาข้อความตัดบรรทัด
-   มุมโค้งเล็กและสีอ่อน เพื่อไม่ให้ดูเป็นป้ายโฆษณา */
+/* ไฮไลต์ใช้พื้นหลัง ไม่ใช่เส้นใต้ เพราะสระล่างของไทย (ุ ู) เคยโดนทับ
+   เพิ่ม padding แนวตั้งให้สระบน-ล่างของไทยไม่โดนตัด — clone ให้แต่ละบรรทัดได้พื้นหลังของตัวเอง */
 .hero h1 em {
   font-style: normal;
   color: var(--accent-2);
   background: var(--accent-bg);
-  padding: 0.02em 0.14em;
+  padding: 0.08em 0.14em;
   margin-inline: -0.14em;
   border-radius: var(--r-xs);
+  line-height: 1.38;
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
 }
