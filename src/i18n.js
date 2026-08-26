@@ -11,9 +11,9 @@ export const L10N = {
   th: {
     meta: {
       lang: 'th',
-      title: 'Sudo Command — ยิงแอด เว็บไซต์ LINE OA Automation วางระบบหลังบ้าน จบในทีมเดียว',
+      title: 'Sudo Command — รับยิงแอด รับทำเว็บไซต์ LINE OA SEO Google Ads | วางระบบหลังบ้าน จบในทีมเดียว',
       description:
-        'Sudo Command — อดีต IT Auditor บริษัทมหาชน รับยิงแอด สอนยิงแอด ทำเว็บไซต์ LINE OA Chatbot และวางระบบหลังบ้าน พร้อมตรวจความพร้อม AI และ PDPA สำหรับองค์กร ตัวเลขทุกตัวตรวจสอบได้',
+        'Sudo Command — อดีต IT Auditor บริษัทมหาชน รับยิงแอด สอนยิงแอด รับทำเว็บไซต์ SEO LINE OA Chatbot Google Ads และวางระบบหลังบ้าน พร้อมตรวจความพร้อม AI และ PDPA สำหรับองค์กร ตัวเลขทุกตัวตรวจสอบได้',
     },
     ui: {
       brandSub: 'ระบบที่วัดผลได้ ตรวจสอบย้อนหลังได้',
@@ -295,9 +295,9 @@ export const L10N = {
   en: {
     meta: {
       lang: 'en',
-      title: 'Sudo Command — Ads, Websites, LINE OA & Automation in One Team',
+      title: 'Sudo Command — Google Ads, Websites, LINE OA SEO & Automation in One Team',
       description:
-        'Sudo Command — former IT auditor at a listed company. Ads & ads training, websites, LINE OA chatbots and back-office automation, plus AI & PDPA readiness for organizations. Every number is auditable.',
+        'Sudo Command — former IT auditor at a listed company. Google Ads & training, websites, SEO, LINE OA chatbots and back-office automation, plus AI & PDPA readiness for organizations. Every number is auditable.',
     },
     ui: {
       brandSub: 'Systems you can measure & audit',
