@@ -331,8 +331,9 @@ kbd {
   display: inline-flex;
   align-items: center;
   gap: var(--s1);
-  height: var(--h-sm);
-  padding: 0 var(--s3);
+  min-height: var(--h-sm);
+  height: auto;
+  padding: 6px var(--s3);
   font-family: inherit;
   font-size: var(--fs-sm);
   text-decoration: none;
@@ -2315,10 +2316,11 @@ kbd {
   font-weight: 700;
   color: var(--ink);
   letter-spacing: -0.02em;
-  line-height: 1;
+  line-height: 1.15;
   display: inline-flex;
   align-items: baseline;
   gap: 4px;
+  padding-block: 2px;
 }
 
 .trust-unit {
