@@ -702,6 +702,15 @@ export const DATA = {
     ],
     works: [
       {
+        title: 'เว็บไซต์บริษัทตรวจบ้าน + ระบบจัดการราคา + SEO',
+        client: 'ZING STAR ENGINEERING · zingstarengineering.com — เราทำเว็บใหม่ให้ (แทนเว็บเก่าของผู้ดูแลรายก่อน)',
+        tags: ['Website', 'SEO', 'Google Search', 'Admin'],
+        desc: 'ทำเว็บใหม่ zingstarengineering.com ให้บริษัทตรวจบ้าน Zing Star แทนเว็บเก่า zing-star-inspector.pages.dev — ทำ SEO, ติด GA4/Search Console, และทำระบบหลังบ้านให้เจ้าของแก้ราคาค่าบริการเองได้ที่ /admin/ ไม่ต้องรอคนทำเว็บ พร้อมคู่มือส่งมอบให้ทีมใหม่ทำต่อได้เลย',
+        visual: 'web',
+        metric: 'เว็บใหม่ + SEO + GA4/Search Console · เจ้าของแก้ราคาเองได้',
+        href: 'https://zingstarengineering.com',
+      },
+      {
         title: 'เว็บแอป + SEO + ดูแล Google Ads รายเดือน — ต่อเนื่อง 1 ปี',
         client: 'CURTAIN STORY HOME · curtainstoryhome.com — เราทำเว็บ/ระบบให้ร้านม่าน (ไม่ได้เป็นร้านม่าน)',
         tags: ['Web App', 'SEO', 'Google Ads · รายเดือน'],
@@ -982,6 +991,15 @@ export const DATA = {
       },
     ],
     works: [
+      {
+        title: 'House inspection website + pricing admin + SEO',
+        client: 'ZING STAR ENGINEERING · zingstarengineering.com — we rebuilt the site (replaced old admin)',
+        tags: ['Website', 'SEO', 'Google Search', 'Admin'],
+        desc: 'Rebuilt zingstarengineering.com for Zing Star house inspection — SEO, GA4/Search Console, and an admin at /admin/ where the owner edits prices without touching code. Handover docs included.',
+        visual: 'web',
+        metric: 'New site + SEO + GA4/Search Console · owner edits prices',
+        href: 'https://zingstarengineering.com',
+      },
       {
         title: 'Web app + SEO + monthly Google Ads — retained for 1 year',
         client: 'CURTAIN STORY HOME · curtainstoryhome.com — we built the site for the curtain store',
