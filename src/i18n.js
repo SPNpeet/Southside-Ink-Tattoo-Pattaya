@@ -157,10 +157,11 @@ export const L10N = {
     },
     gallery: {
       head: 'ภาพจากงานจริง',
-      note: 'ภาพหน้างานของลูกค้าที่เราได้ทำเว็บแอป + SEO + ดูแล Google Ads ให้ — ไม่ใช่ภาพสต็อก',
+      note: 'เว็บที่เราทำให้ลูกค้า — ภาพแคปจากเว็บจริง ไม่ใช่ภาพสต็อก',
       items: [
-        { src: '/sudo-command/gallery/work-curtain-1.jpg', title: 'เว็บแอป + SEO + Google Ads', cap: 'CURTAIN STORY HOME — ดูแลรายเดือนต่อเนื่อง 1 ปี' },
-        { src: '/sudo-command/gallery/work-curtain-2.jpg', title: 'เว็บแอป + SEO + Google Ads', cap: 'CURTAIN STORY HOME — ดูแลรายเดือนต่อเนื่อง 1 ปี' },
+        { src: '/sudo-command/gallery/work-zingstar.jpg', title: 'เว็บ Zing Star Inspector', cap: 'zingstarengineering.com — เว็บใหม่ + SEO + ระบบจัดการราคา' },
+        { src: '/sudo-command/gallery/work-curtain-web.jpg', title: 'เว็บ CURTAIN STORY HOME', cap: 'curtainstoryhome.com — เว็บร้านม่าน + SEO + Google Ads 1 ปี' },
+        { src: '/sudo-command/gallery/work-curtain-1.jpg', title: 'เว็บโชว์ผลงานลูกค้า', cap: 'ผลงานติดตั้งจริงของร้านม่านที่แสดงบนเว็บที่เราทำ' },
         { src: '/sudo-command/gallery/work-real-3.jpg', title: 'เบื้องหลังการทำงาน', cap: 'ดูแลแคมเปญและวัดผลจริงทุกเดือน' },
       ],
     },
@@ -442,10 +443,11 @@ export const L10N = {
     },
     gallery: {
       head: 'Photos from real work',
-      note: 'Client site photos from the project where we delivered the web app + SEO + monthly Google Ads — not stock images',
+      note: 'Screenshots from the live sites we built — not stock images',
       items: [
-        { src: '/sudo-command/gallery/work-curtain-1.jpg', title: 'Web app + SEO + Google Ads', cap: 'CURTAIN STORY HOME — monthly care for 1 year' },
-        { src: '/sudo-command/gallery/work-curtain-2.jpg', title: 'Web app + SEO + Google Ads', cap: 'CURTAIN STORY HOME — monthly care for 1 year' },
+        { src: '/sudo-command/gallery/work-zingstar.jpg', title: 'Zing Star Inspector site', cap: 'zingstarengineering.com — new site + SEO + pricing admin' },
+        { src: '/sudo-command/gallery/work-curtain-web.jpg', title: 'CURTAIN STORY HOME site', cap: 'curtainstoryhome.com — store site + SEO + 1-year Google Ads' },
+        { src: '/sudo-command/gallery/work-curtain-1.jpg', title: 'Client portfolio on the site', cap: 'Real installation work displayed on the site we built' },
         { src: '/sudo-command/gallery/work-real-3.jpg', title: 'Behind the scenes', cap: 'Monthly campaign care and reporting' },
       ],
     },

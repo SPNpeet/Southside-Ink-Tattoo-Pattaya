@@ -683,11 +683,11 @@ kbd {
 
 .hero h1 {
   font-size: var(--fs-h1);
-  line-height: 1.52;
+  line-height: 1.65;
   margin-bottom: var(--s5);
   text-wrap: balance;
   overflow: visible;
-  padding-block: 0.18em;
+  padding-block: 0;
 }
 
 /* ไฮไลต์ใช้พื้นหลัง ไม่ใช่เส้นใต้ เพราะสระล่างของไทย (ุ ู) เคยโดนทับ
@@ -696,10 +696,10 @@ kbd {
   font-style: normal;
   color: var(--accent-2);
   background: var(--accent-bg);
-  padding: 0.14em 0.14em;
+  padding: 0 0.14em;
   margin-inline: -0.14em;
   border-radius: var(--r-xs);
-  line-height: 1.52;
+  line-height: inherit;
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
 }
