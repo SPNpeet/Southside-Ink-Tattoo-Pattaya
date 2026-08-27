@@ -161,8 +161,8 @@ export const L10N = {
       items: [
         { src: '/sudo-command/gallery/work-zingstar.jpg', title: 'เว็บ Zing Star Inspector', cap: 'zingstarengineering.com — เว็บใหม่ + SEO + ระบบจัดการราคา' },
         { src: '/sudo-command/gallery/work-curtain-web.jpg', title: 'เว็บ CURTAIN STORY HOME', cap: 'curtainstoryhome.com — เว็บร้านม่าน + SEO + Google Ads 1 ปี' },
-        { src: '/sudo-command/gallery/work-curtain-1.jpg', title: 'เว็บโชว์ผลงานลูกค้า', cap: 'ผลงานติดตั้งจริงของร้านม่านที่แสดงบนเว็บที่เราทำ' },
-        { src: '/sudo-command/gallery/work-real-3.jpg', title: 'เบื้องหลังการทำงาน', cap: 'ดูแลแคมเปญและวัดผลจริงทุกเดือน' },
+        { src: '/sudo-command/gallery/work-curtain-1.jpg', title: 'ผลงานลูกค้าบนเว็บที่เราทำ', cap: 'ภาพติดตั้งจริงของร้าน CURTAIN STORY HOME ที่เว็บเราโชว์ให้ลูกค้าเลือก' },
+        { src: '/sudo-command/gallery/work-real-3.jpg', title: 'สอนใช้ระบบ + ประชุมออนไลน์', cap: 'ลงดูหน้างาน/สอนทีมลูกค้าใช้ระบบ และประชุมออนไลน์อัปเดตการใช้งาน' },
       ],
     },
     testimonials: {
@@ -447,8 +447,8 @@ export const L10N = {
       items: [
         { src: '/sudo-command/gallery/work-zingstar.jpg', title: 'Zing Star Inspector site', cap: 'zingstarengineering.com — new site + SEO + pricing admin' },
         { src: '/sudo-command/gallery/work-curtain-web.jpg', title: 'CURTAIN STORY HOME site', cap: 'curtainstoryhome.com — store site + SEO + 1-year Google Ads' },
-        { src: '/sudo-command/gallery/work-curtain-1.jpg', title: 'Client portfolio on the site', cap: 'Real installation work displayed on the site we built' },
-        { src: '/sudo-command/gallery/work-real-3.jpg', title: 'Behind the scenes', cap: 'Monthly campaign care and reporting' },
+        { src: '/sudo-command/gallery/work-curtain-1.jpg', title: 'Client portfolio on the site we built', cap: 'Real curtain installation photos displayed on the site for customers to browse' },
+        { src: '/sudo-command/gallery/work-real-3.jpg', title: 'Training + online review', cap: 'On-site walkthrough / team training and online check-ins on how to use the system' },
       ],
     },
     testimonials: {
