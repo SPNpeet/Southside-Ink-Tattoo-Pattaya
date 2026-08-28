@@ -9,20 +9,18 @@ const SERVICES = [
   { id: 'care', tag: 'ดูแล', title: 'ดูแลหลังสัก & เจาะ', desc: 'ฟิล์มกันน้ำ ครีมดูแล คำแนะนำแผลแบบละเอียด', price: 'ฟรี', time: 'รับประกันเติม*', icon: '✦' },
 ]
 
-const PORTFOLIO = [
-  { id: 1, tag: 'Fine line', label: 'มินิมอลแขน', h: 'tall' },
-  { id: 2, tag: 'Blackwork', label: 'ถมดำหลังมือ' },
-  { id: 3, tag: 'Color', label: 'ดอกไม้สี' },
-  { id: 4, tag: 'Minimal', label: 'ตัวอักษร', h: 'tall' },
-  { id: 5, tag: 'Japanese', label: 'คาร์พญี่ปุ่น' },
-  { id: 6, tag: 'Cover up', label: 'สักทับรอยเก่า' },
-  { id: 7, tag: 'Fine line', label: 'ลายคู่' },
-  { id: 8, tag: 'Lettering', label: 'ชื่อ + วันที่' },
-  { id: 9, tag: 'Color', label: 'งานสีน้ำ' },
-  { id: 10, tag: 'Minimal', label: 'สัญลักษณ์' },
-  { id: 11, tag: 'Blackwork', label: 'Tribal เท่' },
-  { id: 12, tag: 'Fine line', label: 'ดอกไม้เส้นเล็ก', h: 'wide' },
+const WORKS = [
+  "1juqLfCJ8rMus2TWOjrvMi5-ScWqTFQ2i","1Y_UHXZKVVa-BeNGie6VZ1bZDsTKvaaEP","1AakBm6zRlxdU18-O0OZMsZBtXJec4cjy","1CJcz60zMz2FAsiTp8peXexBvckRR2Sje","1mvqnMOsuKOkkez-v_LwRXjESalyyQM6u","1wez5GHlEmSGPSGOFSGKv7TjZb33w2ay6","1JE7RvJS9z4mJnac6FTv7IbzNKl0xMgtT","18Sxx5C7vxdBdD1Vx2M7rB-dVeSmdf4wT","1UqICiJMIogflvg49LlN0aY5XIls7-9-u","1wRKLneJwNOqA6cMw-YgmfrQDJ2wod9oU","1p2t7M8TjgttoPjFLLZJQddmntVv127fK","1s3_oTYl2dsWPa-L6-04U3Ujq-B0e7LPW","1lj9O7B5YVODclQbytPDYdsDdWEx6FhbY","12b6gAAIKsFg8fYAqhGjlaTotcCO5P-LW","1mRemjlWbFPKVmoHxE8l2-ILXNiTpQEN6","1bZ_tiEF_w5g2CpCYvBFSQmJ7InH64zFi","1d55chDA5fq2GiW-OVFcik_Fb7uZFd_3u","1RGABkEBV_NKAzrhmSoILBIb0ntfMC4ka","1MmTWMflnMW1UBas_QM0MTffrBEle_YkD","1wabeadflb2uqkl6vCmUe00_yxcDdYMcN","1hwQi9k3-vuqcZp_BR0qasYe48ohPDSKY","12mQYgLHfDgodOQ49HncpDDU2UmfzE7Io","1eO87gXAGeA8phrPA_BGElyeyFxztsD3C","1L03vX6Gtgn4btn21SGZmbhFYj7doDoU6","1ABhsZCWhnAzmQk1Tc1HURcAJ67fvxyJb","1cl-hCX2gP8I9J31-Vxb8ZMoZOUgvJY7N","1KrAzbfZqZnnePKlZ-xRRty__wqg1Luxv","1jZ0ux5JtJYCeJpj7IZZufJ2B1Z6VrJ2W","1GUYMDjO5cKVRrWQiRF4cx79_4TTQxav8","1bf22cCZ8nkOQj4DTKkWehOqVqmDGwqZ6",
 ]
+const SHOP_IMAGES = ["1uZSA_1RswqRn_pAMW9wQx62ORcIEG1_Y","1WyQ_jfm05gZY_ihhjDCIWuUS7LL65524","1QsuQgVxlhEjVYXTBZJGdULz_bf4M9cot","1G1AC0O5Ac3Ys5LvoL0bgUMjXI5bGyJdn"]
+const TAGS = ["Fine line","Blackwork","Color","Minimal","Japanese","Cover up"]
+const PORTFOLIO = WORKS.map((id, i) => ({
+  id,
+  src: `${import.meta.env.BASE_URL}images/works/${id}.jpg`,
+  tag: TAGS[i % TAGS.length],
+  label: `ผลงาน ${i + 1}`,
+  h: i === 0 ? 'tall' : i === 11 ? 'wide' : i % 7 === 0 ? 'tall' : '',
+}))
 
 const STEPS = [
   { n: '01', t: 'ส่งแบบ', d: 'ทักเพจ/WhatsApp ส่งรูปที่อยากได้ บอกตำแหน่ง ขนาด' },
@@ -189,7 +187,7 @@ export default function App() {
             <div className="hero-visual">
               <div className="visual-stack">
                 <div className="visual-card main">
-                  <img src="https://images.unsplash.com/photo-1598371839696-5c5bb00bdc28?w=900&q=80&auto=format&fit=crop" alt="หน้าร้าน Southside Ink เหลืองน้ำเงิน" />
+                  <img src={`${import.meta.env.BASE_URL}images/works/${SHOP_IMAGES[0]}.jpg`} alt="หน้าร้าน Southside Ink เหลืองน้ำเงิน" />
                   <div className="visual-badge">
                     <strong>SOUTHSIDE INK PATTAYA</strong>
                     <span>EXPERT TATTOOING · EST. 2023</span>
@@ -197,7 +195,7 @@ export default function App() {
                   </div>
                 </div>
                 <div className="visual-card mini">
-                  <img src="https://images.unsplash.com/photo-1611501275019-9b5cda994e8d?w=600&q=80&auto=format&fit=crop" alt="ผลงานสัก fine line" />
+                  <img src={`${import.meta.env.BASE_URL}images/works/${WORKS[0]}.jpg`} alt="ผลงานสัก fine line" />
                   <span className="mini-label">Fine line · เส้นเล็ก 0.3mm</span>
                 </div>
                 <div className="visual-pattern" aria-hidden />
@@ -252,7 +250,7 @@ export default function App() {
             <div>
               <div className="cmd">— Portfolio · ผลงานจริงจากร้าน</div>
               <h2>ดูใกล้ๆ <em>งานคมแค่ไหน</em></h2>
-              <p>รูปจาก Drive โฟลเดอร์ <a href="https://drive.google.com/drive/folders/1bVeStwNcYRf-1hyKugyKKX5Eh-BdjOsR?usp=drive_link" target="_blank" rel="noreferrer">ผลงาน / รีวิว / รูปร้าน</a> — ตอนนี้โชว์ตัวอย่าง แตะเพื่อขยาย</p>
+              <p>ผลงานจริงทั้งหมดจากร้าน Southside Ink — แตะเพื่อขยายดูชัดๆ</p>
             </div>
             <div className="filter-row" role="tablist" aria-label="กรองผลงาน">
               {filters.map(f => (
@@ -265,7 +263,7 @@ export default function App() {
             {filtered.map((it, idx) => (
               // eslint-disable-next-line jsx-a11y/click-events-have-key-events
               <div key={`${it.id}-${it.tag}`} className={`tile ${it.h || ''}`} onClick={() => setLightbox(idx)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && setLightbox(idx)}>
-                <img src={`https://picsum.photos/seed/south${it.id}${it.tag}/700/700`} alt={it.label} loading="lazy" />
+                <img src={it.src} alt={it.label} loading="lazy" />
                 <div className="tile-meta"><span>{it.tag}</span><b>{it.label}</b></div>
                 <span className="tile-zoom">⤢ ขยาย</span>
               </div>
@@ -273,9 +271,8 @@ export default function App() {
           </div>
 
           <div className="portfolio-cta">
-            <span>อยากเห็นชัดกว่านี้?</span>
-            <a className="btn btn-ghost" href="https://www.facebook.com/ploytattoopt" target="_blank" rel="noreferrer">ดูใน Facebook เพจ →</a>
-            <a className="btn btn-primary" href="https://drive.google.com/drive/folders/1bVeStwNcYRf-1hyKugyKKX5Eh-BdjOsR?usp=drive_link" target="_blank" rel="noreferrer">เปิด Drive รูปต้นฉบับ</a>
+            <span>ชอบสไตล์ไหน? ส่งแบบมาประเมินฟรีได้เลย</span>
+            <a className="btn btn-primary" href="https://www.facebook.com/ploytattoopt" target="_blank" rel="noreferrer">ดูผลงานเพิ่มใน Facebook →</a>
           </div>
         </section>
 
@@ -464,7 +461,7 @@ export default function App() {
           <button className="lb-close" aria-label="ปิด" onClick={() => setLightbox(null)}>×</button>
           <button className="lb-prev" aria-label="ก่อนหน้า" onClick={() => setLightbox(v => (v - 1 + filtered.length) % filtered.length)}>‹</button>
           <div className="lb-main">
-            <img src={`https://picsum.photos/seed/south${filtered[lightbox].id}${filtered[lightbox].tag}/1200/1200`} alt={filtered[lightbox].label} />
+            <img src={filtered[lightbox].src} alt={filtered[lightbox].label} />
             <div className="lb-caption"><span>{filtered[lightbox].tag}</span> {filtered[lightbox].label} · {lightbox + 1}/{filtered.length}</div>
           </div>
           <button className="lb-next" aria-label="ถัดไป" onClick={() => setLightbox(v => (v + 1) % filtered.length)}>›</button>
