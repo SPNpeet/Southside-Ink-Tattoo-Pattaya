@@ -1,346 +1,483 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 const SERVICES = [
-  {
-    tag: 'Most Popular',
-    title: 'Fine Line & Minimal',
-    desc: 'เส้นเล็ก คมกริบ ลายมินิมอล ตัวอักษร สัญลักษณ์ เหมาะกับรอยแรก',
-    price: 'เริ่ม 1,000฿',
-    icon: '◐',
-  },
-  {
-    tag: 'Color',
-    title: 'งานสีสด คัลเลอร์',
-    desc: 'สีแน่น สดนาน เทคนิคลงสีเนียน ไม่ดรอปไว',
-    price: 'เริ่ม 1,500฿',
-    icon: '◎',
-  },
-  {
-    tag: 'Blackwork',
-    title: 'Blackwork / Tribal',
-    desc: 'ดำเข้ม ดุดัน ลายใหญ่ งานถมดำ งานเผ่า',
-    price: 'เริ่ม 1,500฿',
-    icon: '⬢',
-  },
-  {
-    tag: 'Cover Up',
-    title: 'แก้ลาย / สักทับ',
-    desc: 'แก้รอยสักพัง สักทับให้ใหม่ ปรับแบบฟรีก่อนสัก',
-    price: 'ประเมินฟรี',
-    icon: '⬣',
-  },
-  {
-    tag: 'Japanese',
-    title: 'Japanese / Old School',
-    desc: 'ลายญี่ปุ่น ปลาคาร์พ มังกร ดอกโบตั๋น เส้นแข็งแรง',
-    price: 'เริ่ม 2,000฿',
-    icon: '❖',
-  },
-  {
-    tag: 'Piercing',
-    title: 'เจาะ & ดูแลหลังสัก',
-    desc: 'ให้คำปรึกษาดูแลแผล ผลิตภัณฑ์ดูแลหลังสักครบ',
-    price: 'สอบถามได้',
-    icon: '✦',
-  },
+  { id: 'fine', tag: 'ยอดนิยม', title: 'Fine Line & Minimal', desc: 'เส้นเล็ก 0.3mm คมกริบ ตัวอักษร สัญลักษณ์ ลายแรกไม่เจ็บมาก', price: 'เริ่ม 1,000฿', time: '30–60 นาที', icon: '⌖' },
+  { id: 'color', tag: 'สีสด', title: 'งานสีสด คัลเลอร์', desc: 'ลงสีแน่น ไม่ดรอป เทคนิคแพ็คสีเนียน สีนำเข้าปลอดภัย', price: 'เริ่ม 1,500฿', time: '60–120 นาที', icon: '◉' },
+  { id: 'black', tag: 'เข้ม', title: 'Blackwork / Tribal', desc: 'งานดำดุดัน ถมดำ Tribal Maori งานใหญ่คุมโทนเท่', price: 'เริ่ม 1,500฿', time: '45–180 นาที', icon: '⬢' },
+  { id: 'cover', tag: 'แก้ไข', title: 'แก้ลาย / สักทับ', desc: 'แก้รอยพัง คิดแบบใหม่ให้ฟรี ปรับจนชอบค่อยสัก', price: 'ประเมินฟรี', time: 'ปรึกษาฟรี', icon: '⬣' },
+  { id: 'japan', tag: 'ญี่ปุ่น', title: 'Japanese / Old School', desc: 'ปลาคาร์พ มังกร ดอกโบตั๋น เส้นแข็งแรง เงาสวย', price: 'เริ่ม 2,000฿', time: '90–240 นาที', icon: '❖' },
+  { id: 'care', tag: 'ดูแล', title: 'ดูแลหลังสัก & เจาะ', desc: 'ฟิล์มกันน้ำ ครีมดูแล คำแนะนำแผลแบบละเอียด', price: 'ฟรี', time: 'รับประกันเติม*', icon: '✦' },
 ]
 
-const GALLERY = [
-  { id: 1, tag: 'Fine line', span: 'featured' },
-  { id: 2, tag: 'Blackwork' },
-  { id: 3, tag: 'Color' },
-  { id: 4, tag: 'Minimal' },
-  { id: 5, tag: 'Japanese' },
-  { id: 6, tag: 'Cover up' },
-  { id: 7, tag: 'Lettering' },
+const PORTFOLIO = [
+  { id: 1, tag: 'Fine line', label: 'มินิมอลแขน', h: 'tall' },
+  { id: 2, tag: 'Blackwork', label: 'ถมดำหลังมือ' },
+  { id: 3, tag: 'Color', label: 'ดอกไม้สี' },
+  { id: 4, tag: 'Minimal', label: 'ตัวอักษร', h: 'tall' },
+  { id: 5, tag: 'Japanese', label: 'คาร์พญี่ปุ่น' },
+  { id: 6, tag: 'Cover up', label: 'สักทับรอยเก่า' },
+  { id: 7, tag: 'Fine line', label: 'ลายคู่' },
+  { id: 8, tag: 'Lettering', label: 'ชื่อ + วันที่' },
+  { id: 9, tag: 'Color', label: 'งานสีน้ำ' },
+  { id: 10, tag: 'Minimal', label: 'สัญลักษณ์' },
+  { id: 11, tag: 'Blackwork', label: 'Tribal เท่' },
+  { id: 12, tag: 'Fine line', label: 'ดอกไม้เส้นเล็ก', h: 'wide' },
+]
+
+const STEPS = [
+  { n: '01', t: 'ส่งแบบ', d: 'ทักเพจ/WhatsApp ส่งรูปที่อยากได้ บอกตำแหน่ง ขนาด' },
+  { n: '02', t: 'ออกแบบ & ตีราคา', d: 'วาดแบบให้ดู ปรับจนถูกใจ บอกราคาชัดเจนก่อนเริ่ม' },
+  { n: '03', t: 'สักจริง', d: 'เข็มใหม่แกะต่อหน้า ยาชา/พักได้ มือเบา คุยง่าย ไทย/อังกฤษ' },
+  { n: '04', t: 'ดูแลหลังสัก', d: 'สอนล้างแผล ฟิล์ม/ครีม มีนัดเติมฟรีตามเงื่อนไข' },
 ]
 
 const REVIEWS = [
-  { name: 'Anna M.', text: 'งานเนี๊ยบมาก พี่ช่างใส่ใจรายละเอียด แนะนำดี สะอาด ปลอดภัย ประทับใจสุดๆ', star: 5 },
-  { name: 'Mark T.', text: 'Best tattoo in Pattaya! Clean shop, great artist, fair price. Will come again.', star: 5 },
-  { name: 'คุณฟ้า', text: 'สักครั้งแรกไม่เจ็บอย่างที่คิด ช่างมือเบา อธิบายดูแลหลังสักละเอียดมาก 5 ดาวไปเลยค่ะ', star: 5 },
+  { name: 'Anna M. · UK', text: 'งานเนี๊ยบมาก พี่พลอยใส่ใจมาก สะอาด ปลอดภัย แนะนำดีสุดๆ 5 ดาวเต็ม', date: '2 สัปดาห์ที่แล้ว' },
+  { name: 'Mark T. · Australia', text: 'Best tattoo in Pattaya! Clean, pro, fair price. Done fine line script perfect.', date: 'เมื่อวาน' },
+  { name: 'คุณฟ้า · กรุงเทพ', text: 'สักครั้งแรกไม่เจ็บอย่างที่คิด ช่างมือเบา อธิบายดูแลละเอียด กลับมาซ้ำแน่นอนค่ะ', date: '3 วันที่แล้ว' },
+  { name: 'Lisa K. · Germany', text: 'Cover up old tattoo — looks brand new! Design was adjusted 3 times until perfect.', date: '1 สัปดาห์ที่แล้ว' },
+  { name: 'คุณเจมส์ · พัทยา', text: 'ราคาชัดเจน ไม่บวกเพิ่ม ทำตรงปก ใกล้วอล์กกิ้งสะดวกมาก Walk-in ได้เลย', date: '5 วันที่แล้ว' },
 ]
 
-function App() {
-  const [menuOpen, setMenuOpen] = useState(false)
-  const [activeFilter, setActiveFilter] = useState('ทั้งหมด')
+const FAQS = [
+  { q: 'เจ็บไหม? สักครั้งแรกต้องเตรียมอะไร', a: 'เจ็บแบบแสบๆ ทนได้ ยิ่งเส้นเล็กยิ่งเจ็บน้อย นอนพักให้พอ งดแอลกอฮอล์ 24 ชม. กินข้าวมาก่อนสักได้' },
+  { q: 'ราคาเท่าไหร่ คิดยังไง', a: 'Fine line เริ่ม 1,000฿ งานสี/ดำ เริ่ม 1,500฿ ส่งแบบมาให้ประเมินฟรี บอกราคาก่อนเริ่ม ไม่บวกหน้างาน' },
+  { q: 'ใช้เวลากี่นาที ต้องจองไหม', a: 'งานเล็ก 30–60 นาที งานกลาง 1–2 ชม. แนะนำจองล่วงหน้า 1 วัน แต่ Walk-in ได้ถึง 20:00 ค่ะ' },
+  { q: 'เข็มสะอาดไหม แพ้สีไหม', a: 'เข็มใหม่แกะต่อหน้า ถุงมือ/อุปกรณ์ฆ่าเชื้อมาตรฐานโรงพยาบาล สีนำเข้า ปลอดภัย มีทดสอบแพ้ได้' },
+  { q: 'ดูแลหลังสักยังไง', a: 'ล้างน้ำเกลือ ทาครีมบางๆ ติดฟิล์ม 3 วัน งดว่ายน้ำ/แดดจัด 2 สัปดาห์ มีใบแนะนำให้กลับบ้าน' },
+]
 
-  const scrollTo = (id) => {
-    setMenuOpen(false)
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
-  }
+function useReveal() {
+  const ref = useRef(null)
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    el.style.opacity = '0'
+    el.style.transform = 'translateY(14px)'
+    el.style.transition = 'opacity .6s ease, transform .6s ease'
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          el.style.opacity = '1'
+          el.style.transform = 'none'
+          io.disconnect()
+        }
+      })
+    }, { threshold: 0.12 })
+    io.observe(el)
+    const t = setTimeout(() => { el.style.opacity = '1'; el.style.transform = 'none' }, 1200)
+    return () => { io.disconnect(); clearTimeout(t) }
+  }, [])
+  return ref
+}
+
+export default function App() {
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [filter, setFilter] = useState('ทั้งหมด')
+  const [lightbox, setLightbox] = useState(null)
+  const [toast, setToast] = useState('')
+  const [openFaq, setOpenFaq] = useState(0)
+  const [drawer, setDrawer] = useState(false)
+  const [active, setActive] = useState('top')
+  const [reviewIdx, setReviewIdx] = useState(0)
+  const heroRef = useReveal()
+  const svcRef = useReveal()
+  const portRef = useReveal()
 
   const filters = ['ทั้งหมด', 'Fine line', 'Blackwork', 'Color', 'Minimal']
 
+  const scrollTo = (id) => {
+    setMenuOpen(false)
+    setDrawer(false)
+    const el = document.getElementById(id)
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    else window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  const copyTel = async (num) => {
+    try { await navigator.clipboard.writeText(num); setToast(`คัดลอก ${num} แล้ว`); setTimeout(() => setToast(''), 2000) } catch { window.location.href = `tel:${num}` }
+  }
+
+  useEffect(() => {
+    const ids = ['top', 'services', 'works', 'process', 'reviews', 'contact']
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) setActive(e.target.id) })
+    }, { rootMargin: '-50% 0px -50% 0px', threshold: 0 })
+    ids.forEach(id => { const el = document.getElementById(id); if (el) obs.observe(el) })
+    return () => obs.disconnect()
+  }, [])
+
+  const filtered = PORTFOLIO.filter(p => filter === 'ทั้งหมด' || p.tag === filter)
+
+  useEffect(() => {
+    if (lightbox === null) return
+    const onKey = (e) => {
+      if (e.key === 'Escape') setLightbox(null)
+      if (e.key === 'ArrowRight') setLightbox(v => (v + 1) % filtered.length)
+      if (e.key === 'ArrowLeft') setLightbox(v => (v - 1 + filtered.length) % filtered.length)
+    }
+    window.addEventListener('keydown', onKey)
+    document.body.style.overflow = 'hidden'
+    return () => { window.removeEventListener('keydown', onKey); document.body.style.overflow = '' }
+  }, [lightbox, filtered.length])
+
   return (
     <>
+      <div className="marquee" aria-hidden>
+        <div className="marquee-track">
+          {Array.from({ length: 8 }).map((_, i) => (
+            <span key={i}> WALK-IN WELCOME ✦ FREE DESIGN ✦ STERILE NEEDLE EVERY TIME ✦ 5.0 ★ 43 REVIEWS ✦ OPEN 13:00–22:00 ✦ </span>
+          ))}
+        </div>
+      </div>
+
       <header className="nav">
-        <a className="logo" href="#top" onClick={(e) => { e.preventDefault(); scrollTo('top') }}>
-          <span className="logo-mark">SOUTHSIDE</span> <span className="logo-ink">INK</span> <span className="logo-sub">PATTAYA</span>
-        </a>
-        <nav className={`nav-links ${menuOpen ? 'open' : ''}`}>
-          <a href="#works" onClick={(e) => { e.preventDefault(); scrollTo('works') }}>ผลงาน</a>
-          <a href="#services" onClick={(e) => { e.preventDefault(); scrollTo('services') }}>บริการ</a>
-          <a href="#artists" onClick={(e) => { e.preventDefault(); scrollTo('artists') }}>ช่างสัก</a>
-          <a href="#reviews" onClick={(e) => { e.preventDefault(); scrollTo('reviews') }}>รีวิว</a>
-          <a href="#contact" onClick={(e) => { e.preventDefault(); scrollTo('contact') }}>ติดต่อ</a>
-          <a className="btn btn-primary nav-cta" href="https://www.facebook.com/ploytattoopt" target="_blank" rel="noreferrer">จองคิว</a>
-        </nav>
-        <button className="menu-toggle" aria-label="เมนู" onClick={() => setMenuOpen(v => !v)}>☰</button>
+        <div className="nav-inner">
+          <a className="logo" href="#top" onClick={(e) => { e.preventDefault(); scrollTo('top') }}>
+            <span className="logo-badge">S</span>
+            <span className="logo-text"><b>SOUTHSIDE</b> <em>INK</em> <small>PATTAYA · EST.2023</small></span>
+          </a>
+          <nav className={`nav-links ${menuOpen ? 'open' : ''}`}>
+            {[
+              ['services', 'บริการ & ราคา'],
+              ['works', 'ผลงาน'],
+              ['process', 'ขั้นตอน'],
+              ['reviews', 'รีวิว'],
+              ['contact', 'แผนที่'],
+            ].map(([id, label]) => (
+              <a key={id} href={`#${id}`} className={active === id ? 'is-active' : ''} onClick={(e) => { e.preventDefault(); scrollTo(id) }}>{label}</a>
+            ))}
+            <a className="btn btn-primary nav-cta" href="https://www.facebook.com/ploytattoopt" target="_blank" rel="noreferrer">จองคิว — ฟรีดีไซน์</a>
+          </nav>
+          <div className="nav-actions">
+            <a className="icon-btn" href="tel:0656964693" aria-label="โทร 0656964693">☎</a>
+            <button className="menu-toggle" aria-expanded={menuOpen} aria-label="เมนู" onClick={() => setMenuOpen(v => !v)}><span /><span /><span /></button>
+          </div>
+        </div>
+        <div className="nav-progress" style={{ transform: `scaleX(${active === 'contact' ? 1 : 0.15})` }} />
       </header>
 
       <main id="top">
         {/* HERO */}
-        <section className="hero">
+        <section className="hero" ref={heroRef}>
           <div className="hero-grid">
-            <div className="hero-left">
-              <p className="badge"><span className="dot" /> เปิดทุกวัน · Walk-in ยินดีต้อนรับ · ปรึกษาฟรี</p>
+            <div className="hero-copy">
+              <div className="eyebrow"><span className="eyebrow-dot" /> พัทยาใต้ · สาย 2 ซอย 14 · ใกล้วอล์กกิ้งสตรีท · เปิดทุกวัน 13:00</div>
               <h1>
-                สักให้<span className="h-yellow">คม</span><br />
-                สะอาด <span className="h-blue">ปลอดภัย</span><br />
-                <span className="h-outline">ราคาชัดเจน</span>
+                <span className="h1-line">สักให้<span className="h-yellow">คม</span></span>
+                <span className="h1-line">สะอาด <span className="h-blue">ปลอดภัย</span></span>
+                <span className="h1-line outline">ราคาชัดเจน</span>
               </h1>
-              <p className="sub">
-                Southside Ink Tattoo Pattaya — สตูดิโอสักพัทยาใต้ สาย 2 ซอย 14 ใกล้วอล์กกิ้งสตรีท
-                ช่างมืออาชีพ งาน Fine line / สี / ดำ / แก้ลาย เข็มใหม่ทุกครั้ง ปลอดเชื้อ 100%
-              </p>
-              <div className="cta-row">
-                <a className="btn btn-primary" href="https://www.facebook.com/ploytattoopt" target="_blank" rel="noreferrer">จองคิวทาง Facebook →</a>
-                <a className="btn btn-secondary" href="#works" onClick={(e) => { e.preventDefault(); scrollTo('works') }}>ดูผลงาน</a>
+              <p className="sub">Southside Ink — สตูดิโอสักมืออาชีพพัทยา ถนัด Fine line / สี / ดำ / แก้ลาย เข็มใหม่แกะต่อหน้า ปลอดเชื้อ 100% ปรับแบบจนถูกใจค่อยสัก</p>
+
+              <div className="hero-cta">
+                <button className="btn btn-primary btn-xl" onClick={() => setDrawer(true)}>ประเมินราคาฟรี →</button>
+                <a className="btn btn-ghost" href="#works" onClick={(e) => { e.preventDefault(); scrollTo('works') }}>ดูผลงานจริง</a>
+                <span className="cta-hint">ตอบไวใน 1 ชม. · ไม่สักก็ปรึกษาได้</span>
               </div>
-              <div className="hero-meta">
-                <div className="stars">★ 5.0 <span>(43 รีวิว Google)</span></div>
-                <div className="meta-dot">·</div>
-                <div>เปิด 13:00 ทุกวัน</div>
-                <div className="meta-dot">·</div>
-                <div>พัทยา สาย 2 ซอย 14</div>
-              </div>
-              <div className="contact-pills">
-                <a href="tel:0656964693" className="pill pill-yellow">📞 065-696-4693</a>
-                <a href="tel:0838153762" className="pill">083-815-3762</a>
-                <a href="https://wa.me/66656964693" target="_blank" rel="noreferrer" className="pill pill-blue">WhatsApp</a>
+
+              <div className="hero-proof">
+                <div className="proof-stars">★★★★★ <b>5.0</b> <span>43 รีวิว Google</span> <a href="https://share.google/lUOdKhWmDRqsbYEMv" target="_blank" rel="noreferrer">ดูทั้งหมด →</a></div>
+                <div className="proof-pills">
+                  <button className="pill pill-yellow" onClick={() => copyTel('0656964693')}>📞 065-696-4693 <small>แตะคัดลอก</small></button>
+                  <a className="pill" href="tel:0838153762">083-815-3762</a>
+                  <a className="pill pill-blue" href="https://wa.me/66656964693" target="_blank" rel="noreferrer">WhatsApp</a>
+                </div>
               </div>
             </div>
 
-            <div className="hero-right">
-              <div className="hero-image-wrap">
-                <div className="hero-image">
-                  <img src="https://images.unsplash.com/photo-1598371839696-5c5bb00bdc28?w=800&q=80&auto=format&fit=crop" alt="Southside Ink Tattoo Pattaya หน้าร้าน" />
-                  <div className="hero-badge-card">
-                    <strong>EST. 2023</strong>
-                    <span>EXPERT TATTOOING</span>
-                    <span>OPEN DAILY 13:00–22:00</span>
+            <div className="hero-visual">
+              <div className="visual-stack">
+                <div className="visual-card main">
+                  <img src="https://images.unsplash.com/photo-1598371839696-5c5bb00bdc28?w=900&q=80&auto=format&fit=crop" alt="หน้าร้าน Southside Ink เหลืองน้ำเงิน" />
+                  <div className="visual-badge">
+                    <strong>SOUTHSIDE INK PATTAYA</strong>
+                    <span>EXPERT TATTOOING · EST. 2023</span>
+                    <span>OPEN DAILY 13:00–22:00 · WALK-IN WELCOME</span>
                   </div>
                 </div>
-                <div className="hero-pattern" aria-hidden />
+                <div className="visual-card mini">
+                  <img src="https://images.unsplash.com/photo-1611501275019-9b5cda994e8d?w=600&q=80&auto=format&fit=crop" alt="ผลงานสัก fine line" />
+                  <span className="mini-label">Fine line · เส้นเล็ก 0.3mm</span>
+                </div>
+                <div className="visual-pattern" aria-hidden />
+              </div>
+              <div className="floating-note">
+                <span className="note-ic">✓</span>
+                <div><b>ปลอดเชื้อ 100%</b><br /><small>เข็มใหม่ + ถุงมือ + ฆ่าเชื้อทุกชิ้น</small></div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* STATS */}
-        <section className="stats-bar">
-          <div><h2>5.0★</h2><p>43 รีวิว Google</p></div>
-          <div><h2>100%</h2><p>เข็มใหม่ ปลอดเชื้อ</p></div>
-          <div><h2>1000+</h2><p>รอยสักที่ไว้ใจเรา</p></div>
-          <div><h2>WIN</h2><p>เดินเข้าได้ ไม่ต้องจอง</p></div>
+        <section className="trust">
+          <div className="trust-item"><b>100%</b><span>เข็มใหม่แกะต่อหน้า</span></div>
+          <div className="trust-item"><b>ฟรี</b><span>ออกแบบจนถูกใจ</span></div>
+          <div className="trust-item"><b>1 ชม.</b><span>ตอบประเมินไว</span></div>
+          <div className="trust-item"><b>ไทย/EN</b><span>คุยง่าย เป็นกันเอง</span></div>
         </section>
 
         {/* SERVICES */}
-        <section id="services" className="section">
-          <span className="cmd">— Services</span>
-          <h2 className="section-title">บริการของเรา <span className="title-accent">เลือกสไตล์ที่ใช่</span></h2>
-          <p className="section-subtitle">ปรึกษาออกแบบฟรี ปรับแบบจนกว่าจะชอบ บอกราคาก่อนเริ่ม ไม่บวกเพิ่มหน้างาน</p>
-          <div className="sessions-grid">
+        <section id="services" className="section" ref={svcRef}>
+          <div className="section-head">
+            <div>
+              <div className="cmd">— Services · บอกราคาก่อนสัก</div>
+              <h2>เลือกสไตล์ที่ใช่ <em>ราคาโปร่งใส</em></h2>
+              <p>ปรับแบบฟรีจนกว่าจะชอบ ไม่บวกเพิ่มหน้างาน · งานเล็กเริ่ม 1,000฿ งานสี/ดำเริ่ม 1,500฿</p>
+            </div>
+            <button className="btn btn-blue" onClick={() => setDrawer(true)}>ส่งแบบประเมินราคาฟรี →</button>
+          </div>
+          <div className="svc-grid">
             {SERVICES.map(s => (
-              <article className="session-card" key={s.title}>
-                <div className="session-image">
-                  <img src={`https://picsum.photos/seed/${s.title}/600/400`} alt={s.title} loading="lazy" />
-                  <span className="session-tag">{s.tag}</span>
+              <article key={s.id} className="svc-card" onClick={() => setDrawer(true)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && setDrawer(true)}>
+                <div className="svc-top">
+                  <span className="svc-tag">{s.tag}</span>
+                  <span className="svc-time">{s.time}</span>
                 </div>
-                <div className="session-content">
-                  <div className="svc-icon">{s.icon}</div>
-                  <h3>{s.title}</h3>
-                  <p>{s.desc}</p>
-                  <div className="session-price">{s.price}</div>
+                <div className="svc-icon">{s.icon}</div>
+                <h3>{s.title}</h3>
+                <p>{s.desc}</p>
+                <div className="svc-foot">
+                  <span className="svc-price">{s.price}</span>
+                  <span className="svc-cta">ประเมินฟรี →</span>
                 </div>
               </article>
             ))}
           </div>
-          <div className="center-cta">
-            <a className="btn btn-blue" href="https://www.facebook.com/ploytattoopt" target="_blank" rel="noreferrer">ส่งแบบให้ประเมินราคาฟรี →</a>
-          </div>
         </section>
 
-        {/* GALLERY */}
-        <section id="works" className="section">
-          <span className="cmd">— Portfolio</span>
-          <div className="section-head-row">
-            <h2 className="section-title">ผลงานจริง <span className="title-accent">จากร้านเรา</span></h2>
-            <div className="filter-row">
+        {/* PORTFOLIO */}
+        <section id="works" className="section alt" ref={portRef}>
+          <div className="section-head">
+            <div>
+              <div className="cmd">— Portfolio · ผลงานจริงจากร้าน</div>
+              <h2>ดูใกล้ๆ <em>งานคมแค่ไหน</em></h2>
+              <p>รูปจาก Drive โฟลเดอร์ <a href="https://drive.google.com/drive/folders/1bVeStwNcYRf-1hyKugyKKX5Eh-BdjOsR?usp=drive_link" target="_blank" rel="noreferrer">ผลงาน / รีวิว / รูปร้าน</a> — ตอนนี้โชว์ตัวอย่าง แตะเพื่อขยาย</p>
+            </div>
+            <div className="filter-row" role="tablist" aria-label="กรองผลงาน">
               {filters.map(f => (
-                <button key={f} className={`chip ${activeFilter === f ? 'active' : ''}`} onClick={() => setActiveFilter(f)}>{f}</button>
+                <button key={f} role="tab" aria-selected={filter === f} className={`chip ${filter === f ? 'active' : ''}`} onClick={() => setFilter(f)}>{f}</button>
               ))}
             </div>
           </div>
-          <p className="section-subtitle">รูปจาก Drive: โฟลเดอร์ ผลงาน / รีวิว / รูปร้าน — อัปโหลดแล้วจะโชว์ตรงนี้อัตโนมัติ (ตอนนี้ใช้รูปตัวอย่าง)</p>
-          <div className="gallery-grid">
-            {GALLERY.filter(g => activeFilter === 'ทั้งหมด' || g.tag === activeFilter).map(item => (
-              <div key={item.id} className={`gallery-item ${item.span || ''}`}>
-                <img src={`https://picsum.photos/seed/tat${item.id}southside/800/800`} alt={item.tag} loading="lazy" />
-                <div className="gallery-overlay"><span>{item.tag}</span></div>
+
+          <div className="masonry">
+            {filtered.map((it, idx) => (
+              // eslint-disable-next-line jsx-a11y/click-events-have-key-events
+              <div key={`${it.id}-${it.tag}`} className={`tile ${it.h || ''}`} onClick={() => setLightbox(idx)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && setLightbox(idx)}>
+                <img src={`https://picsum.photos/seed/south${it.id}${it.tag}/700/700`} alt={it.label} loading="lazy" />
+                <div className="tile-meta"><span>{it.tag}</span><b>{it.label}</b></div>
+                <span className="tile-zoom">⤢ ขยาย</span>
               </div>
             ))}
           </div>
-          <div className="gallery-note">
-            <p>อยากเห็นแบบชัดๆ เพิ่มเติม? ดูในเพจ <a href="https://www.facebook.com/ploytattoopt" target="_blank" rel="noreferrer">facebook.com/ploytattoopt</a></p>
-            <a className="btn btn-secondary" href="https://drive.google.com/drive/folders/1bVeStwNcYRf-1hyKugyKKX5Eh-BdjOsR?usp=drive_link" target="_blank" rel="noreferrer">เปิดโฟลเดอร์รูปต้นฉบับ</a>
+
+          <div className="portfolio-cta">
+            <span>อยากเห็นชัดกว่านี้?</span>
+            <a className="btn btn-ghost" href="https://www.facebook.com/ploytattoopt" target="_blank" rel="noreferrer">ดูใน Facebook เพจ →</a>
+            <a className="btn btn-primary" href="https://drive.google.com/drive/folders/1bVeStwNcYRf-1hyKugyKKX5Eh-BdjOsR?usp=drive_link" target="_blank" rel="noreferrer">เปิด Drive รูปต้นฉบับ</a>
           </div>
         </section>
 
-        {/* WHY US + ARTIST */}
-        <section id="artists" className="section">
-          <div className="two-col">
-            <div>
-              <span className="cmd">— Why Southside Ink</span>
-              <h2 className="section-title">ทำไมลูกค้าถึง<br />กลับมาซ้ำ</h2>
-              <ul className="why-list">
-                <li><span>✓</span> เข็มใหม่ แกะให้ดูต่อหน้า ฆ่าเชื้อมาตรฐานโรงพยาบาล</li>
-                <li><span>✓</span> ออกแบบให้ฟรี ปรับจนถูกใจ ไม่คิดเงินเพิ่ม</li>
-                <li><span>✓</span> ช่างคุยง่าย ภาษาไทย/อังกฤษ รับทั้งคนไทยและต่างชาติ</li>
-                <li><span>✓</span> ราคาบอกก่อนสัก ไม่มีหมกเม็ด</li>
-                <li><span>✓</span> ดูแลหลังสักละเอียด มีการรับประกันเติมฟรีตามเงื่อนไข</li>
-              </ul>
-              <div className="mini-cards">
-                <div className="mini-card"><strong>สะอาด</strong><span>ผ่านการฆ่าเชื้อทุกชิ้น</span></div>
-                <div className="mini-card yellow"><strong>ตรงปก</strong><span>แบบไหนได้แบบนั้น</span></div>
-                <div className="mini-card blue"><strong>เป็นกันเอง</strong><span>สักครั้งแรกก็ไม่เกร็ง</span></div>
+        {/* PROCESS */}
+        <section id="process" className="section">
+          <div className="cmd">— How it works · 4 ขั้นจบ</div>
+          <h2>ง่าย ไม่เกร็ง <em>ครั้งแรกก็สบาย</em></h2>
+          <div className="steps">
+            {STEPS.map(s => (
+              <div key={s.n} className="step">
+                <div className="step-num">{s.n}</div>
+                <h3>{s.t}</h3>
+                <p>{s.d}</p>
+              </div>
+            ))}
+            <div className="step cta">
+              <h3>พร้อมแล้ว?</h3>
+              <p>ส่งแบบมาได้เลย ตอบไวใน 1 ชม.</p>
+              <button className="btn btn-primary" onClick={() => setDrawer(true)}>ทักเลย →</button>
+            </div>
+          </div>
+          <div className="hygiene">
+            <div className="hyg-item"><span>◎</span><b>เข็มใหม่ 100%</b><small>แกะให้ดูต่อหน้า</small></div>
+            <div className="hyg-item"><span>⬡</span><b>ฆ่าเชื้อมาตรฐาน</b><small>โรงพยาบาล</small></div>
+            <div className="hyg-item"><span>✦</span><b>สีนำเข้า</b><small>ปลอดภัย ผ่าน อย.</small></div>
+            <div className="hyg-item"><span>♡</span><b>ฟิล์มกันน้ำ</b><small>หลังสักดูแลง่าย</small></div>
+          </div>
+        </section>
+
+        {/* ARTIST + REVIEWS */}
+        <section id="reviews" className="section alt">
+          <div className="split">
+            <div className="artist-card">
+              <div className="artist-photo">
+                <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=700&q=80&auto=format&fit=crop" alt="ช่างพลอย Southside Ink" />
+                <div className="artist-badge">ช่างพลอย · ถนัด Fine line</div>
+              </div>
+              <div className="artist-body">
+                <h3>ดูแลเองทุกเคส ตั้งแต่ดีไซน์จนสักเสร็จ</h3>
+                <p>คุยง่าย ไทย/อังกฤษ ใส่ใจรายละเอียด ปรับแบบจนถูกใจ ไม่เร่ง ไม่กดดัน สักครั้งแรกก็ไม่เกร็ง</p>
+                <div className="artist-actions">
+                  <a className="btn btn-primary" href="https://www.facebook.com/ploytattoopt" target="_blank" rel="noreferrer">ดูผลงานช่างพลอย</a>
+                  <a className="btn btn-ghost" href="https://wa.me/66656964693" target="_blank" rel="noreferrer">WhatsApp</a>
+                </div>
+                <div className="mini-stats"><span><b>1,000+</b> รอยสัก</span><span><b>5.0★</b> 43 รีวิว</span><span><b>EST.2023</b> พัทยา</span></div>
               </div>
             </div>
-            <div className="artist-highlight">
-              <div className="artist-image-wrap">
-                <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=600&q=80&auto=format&fit=crop" alt="ช่างสัก Southside Ink" />
-              </div>
-              <div className="artist-info-box">
-                <h3>ช่างพลอย · Southside Ink</h3>
-                <p className="artist-specialty">Fine line / Minimal / Lettering ถนัดงานเส้นเล็ก</p>
-                <p className="artist-bio">ดูแลทุกเคสเอง ตั้งแต่คุยแบบ วาดแบบ สัก และติดตามหลังสัก ใส่ใจทุกรอย</p>
-                <div className="artist-social">
-                  <a href="https://www.facebook.com/ploytattoopt" target="_blank" rel="noreferrer" aria-label="Facebook">f</a>
-                  <a href="tel:0656964693" aria-label="โทร">☎</a>
-                  <a href="https://wa.me/66656964693" target="_blank" rel="noreferrer" aria-label="WhatsApp">✆</a>
+
+            <div className="reviews">
+              <div className="cmd">— Reviews · ตัวจริงเสียงจริง</div>
+              <h2>ลูกค้าพูดถึงเรา</h2>
+              <div className="carousel" onMouseEnter={() => {}} onMouseLeave={() => {}}>
+                <div className="carousel-track" style={{ transform: `translateX(-${reviewIdx * 100}%)` }}>
+                  {REVIEWS.map((r) => (
+                    <div key={r.name} className="review">
+                      <div className="stars">★★★★★</div>
+                      <p>“{r.text}”</p>
+                      <div className="review-foot"><b>{r.name}</b><span>{r.date}</span></div>
+                    </div>
+                  ))}
+                </div>
+                <div className="carousel-dots">
+                  {REVIEWS.map((_, i) => (
+                    <button key={i} className={i === reviewIdx ? 'on' : ''} aria-label={`ไปรีวิว ${i + 1}`} onClick={() => setReviewIdx(i)} />
+                  ))}
+                </div>
+                <div className="carousel-arrows">
+                  <button aria-label="ก่อนหน้า" onClick={() => setReviewIdx(v => (v - 1 + REVIEWS.length) % REVIEWS.length)}>‹</button>
+                  <button aria-label="ถัดไป" onClick={() => setReviewIdx(v => (v + 1) % REVIEWS.length)}>›</button>
                 </div>
               </div>
+              <a className="btn btn-ghost" href="https://share.google/lUOdKhWmDRqsbYEMv" target="_blank" rel="noreferrer">ดูทั้งหมดบน Google Maps →</a>
             </div>
           </div>
         </section>
 
-        {/* REVIEWS */}
-        <section id="reviews" className="section">
-          <span className="cmd">— Reviews · 5.0 ★ 43 รีวิว</span>
-          <h2 className="section-title">ลูกค้าพูดถึงเรา</h2>
-          <div className="reviews-grid">
-            {REVIEWS.map(r => (
-              <div className="review-card" key={r.name}>
-                <div className="review-stars">{'★'.repeat(r.star)}</div>
-                <p className="review-text">“{r.text}”</p>
-                <div className="review-name">— {r.name}</div>
+        {/* FAQ + Aftercare */}
+        <section className="section">
+          <div className="split">
+            <div>
+              <div className="cmd">— FAQ · ตอบทุกข้อสงสัย</div>
+              <h2>ถามบ่อย</h2>
+              <div className="faq">
+                {FAQS.map((f, i) => (
+                  <div key={f.q} className={`faq-item ${openFaq === i ? 'open' : ''}`}>
+                    <button className="faq-q" onClick={() => setOpenFaq(openFaq === i ? -1 : i)} aria-expanded={openFaq === i}>
+                      <span>{f.q}</span><em>{openFaq === i ? '−' : '+'}</em>
+                    </button>
+                    <div className="faq-a"><p>{f.a}</p></div>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-          <div className="center-cta">
-            <a className="btn btn-secondary" href="https://share.google/lUOdKhWmDRqsbYEMv" target="_blank" rel="noreferrer">ดูรีวิวทั้งหมดบน Google Maps →</a>
+            </div>
+            <div className="aftercare">
+              <h3>ดูแลหลังสัก <span>ให้สีติดทน</span></h3>
+              <ol>
+                <li><b>3 วันแรก</b> ติดฟิล์มกันน้ำ ห้ามแกะเกา</li>
+                <li>ล้างน้ำเกลือ ซับแห้ง ทาครีมบางๆ วันละ 2 ครั้ง</li>
+                <li>งดว่ายน้ำ ซาวน่า แดดจัด 2 สัปดาห์</li>
+                <li>สะเก็ดลอกห้ามแกะ ปล่อยหลุดเอง</li>
+                <li>ครบ 1 เดือน นัดดูแผล เติมฟรี* ตามเงื่อนไข</li>
+              </ol>
+              <div className="aftercare-note">* เติมฟรีภายใน 3 เดือน กรณีสีหลุดจากการดูแลตามคำแนะนำ</div>
+              <button className="btn btn-blue" onClick={() => setDrawer(true)}>ปรึกษาการดูแล →</button>
+            </div>
           </div>
         </section>
 
-        {/* LOCATION & BOOKING */}
-        <section id="contact" className="section">
-          <div className="studio-section">
-            <div className="studio-grid">
-              <div className="studio-item">
-                <span className="studio-label">ที่อยู่</span>
-                <span className="studio-value">สาย 2 ซอย 14 ใกล้วอล์กกิ้งสตรีท<br />พัทยาใต้ อ.บางละมุง ชลบุรี 20150</span>
-                <a className="btn btn-blue" href="https://share.google/lUOdKhWmDRqsbYEMv" target="_blank" rel="noreferrer" style={{ marginTop: 12, alignSelf: 'flex-start' }}>เปิดใน Google Maps →</a>
+        {/* CONTACT */}
+        <section id="contact" className="section alt">
+          <div className="contact-grid">
+            <div className="contact-card">
+              <div className="cmd">— Visit us · มาเจอกันที่ร้าน</div>
+              <h2>สาย 2 ซอย 14<br /><em>ใกล้วอล์กกิ้งสตรีท</em></h2>
+              <p>พัทยาใต้ อ.บางละมุง ชลบุรี 20150 · เปิดทุกวัน 13:00–22:00 · Walk-in ได้ถึง 20:00</p>
+              <div className="contact-actions">
+                <a className="btn btn-primary" href="https://share.google/lUOdKhWmDRqsbYEMv" target="_blank" rel="noreferrer">เปิดใน Google Maps →</a>
+                <button className="btn btn-ghost" onClick={() => copyTel('0656964693')}>คัดลอกที่อยู่</button>
               </div>
-              <div className="studio-item">
-                <span className="studio-label">เวลาเปิด</span>
-                <span className="studio-value">เปิดทุกวัน 13:00 – 22:00<br /><span style={{ color: 'var(--text-dim)', fontSize: 14 }}>Walk-in ได้เลย หรือจองคิวล่วงหน้า</span></span>
-              </div>
-              <div className="studio-item">
-                <span className="studio-label">ติดต่อ</span>
-                <span className="studio-value">
-                  <a href="tel:0656964693">065-696-4693</a> · <a href="tel:0838153762">083-815-3762</a><br />
-                  <a href="https://wa.me/66656964693" target="_blank" rel="noreferrer">WhatsApp: 0656964693</a><br />
-                  <a href="https://www.facebook.com/ploytattoopt" target="_blank" rel="noreferrer" style={{ color: 'var(--blue)' }}>facebook.com/ploytattoopt</a>
-                </span>
+              <div className="contact-lines">
+                <a href="tel:0656964693" className="line"><span>โทรหลัก</span><b>065-696-4693</b><small>แตะโทร</small></a>
+                <a href="tel:0838153762" className="line"><span>สำรอง</span><b>083-815-3762</b></a>
+                <a href="https://wa.me/66656964693" target="_blank" rel="noreferrer" className="line"><span>WhatsApp</span><b>0656964693</b><small>ทักแชท</small></a>
+                <a href="https://www.facebook.com/ploytattoopt" target="_blank" rel="noreferrer" className="line"><span>Facebook</span><b>ploytattoopt</b><small>ตอบไว 1 ชม.</small></a>
               </div>
             </div>
-            <div className="map-wrap">
-              <iframe
-                title="Southside Ink Map"
-                src="https://www.google.com/maps?q=Southside+Ink+Tattoo+Pattaya+สาย2+ซอย14&z=16&output=embed"
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              />
+            <div className="map-card">
+              <iframe title="Southside Ink Map" src="https://www.google.com/maps?q=Southside+Ink+Tattoo+Pattaya+สาย2+ซอย14&z=16&output=embed" loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
+              <div className="map-overlay">
+                <span>📍 Southside Ink Tattoo Pattaya</span>
+                <a href="https://share.google/lUOdKhWmDRqsbYEMv" target="_blank" rel="noreferrer">นำทาง →</a>
+              </div>
             </div>
           </div>
 
-          <div className="booking-cta" style={{ marginTop: 24 }}>
-            <h2>พร้อมสักแล้วหรือยัง?</h2>
-            <p>ส่งแบบที่อยากได้มาประเมินราคาฟรี ตอบไวใน 1 ชั่วโมง — ไม่สักก็ปรึกษาได้</p>
+          <div className="booking-cta">
+            <div>
+              <h3>พร้อมสักแล้วหรือยัง?</h3>
+              <p>ส่งแบบที่อยากได้มาได้เลย — ประเมินราคาฟรี ตอบไวใน 1 ชั่วโมง ไม่สักก็ปรึกษาได้</p>
+            </div>
             <div className="cta-row">
-              <a className="btn btn-primary" href="https://www.facebook.com/ploytattoopt" target="_blank" rel="noreferrer">ทักเพจ Ploy Tattoo</a>
-              <a className="btn btn-secondary" href="https://wa.me/66656964693" target="_blank" rel="noreferrer">ทัก WhatsApp</a>
-              <a className="btn btn-blue" href="tel:0656964693">โทร 065-696-4693</a>
+              <button className="btn btn-primary btn-xl" onClick={() => setDrawer(true)}>ส่งแบบประเมินฟรี</button>
+              <a className="btn btn-ghost" href="https://www.facebook.com/ploytattoopt" target="_blank" rel="noreferrer">ทักเพจ</a>
+              <a className="btn btn-blue" href="tel:0656964693">โทรเลย</a>
             </div>
-            <p className="booking-note">* แนะนำจองล่วงหน้า 1 วัน ช่วงเย็นคิวแน่น — Walk-in แนะนำมาก่อน 20:00</p>
           </div>
         </section>
       </main>
 
       <footer className="footer">
         <div className="footer-grid">
-          <div className="footer-brand">
-            <div className="footer-logo"><span style={{ color: 'var(--yellow)' }}>SOUTHSIDE</span> INK PATTAYA</div>
-            <p className="footer-tagline">สตูดิโอสักพัทยา งานคม สะอาด ปลอดภัย — สาย 2 ซอย 14 ใกล้วอล์กกิ้งสตรีท เปิดทุกวัน 13:00 เป็นต้นไป</p>
+          <div>
+            <div className="footer-logo"><span>SOUTHSIDE</span> INK PATTAYA</div>
+            <p>สตูดิโอสักพัทยา งานคม สะอาด ปลอดภัย — สาย 2 ซอย 14 ใกล้วอล์กกิ้งสตรีท เปิดทุกวัน 13:00 เป็นต้นไป · เข็มใหม่ 100%</p>
             <div className="footer-social">
               <a href="https://www.facebook.com/ploytattoopt" target="_blank" rel="noreferrer" aria-label="Facebook">f</a>
-              <a href="https://wa.me/66656964693" target="_blank" rel="noreferrer" aria-label="WhatsApp">W</a>
-              <a href="tel:0656964693" aria-label="Phone">☎</a>
+              <a href="https://wa.me/66656964693" target="_blank" rel="noreferrer" aria-label="WhatsApp">WA</a>
+              <a href="tel:0656964693" aria-label="โทร">☎</a>
             </div>
           </div>
-          <div className="footer-column">
-            <h4>เมนู</h4>
-            <ul>
-              <li><a href="#services" onClick={(e) => { e.preventDefault(); scrollTo('services') }}>บริการ</a></li>
-              <li><a href="#works" onClick={(e) => { e.preventDefault(); scrollTo('works') }}>ผลงาน</a></li>
-              <li><a href="#artists" onClick={(e) => { e.preventDefault(); scrollTo('artists') }}>ช่างสัก</a></li>
-              <li><a href="#reviews" onClick={(e) => { e.preventDefault(); scrollTo('reviews') }}>รีวิว</a></li>
-            </ul>
-          </div>
-          <div className="footer-column">
-            <h4>ติดต่อ</h4>
-            <ul>
-              <li><a href="tel:0656964693">065-696-4693</a></li>
-              <li><a href="tel:0838153762">083-815-3762</a></li>
-              <li><a href="https://wa.me/66656964693" target="_blank" rel="noreferrer">WhatsApp</a></li>
-              <li><a href="https://www.facebook.com/ploytattoopt" target="_blank" rel="noreferrer">Facebook</a></li>
-            </ul>
-          </div>
-          <div className="footer-column">
-            <h4>ที่อยู่</h4>
-            <ul>
-              <li style={{ color: 'var(--text-dim)', fontSize: 14, lineHeight: 1.6 }}>สาย 2 ซอย 14<br />วอล์กกิ้งสตรีท พัทยา<br />20150 · <a href="https://share.google/lUOdKhWmDRqsbYEMv" target="_blank" rel="noreferrer">ดูแผนที่</a></li>
-            </ul>
-          </div>
+          <div><h4>เมนู</h4><a href="#services" onClick={(e) => { e.preventDefault(); scrollTo('services') }}>บริการ</a><a href="#works" onClick={(e) => { e.preventDefault(); scrollTo('works') }}>ผลงาน</a><a href="#process" onClick={(e) => { e.preventDefault(); scrollTo('process') }}>ขั้นตอน</a><a href="#reviews" onClick={(e) => { e.preventDefault(); scrollTo('reviews') }}>รีวิว</a></div>
+          <div><h4>ติดต่อ</h4><a href="tel:0656964693">065-696-4693</a><a href="tel:0838153762">083-815-3762</a><a href="https://wa.me/66656964693" target="_blank" rel="noreferrer">WhatsApp</a><a href="https://www.facebook.com/ploytattoopt" target="_blank" rel="noreferrer">Facebook</a></div>
+          <div><h4>ที่อยู่</h4><p>สาย 2 ซอย 14<br />วอล์กกิ้งสตรีท พัทยา 20150<br /><a href="https://share.google/lUOdKhWmDRqsbYEMv" target="_blank" rel="noreferrer">ดูแผนที่ →</a></p></div>
         </div>
-        <div className="footer-bottom">
-          <span>© {new Date().getFullYear()} Southside Ink Tattoo Pattaya · Expert Tattooing EST. 2023</span>
-          <span>สีประจำร้าน: น้ำเงิน เหลือง ขาว ดำ · ทำเว็บด้วยความใส่ใจ</span>
-        </div>
+        <div className="footer-bottom"><span>© {new Date().getFullYear()} Southside Ink Tattoo Pattaya · Expert Tattooing EST. 2023</span><span>น้ำเงิน เหลือง ขาว ดำ · ปลอดเชื้อ 100%</span></div>
       </footer>
+
+      <div className={`drawer ${drawer ? 'open' : ''}`} role="dialog" aria-modal="true" aria-label="จองคิว">
+        <button className="drawer-backdrop" aria-label="ปิด" onClick={() => setDrawer(false)} />
+        <div className="drawer-panel">
+          <button className="drawer-close" aria-label="ปิด" onClick={() => setDrawer(false)}>×</button>
+          <h3>ส่งแบบประเมินราคาฟรี</h3>
+          <p>แนบรูป + บอกตำแหน่ง/ขนาด ตอบไวใน 1 ชม.</p>
+          <div className="drawer-choices">
+            <a className="choice primary" href="https://www.facebook.com/ploytattoopt" target="_blank" rel="noreferrer"><b>ทัก Facebook เพจ</b><span>ploytattoopt · ตอบไวสุด</span></a>
+            <a className="choice blue" href="https://wa.me/66656964693?text=สวัสดีครับ ขอประเมินราคาสักครับ" target="_blank" rel="noreferrer"><b>ทัก WhatsApp</b><span>065-696-4693</span></a>
+            <a className="choice" href="tel:0656964693"><b>โทรเลย</b><span>065-696-4693 / 083-815-3762</span></a>
+          </div>
+          <div className="drawer-tip">💡 ทิป: ส่งรูปตัวอย่าง 2–3 แบบ + จุดที่อยากสัก จะประเมินแม่นขึ้น</div>
+        </div>
+      </div>
+
+      {lightbox !== null && (
+        <div className="lightbox" role="dialog" aria-modal="true" aria-label="ดูผลงาน">
+          <button className="lb-backdrop" aria-label="ปิด" onClick={() => setLightbox(null)} />
+          <button className="lb-close" aria-label="ปิด" onClick={() => setLightbox(null)}>×</button>
+          <button className="lb-prev" aria-label="ก่อนหน้า" onClick={() => setLightbox(v => (v - 1 + filtered.length) % filtered.length)}>‹</button>
+          <div className="lb-main">
+            <img src={`https://picsum.photos/seed/south${filtered[lightbox].id}${filtered[lightbox].tag}/1200/1200`} alt={filtered[lightbox].label} />
+            <div className="lb-caption"><span>{filtered[lightbox].tag}</span> {filtered[lightbox].label} · {lightbox + 1}/{filtered.length}</div>
+          </div>
+          <button className="lb-next" aria-label="ถัดไป" onClick={() => setLightbox(v => (v + 1) % filtered.length)}>›</button>
+        </div>
+      )}
+
+      <div className="mobile-bar">
+        <a href="tel:0656964693" className="m-btn ghost">โทร</a>
+        <button className="m-btn primary" onClick={() => setDrawer(true)}>จองคิว · ประเมินฟรี</button>
+        <a href="https://wa.me/66656964693" target="_blank" rel="noreferrer" className="m-btn blue">WhatsApp</a>
+      </div>
+
+      {toast && <div className="toast" role="status">{toast}</div>}
     </>
   )
 }
-
-export default App
