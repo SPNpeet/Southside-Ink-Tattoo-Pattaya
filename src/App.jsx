@@ -307,8 +307,8 @@ export default function App() {
           <div className="split">
             <div className="artist-card">
               <div className="artist-photo">
-                <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=700&q=80&auto=format&fit=crop" alt="ช่างพลอย Southside Ink" />
-                <div className="artist-badge">ช่างพลอย · ถนัด Fine line</div>
+                <img src={`${import.meta.env.BASE_URL}images/artist.jpg`} alt="ช่างสัก Southside Ink ตัวจริง" />
+                <div className="artist-badge">ช่างสัก · Southside Ink</div>
               </div>
               <div className="artist-body">
                 <h3>ดูแลเองทุกเคส ตั้งแต่ดีไซน์จนสักเสร็จ</h3>
