@@ -16,7 +16,8 @@ img { display: block; max-width: 100%; }
 /* nav — openclaw minimal */
 .oc-nav { position: sticky; top: 0; z-index: 40; background: rgba(8,10,18,.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
 .oc-nav-inner { max-width: 1120px; margin: 0 auto; padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-.oc-logo { display: flex; align-items: center; gap: 8px; color: var(--heading); font-family: var(--mono); font-weight: 800; font-size: 13px; letter-spacing: .4px; }
+.oc-logo { display: flex; align-items: center; gap: 10px; color: var(--heading); font-family: var(--mono); font-weight: 800; font-size: 13px; letter-spacing: .4px; }
+.oc-logo-img { width: 36px; height: 36px; border-radius: 10px; object-fit: cover; background: #fff; border: 1px solid var(--border); }
 .oc-logo-mark { width: 26px; height: 26px; border-radius: 7px; background: var(--yellow); color: #080a12; display: grid; place-items: center; font-size: 13px; }
 .oc-logo-sub { color: var(--dim); font-weight: 600; font-size: 10px; letter-spacing: 1px; }
 .oc-links { display: flex; gap: 18px; }

@@ -83,7 +83,8 @@ export default function App() {
       <header className="oc-nav">
         <div className="oc-nav-inner">
           <a className="oc-logo" href="#top" onClick={(e) => { e.preventDefault(); scrollTo('top') }}>
-            <span className="oc-logo-mark">◈</span> Southside Ink <span className="oc-logo-sub">PATTAYA · EST.2023</span>
+            <img src={`${import.meta.env.BASE_URL}logo.png`} alt="Southside Ink" className="oc-logo-img" />
+            <span>Southside Ink <span className="oc-logo-sub">PATTAYA · EST.2023</span></span>
           </a>
           <nav className={`oc-links ${menuOpen ? 'open' : ''}`}>
             <a href="#works" onClick={(e) => { e.preventDefault(); scrollTo('works') }}>ผลงาน</a>
@@ -296,7 +297,7 @@ export default function App() {
       </main>
 
       <footer className="oc-footer">
-        <div>© {new Date().getFullYear()} Southside Ink Tattoo Pattaya · EST.2023 · เข็มใหม่ 100%</div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}><img src={`${import.meta.env.BASE_URL}logo.png`} alt="Southside Ink" width="28" height="28" style={{ borderRadius: 8, background: '#fff', border: '1px solid var(--border)' }} /> © {new Date().getFullYear()} Southside Ink Tattoo Pattaya · EST.2023 · เข็มใหม่ 100%</div>
         <div>น้ำเงิน เหลือง ขาว ดำ · ทำเว็บด้วยความใส่ใจ</div>
       </footer>
 
