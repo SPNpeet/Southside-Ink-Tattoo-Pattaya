@@ -83,8 +83,7 @@ export default function App() {
       <header className="oc-nav">
         <div className="oc-nav-inner">
           <a className="oc-logo" href="#top" onClick={(e) => { e.preventDefault(); scrollTo('top') }}>
-            <img src={`${import.meta.env.BASE_URL}logo.png`} alt="Southside Ink" className="oc-logo-img" />
-            <span>Southside Ink <span className="oc-logo-sub">PATTAYA · EST.2023</span></span>
+            <span className="oc-logo-mark">◈</span> Southside Ink <span className="oc-logo-sub">PATTAYA · EST.2023</span>
           </a>
           <nav className={`oc-links ${menuOpen ? 'open' : ''}`}>
             <a href="#works" onClick={(e) => { e.preventDefault(); scrollTo('works') }}>ผลงาน</a>
