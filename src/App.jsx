@@ -3,40 +3,43 @@ import { useState, useEffect } from 'react'
 const WORKS = [
   "1juqLfCJ8rMus2TWOjrvMi5-ScWqTFQ2i","1Y_UHXZKVVa-BeNGie6VZ1bZDsTKvaaEP","1AakBm6zRlxdU18-O0OZMsZBtXJec4cjy","1CJcz60zMz2FAsiTp8peXexBvckRR2Sje","1mvqnMOsuKOkkez-v_LwRXjESalyyQM6u","1wez5GHlEmSGPSGOFSGKv7TjZb33w2ay6","1JE7RvJS9z4mJnac6FTv7IbzNKl0xMgtT","18Sxx5C7vxdBdD1Vx2M7rB-dVeSmdf4wT","1UqICiJMIogflvg49LlN0aY5XIls7-9-u","1wRKLneJwNOqA6cMw-YgmfrQDJ2wod9oU","1p2t7M8TjgttoPjFLLZJQddmntVv127fK","1s3_oTYl2dsWPa-L6-04U3Ujq-B0e7LPW","1lj9O7B5YVODclQbytPDYdsDdWEx6FhbY","12b6gAAIKsFg8fYAqhGjlaTotcCO5P-LW","1mRemjlWbFPKVmoHxE8l2-ILXNiTpQEN6","1bZ_tiEF_w5g2CpCYvBFSQmJ7InH64zFi","1d55chDA5fq2GiW-OVFcik_Fb7uZFd_3u","1RGABkEBV_NKAzrhmSoILBIb0ntfMC4ka","1MmTWMflnMW1UBas_QM0MTffrBEle_YkD","1wabeadflb2uqkl6vCmUe00_yxcDdYMcN","1hwQi9k3-vuqcZp_BR0qasYe48ohPDSKY","12mQYgLHfDgodOQ49HncpDDU2UmfzE7Io","1eO87gXAGeA8phrPA_BGElyeyFxztsD3C","1L03vX6Gtgn4btn21SGZmbhFYj7doDoU6","1ABhsZCWhnAzmQk1Tc1HURcAJ67fvxyJb","1cl-hCX2gP8I9J31-Vxb8ZMoZOUgvJY7N","1KrAzbfZqZnnePKlZ-xRRty__wqg1Luxv","1jZ0ux5JtJYCeJpj7IZZufJ2B1Z6VrJ2W","1GUYMDjO5cKVRrWQiRF4cx79_4TTQxav8","1bf22cCZ8nkOQj4DTKkWehOqVqmDGwqZ6",
 ]
+const SHOP = ["1uZSA_1RswqRn_pAMW9wQx62ORcIEG1_Y","1WyQ_jfm05gZY_ihhjDCIWuUS7LL65524","1uRIBZHtOpJrfdMMmUJQyo6WeBehyxj9b","1QsuQgVxlhEjVYXTBZJGdULz_bf4M9cot"]
 const TAGS_EN = ["Fine line","Blackwork","Color","Minimal","Japanese","Cover up"]
 const TAGS_TH = ["Fine line","Blackwork","งานสี","มินิมอล","ญี่ปุ่น","แก้ลาย"]
 
 const I18N = {
   th: {
-    navWorks: "ผลงาน", navServices: "บริการ", navProcess: "ขั้นตอน", navReviews: "รีวิว", navContact: "แผนที่",
+    navWorks: "ผลงาน", navServices: "บริการ", navShop: "ร้าน", navProcess: "ขั้นตอน", navReviews: "รีวิว", navContact: "แผนที่",
     kicker: "เปิด 13:00–22:00 · Walk-in ยินดีต้อนรับ · สาย 2 ซอย 14 ใกล้วอล์กกิ้งสตรีท · 5.0★ 43 รีวิว",
     h1a: "The tattoo that", h1b: "really", h1c: "stays.",
     h1sub: "สักให้คม สะอาด ปลอดภัย — ราคาชัดเจน",
     sub: "Southside Ink — สตูดิโอสักพัทยา ถนัด Fine line / สี / ดำ / แก้ลาย เข็มใหม่แกะต่อหน้า ปลอดเชื้อ 100% ปรับแบบจนถูกใจค่อยสัก",
     ctaBook: "จองคิว — ประเมินฟรี →", ctaWorks: "ดูผลงาน",
     termTitle: "southside — booking",
-    term: `$ southside book --style "fine line" --size 5cm
-✓ เข็มใหม่แกะต่อหน้า
-✓ ออกแบบฟรีจนถูกใจ
-✓ บอกราคาก่อนเริ่ม — ไม่บวกหน้างาน
-
-> ส่งแบบมาที่ fb.com/ploytattoopt
-> หรือ WhatsApp 065-696-4693 — ตอบไวใน 1 ชม.`,
+    term: `$ southside book --style "fine line" --size 5cm\n✓ เข็มใหม่แกะต่อหน้า\n✓ ออกแบบฟรีจนถูกใจ\n✓ บอกราคาก่อนเริ่ม — ไม่บวกหน้างาน\n\n> ส่งแบบมาที่ fb.com/ploytattoopt\n> หรือ WhatsApp 065-696-4693 — ตอบไวใน 1 ชม.`,
     proofReviews: "43 รีวิว", proofTats: "1,000+ รอยสัก", proofNeedle: "เข็มใหม่ 100%",
     stats1: "เข็มใหม่แกะต่อหน้า", stats2: "ออกแบบจนถูกใจ", stats3: "ตอบประเมินไว", stats4: "คุยง่าย เป็นกันเอง",
     svcTitle: "บริการ —", svcEm: "ราคาโปร่งใส", svcDesc: "ปรับแบบฟรีจนกว่าจะชอบ ไม่บวกเพิ่มหน้างาน · เล็กเริ่ม 1,000฿ สี/ดำเริ่ม 1,500฿",
     services: [
       { tag: "ยอดนิยม", title: "Fine Line & Minimal", desc: "เส้นเล็ก 0.3mm คมกริบ ตัวอักษร สัญลักษณ์ ลายแรกไม่เจ็บมาก", price: "เริ่ม 1,000฿", meta: "30–60 นาที" },
       { tag: "งานสี", title: "งานสีสด คัลเลอร์", desc: "ลงสีแน่น ไม่ดรอป เทคนิคแพ็คสีเนียน สีนำเข้าปลอดภัย", price: "เริ่ม 1,500฿", meta: "60–120 นาที" },
-      { tag: " blackwork", title: "Blackwork / Tribal", desc: "งานดำดุดัน ถมดำ Tribal Maori งานใหญ่คุมโทนเท่", price: "เริ่ม 1,500฿", meta: "45–180 นาที" },
+      { tag: "ดำเข้ม", title: "Blackwork / Tribal", desc: "งานดำดุดัน ถมดำ Tribal Maori งานใหญ่คุมโทนเท่", price: "เริ่ม 1,500฿", meta: "45–180 นาที" },
       { tag: "แก้ลาย", title: "แก้ลาย / สักทับ", desc: "แก้รอยพัง คิดแบบใหม่ให้ฟรี ปรับจนชอบค่อยสัก", price: "ประเมินฟรี", meta: "ปรึกษาฟรี" },
       { tag: "ญี่ปุ่น", title: "Japanese / Old School", desc: "ปลาคาร์พ มังกร ดอกโบตั๋น เส้นแข็งแรง เงาสวย", price: "เริ่ม 2,000฿", meta: "90–240 นาที" },
       { tag: "ดูแล", title: "ดูแลหลังสัก & เจาะ", desc: "ฟิล์มกันน้ำ ครีมดูแล คำแนะนำแผลแบบละเอียด", price: "ฟรี", meta: "รับประกันเติม*" },
     ],
-    worksTitle: "ผลงานจริง —", worksEm: "แตะเพื่อขยาย", worksDesc: "รูปจริงทั้งหมดจากร้าน — ใช้รูปจาก Drive 30 รูป ไม่ใช่รูปตัวอย่าง",
+    shopTitle: "หน้าร้าน —", shopEm: "สะอาด สว่าง มองเห็นจากถนน",
+    shopDesc: "สาขาเดียวพัทยาใต้ ไฟเหลือง-น้ำเงินเด่นชัด เดินถึงจาก Walking Street 3 นาที",
+    worksTitle: "ผลงานจริง —", worksEm: "แตะเพื่อขยาย", worksDesc: "รูปจริงทั้งหมดจากร้าน — 30 รูป ไม่ใช่รูปตัวอย่าง",
     filterAll: "ทั้งหมด",
     worksCta: "ชอบสไตล์ไหน? ส่งแบบมาประเมินฟรีได้เลย",
     worksBtn: "ดูเพิ่มใน Facebook →",
+    whyTitle: "ทำไมต้อง Southside",
+    why: [
+      { n: "100%", t: "ปลอดเชื้อ", d: "เข็มใหม่แกะต่อหน้า ถุงมือ ฆ่าเชื้อมาตรฐานโรงพยาบาล" },
+      { n: "ฟรี", t: "ออกแบบ", d: "วาดให้ดู ปรับจนถูกใจ ไม่คิดเงินเพิ่ม" },
+      { n: "1ชม.", t: "ตอบไว", d: "ส่งแบบมาประเมินฟรี ตอบไวใน 1 ชม. ไม่สักก็ปรึกษาได้" },
+    ],
     stepsTitle: "ขั้นตอน —", stepsEm: "ครั้งแรกก็ไม่เกร็ง",
     steps: [
       { n: "01", t: "ส่งแบบ", d: "ทักเพจ/WhatsApp ส่งรูป บอกตำแหน่ง ขนาด" },
@@ -74,39 +77,41 @@ const I18N = {
     mobileCall: "โทร", mobileBook: "จองคิว · ประเมินฟรี",
   },
   en: {
-    navWorks: "Works", navServices: "Services", navProcess: "Process", navReviews: "Reviews", navContact: "Location",
+    navWorks: "Works", navServices: "Services", navShop: "Studio", navProcess: "Process", navReviews: "Reviews", navContact: "Location",
     kicker: "Open 13:00–22:00 · Walk-ins welcome · Soi 14, Second Road, near Walking Street · 5.0★ 43 reviews",
     h1a: "The tattoo that", h1b: "really", h1c: "stays.",
     h1sub: "Sharp. Sterile. Transparent pricing.",
-    sub: "Southside Ink — Pattaya tattoo studio. Specialized in Fine line / Color / Blackwork / Cover-ups. Fresh needle every time, 100% sterile. Free design until you love it.",
+    sub: "Southside Ink — Pattaya studio. Fine line / Color / Blackwork / Cover-ups. Fresh needle every time, 100% sterile. Free design until you love it.",
     ctaBook: "Book now — Free quote →", ctaWorks: "View works",
     termTitle: "southside — booking",
-    term: `$ southside book --style "fine line" --size 5cm
-✓ fresh needle opened in front of you
-✓ free design until perfect
-✓ fixed price — no hidden fees
-
-> send design to fb.com/ploytattoopt
-> or WhatsApp 065-696-4693 — reply within 1h`,
+    term: `$ southside book --style "fine line" --size 5cm\n✓ fresh needle opened in front of you\n✓ free design until perfect\n✓ fixed price — no hidden fees\n\n> send design to fb.com/ploytattoopt\n> or WhatsApp 065-696-4693 — reply within 1h`,
     proofReviews: "43 reviews", proofTats: "1,000+ tattoos", proofNeedle: "100% sterile",
     stats1: "fresh needle every time", stats2: "free design", stats3: "reply in 1h", stats4: "TH/EN friendly",
     svcTitle: "Services —", svcEm: "transparent pricing", svcDesc: "Free revisions until you love it. No hidden fees. Small from 1,000 THB, color/black from 1,500 THB.",
     services: [
       { tag: "most popular", title: "Fine Line & Minimal", desc: "Ultra-fine 0.3mm, crisp scripts, symbols — great for first tattoo", price: "from 1,000 THB", meta: "30–60 min" },
-      { tag: "color", title: "Color", desc: "Vibrant, packed color that lasts. Imported safe inks", price: "from 1,500 THB", meta: "60–120 min" },
+      { tag: "color", title: "Color", desc: "Vibrant, packed color that lasts. Safe imported inks", price: "from 1,500 THB", meta: "60–120 min" },
       { tag: "blackwork", title: "Blackwork / Tribal", desc: "Bold black, tribal, Maori, large scale", price: "from 1,500 THB", meta: "45–180 min" },
       { tag: "cover up", title: "Cover-up", desc: "Fix or cover old tattoos. Free redesign until perfect", price: "free quote", meta: "free consult" },
       { tag: "japanese", title: "Japanese / Old School", desc: "Koi, dragon, peony — strong lines, smooth shading", price: "from 2,000 THB", meta: "90–240 min" },
       { tag: "aftercare", title: "Aftercare & Piercing", desc: "Waterproof film, cream, detailed healing guide", price: "free", meta: "free touch-up*" },
     ],
-    worksTitle: "Real works —", worksEm: "tap to enlarge", worksDesc: "All photos are real works from our studio — 30 photos from Drive, no stock images",
+    shopTitle: "Studio —", shopEm: "bright, clean, visible from the road",
+    shopDesc: "One location in South Pattaya, yellow-blue facade, 3 min walk from Walking Street",
+    worksTitle: "Real works —", worksEm: "tap to enlarge", worksDesc: "All photos are real works from our studio — 30 photos, no stock images",
     filterAll: "All",
     worksCta: "Like a style? Send your idea for a free quote",
     worksBtn: "More on Facebook →",
+    whyTitle: "Why Southside",
+    why: [
+      { n: "100%", t: "Sterile", d: "Fresh needle, gloves, hospital-standard sterilization" },
+      { n: "Free", t: "Design", d: "Draw & revise until you love it, no extra charge" },
+      { n: "1h", t: "Fast reply", d: "Free quote within 1h, no pressure" },
+    ],
     stepsTitle: "Process —", stepsEm: "first time? no worries",
     steps: [
-      { n: "01", t: "Send idea", d: "Message us your reference, placement and size" },
-      { n: "02", t: "Design & quote", d: "We draw, revise until you love it, fixed price" },
+      { n: "01", t: "Send idea", d: "Message us reference, placement and size" },
+      { n: "02", t: "Design & quote", d: "We draw, revise until perfect, fixed price" },
       { n: "03", t: "Get tattooed", d: "Fresh needle, gentle hand, TH/EN" },
       { n: "04", t: "Aftercare", d: "Wash, film, cream, free touch-up*" },
     ],
@@ -117,9 +122,9 @@ const I18N = {
     faqsTitle: "FAQ",
     faqs: [
       { q: "Does it hurt? How to prepare for first tattoo?", a: "Mild stinging, fine lines hurt less. Sleep well, no alcohol 24h, eat before." },
-      { q: "How much does it cost?", a: "Fine line from 1,000 THB, color/black from 1,500 THB. Send design for free quote, fixed price, no add-ons." },
-      { q: "Need booking? How long?", a: "Small 30–60 min, medium 1–2h. Book 1 day ahead recommended, walk-ins until 20:00." },
-      { q: "Is it sterile?", a: "Fresh needle opened in front of you, gloves, hospital-standard sterilization, safe imported inks." },
+      { q: "How much does it cost?", a: "Fine line from 1,000 THB, color/black from 1,500 THB. Free quote, fixed price, no add-ons." },
+      { q: "Need booking? How long?", a: "Small 30–60 min, medium 1–2h. Book 1 day ahead, walk-ins until 20:00." },
+      { q: "Is it sterile?", a: "Fresh needle opened in front of you, gloves, hospital-standard, safe inks." },
     ],
     contactTitle: "Soi 14, Second Road", contactEm: "near Walking Street",
     contactDesc: "South Pattaya, Bang Lamung, Chonburi 20150 · Open daily 13:00–22:00 · Walk-ins until 20:00",
@@ -163,6 +168,7 @@ export default function App() {
   const curFilter = filter ?? allLabel
   const filtered = PORTFOLIO.filter(p => curFilter === allLabel || p.tag === curFilter)
   const filters = [allLabel, ...TAGS]
+  const SHOP_SRC = SHOP.map(id => `${import.meta.env.BASE_URL}images/works/${id}.jpg`)
 
   useEffect(() => {
     localStorage.setItem('southside-lang', lang)
@@ -218,6 +224,7 @@ export default function App() {
           <nav className={`oc-links ${menuOpen ? 'open' : ''}`}>
             <a href="#works" onClick={(e) => { e.preventDefault(); scrollTo('works') }}>{L.navWorks}</a>
             <a href="#services" onClick={(e) => { e.preventDefault(); scrollTo('services') }}>{L.navServices}</a>
+            <a href="#shop" onClick={(e) => { e.preventDefault(); scrollTo('shop') }}>{L.navShop}</a>
             <a href="#process" onClick={(e) => { e.preventDefault(); scrollTo('process') }}>{L.navProcess}</a>
             <a href="#reviews" onClick={(e) => { e.preventDefault(); scrollTo('reviews') }}>{L.navReviews}</a>
             <a href="#contact" onClick={(e) => { e.preventDefault(); scrollTo('contact') }}>{L.navContact}</a>
@@ -236,38 +243,51 @@ export default function App() {
 
       <main id="top" className="oc-main">
         <section className="oc-hero">
-          <pre className="oc-ascii" aria-hidden>{`  ____   ___  _   _ _____ _   _ ____ ___ ____  _____
+          <div className="oc-hero-grid">
+            <div>
+              <pre className="oc-ascii" aria-hidden>{`  ____   ___  _   _ _____ _   _ ____ ___ ____  _____
  / ___| / _ \\| | | |_   _| | | / ___|_ _|  _ \\| ____|
  \\___ \\| | | | | | | | | | |_| \\___ \\| || | | |  _|
   ___) | |_| | |_| | | | |  _  |___) | || |_| | |___
  |____/ \\___/ \\___/  |_| |_| |_|____/___|____/|_____|
          I N K  ·  P A T T A Y A  ·  EST.2023`}</pre>
-
-          <div className="oc-kicker">{L.kicker}</div>
-
-          <h1 className="oc-h1">
-            {L.h1a} <em>{L.h1b}</em> {L.h1c}
-            <span>{L.h1sub}</span>
-          </h1>
-          <p className="oc-sub">{L.sub}</p>
-
-          <div className="oc-cta">
-            <button className="btn btn-primary" onClick={() => setDrawer(true)}>{L.ctaBook}</button>
-            <a className="btn btn-ghost" href="#works" onClick={(e) => { e.preventDefault(); scrollTo('works') }}>{L.ctaWorks}</a>
-          </div>
-
-          <div className="oc-terminal">
-            <div className="oc-term-bar"><span className="d r" /><span className="d y" /><span className="d g" /><span className="oc-term-title">{L.termTitle}</span></div>
-            <pre>{L.term}</pre>
-          </div>
-
-          <div className="oc-proof">
-            <span>★★★★★ <b>5.0</b> {L.proofReviews}</span><span>·</span><span>{L.proofTats}</span><span>·</span><span>{L.proofNeedle}</span>
-            <span className="oc-proof-actions">
-              <button className="oc-pill yellow" onClick={() => copyTel('0656964693')}>065-696-4693</button>
-              <a className="oc-pill" href="tel:0838153762">083-815-3762</a>
-              <a className="oc-pill blue" href="https://wa.me/66656964693" target="_blank" rel="noreferrer">WhatsApp</a>
-            </span>
+              <div className="oc-kicker">{L.kicker}</div>
+              <h1 className="oc-h1">
+                {L.h1a} <em>{L.h1b}</em> {L.h1c}
+                <span>{L.h1sub}</span>
+              </h1>
+              <p className="oc-sub">{L.sub}</p>
+              <div className="oc-cta">
+                <button className="btn btn-primary" onClick={() => setDrawer(true)}>{L.ctaBook}</button>
+                <a className="btn btn-ghost" href="#works" onClick={(e) => { e.preventDefault(); scrollTo('works') }}>{L.ctaWorks}</a>
+              </div>
+              <div className="oc-terminal">
+                <div className="oc-term-bar"><span className="d r" /><span className="d y" /><span className="d g" /><span className="oc-term-title">{L.termTitle}</span></div>
+                <pre>{L.term}</pre>
+              </div>
+              <div className="oc-proof">
+                <span>★★★★★ <b>5.0</b> {L.proofReviews}</span><span>·</span><span>{L.proofTats}</span><span>·</span><span>{L.proofNeedle}</span>
+                <span className="oc-proof-actions">
+                  <button className="oc-pill yellow" onClick={() => copyTel('0656964693')}>065-696-4693</button>
+                  <a className="oc-pill" href="tel:0838153762">083-815-3762</a>
+                  <a className="oc-pill blue" href="https://wa.me/66656964693" target="_blank" rel="noreferrer">WhatsApp</a>
+                </span>
+              </div>
+            </div>
+            <div className="oc-hero-visual">
+              <div className="oc-hero-card">
+                <img src={SHOP_SRC[0]} alt="Southside Ink Pattaya shop" />
+                <div className="oc-hero-badge">
+                  <b>SOUTHSIDE INK PATTAYA</b>
+                  <span>EXPERT TATTOOING · EST.2023</span>
+                  <span>OPEN DAILY 13:00–22:00 · WALK-IN WELCOME</span>
+                </div>
+              </div>
+              <div className="oc-hero-mini">
+                <img src={`${import.meta.env.BASE_URL}images/works/${WORKS[0]}.jpg`} alt="fine line work" />
+                <span>Fine line · 0.3mm</span>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -284,8 +304,9 @@ export default function App() {
             <p>{L.svcDesc}</p>
           </div>
           <div className="oc-svc-list">
-            {L.services.map(s => (
+            {L.services.map((s, i) => (
               <button key={s.title} className="oc-svc" onClick={() => setDrawer(true)}>
+                <div className="oc-svc-img"><img src={`${import.meta.env.BASE_URL}images/works/${WORKS[i%WORKS.length]}.jpg`} alt={s.title} loading="lazy" /></div>
                 <span className="oc-svc-tag">{s.tag}</span>
                 <span className="oc-svc-title">{s.title}</span>
                 <span className="oc-svc-desc">{s.desc}</span>
@@ -295,9 +316,32 @@ export default function App() {
           </div>
         </section>
 
-        <section id="works" className="oc-section alt">
+        <section id="shop" className="oc-section alt">
           <div className="oc-section-head">
-            <h2><span className="oc-num">02</span> {L.worksTitle} <em>{L.worksEm}</em></h2>
+            <h2><span className="oc-num">02</span> {L.shopTitle} <em>{L.shopEm}</em></h2>
+            <p>{L.shopDesc}</p>
+          </div>
+          <div className="oc-shop-grid">
+            {SHOP_SRC.map((src, i) => (
+              <div key={src} className={`oc-shop-card ${i===0?'wide':''}`}>
+                <img src={src} alt={`shop ${i+1}`} loading="lazy" />
+              </div>
+            ))}
+          </div>
+          <div className="oc-why">
+            {L.why.map(w => (
+              <div key={w.t} className="oc-why-card">
+                <code>{w.n}</code>
+                <h3>{w.t}</h3>
+                <p>{w.d}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section id="works" className="oc-section">
+          <div className="oc-section-head">
+            <h2><span className="oc-num">03</span> {L.worksTitle} <em>{L.worksEm}</em></h2>
             <p>{L.worksDesc}</p>
           </div>
           <div className="oc-filters">
@@ -307,7 +351,7 @@ export default function App() {
           </div>
           <div className="oc-grid">
             {filtered.map((it, idx) => (
-              <button key={it.id} className="oc-tile" onClick={() => setLightbox(idx)} aria-label={it.label}>
+              <button key={it.id} className={`oc-tile ${idx===0?'tall': idx===7?'wide':''}`} onClick={() => setLightbox(idx)} aria-label={it.label}>
                 <img src={it.src} alt={it.label} loading="lazy" />
                 <span className="oc-tile-tag">{it.tag}</span>
               </button>
@@ -319,9 +363,9 @@ export default function App() {
           </div>
         </section>
 
-        <section id="process" className="oc-section">
+        <section id="process" className="oc-section alt">
           <div className="oc-section-head">
-            <h2><span className="oc-num">03</span> {L.stepsTitle} <em>{L.stepsEm}</em></h2>
+            <h2><span className="oc-num">04</span> {L.stepsTitle} <em>{L.stepsEm}</em></h2>
           </div>
           <div className="oc-steps">
             {L.steps.map(s => (
@@ -334,7 +378,7 @@ export default function App() {
           </div>
         </section>
 
-        <section id="reviews" className="oc-section alt">
+        <section id="reviews" className="oc-section">
           <div className="oc-split">
             <div className="oc-artist">
               <img src={`${import.meta.env.BASE_URL}images/artist.jpg`} alt="Southside Ink artist" />
@@ -367,9 +411,9 @@ export default function App() {
           </div>
         </section>
 
-        <section className="oc-section">
+        <section className="oc-section alt">
           <div className="oc-section-head">
-            <h2><span className="oc-num">04</span> {L.faqsTitle}</h2>
+            <h2><span className="oc-num">05</span> {L.faqsTitle}</h2>
           </div>
           <div className="oc-faq">
             {L.faqs.map((f, i) => (
@@ -383,7 +427,7 @@ export default function App() {
           </div>
         </section>
 
-        <section id="contact" className="oc-section alt">
+        <section id="contact" className="oc-section">
           <div className="oc-contact">
             <div>
               <h2>{L.contactTitle}<br /><em>{L.contactEm}</em></h2>
