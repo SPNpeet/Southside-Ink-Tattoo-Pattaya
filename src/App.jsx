@@ -155,6 +155,7 @@ export default function App() {
   const [openFaq, setOpenFaq] = useState(0)
   const [drawer, setDrawer] = useState(false)
   const [reviewIdx, setReviewIdx] = useState(0)
+  const [fabOpen, setFabOpen] = useState(false)
 
   const L = I18N[lang]
   const TAGS = lang === 'th' ? TAGS_TH : TAGS_EN
@@ -219,7 +220,8 @@ export default function App() {
       <header className="oc-nav">
         <div className="oc-nav-inner">
           <a className="oc-logo" href="#top" onClick={(e) => { e.preventDefault(); scrollTo('top') }}>
-            <span className="oc-logo-mark">◈</span> Southside Ink <span className="oc-logo-sub">PATTAYA · EST.2023</span>
+            <img src={`${import.meta.env.BASE_URL}logo-nav.png`} alt="Southside Ink Pattaya" className="oc-logo-img" width="44" height="39" loading="eager" decoding="async" />
+            <span className="oc-logo-text">Southside Ink <span className="oc-logo-sub">PATTAYA · EST.2023</span></span>
           </a>
           <nav className={`oc-links ${menuOpen ? 'open' : ''}`}>
             <a href="#works" onClick={(e) => { e.preventDefault(); scrollTo('works') }}>{L.navWorks}</a>
@@ -457,7 +459,10 @@ export default function App() {
       </main>
 
       <footer className="oc-footer">
-        <div>© {new Date().getFullYear()} {L.footerCopy}</div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <img src={`${import.meta.env.BASE_URL}logo-nav.png`} alt="" width="28" height="24" style={{ borderRadius: 6, background: '#000', padding: 2 }} />
+          <span>© {new Date().getFullYear()} {L.footerCopy}</span>
+        </div>
         <div>น้ำเงิน เหลือง ขาว ดำ · Crafted with care</div>
       </footer>
 
@@ -486,12 +491,21 @@ export default function App() {
         </div>
       )}
 
-      <div className="oc-mobilebar">
-        <a href="tel:0656964693" className="oc-mbtn ghost">{L.mobileCall}</a>
-        <button className="oc-mbtn primary" onClick={() => setDrawer(true)}>{L.mobileBook}</button>
-        <a href="https://wa.me/66656964693" target="_blank" rel="noreferrer" className="oc-mbtn blue">WhatsApp</a>
+      <div className="oc-fab" aria-label="ติดต่อ">
+        {fabOpen && (
+          <div className="oc-fab-menu" role="menu">
+            <a href="tel:0656964693" className="oc-fab-item call" role="menuitem">☎ <span>065-696-4693</span></a>
+            <a href="https://wa.me/66656964693" target="_blank" rel="noreferrer" className="oc-fab-item wa" role="menuitem">WA <span>WhatsApp</span></a>
+            <a href="https://www.facebook.com/ploytattoopt" target="_blank" rel="noreferrer" className="oc-fab-item fb" role="menuitem">f <span>Facebook</span></a>
+            <button className="oc-fab-item book" onClick={() => { setFabOpen(false); setDrawer(true) }} role="menuitem">✦ <span>{L.mobileBook}</span></button>
+          </div>
+        )}
+        <button className={`oc-fab-btn ${fabOpen ? 'open' : ''}`} onClick={() => setFabOpen(v => !v)} aria-expanded={fabOpen} aria-label={fabOpen ? 'ปิดเมนูติดต่อ' : 'เปิดเมนูติดต่อ'}>
+          <span className="oc-fab-ic">{fabOpen ? '×' : '✦'}</span>
+        </button>
       </div>
 
+      {fabOpen && <button className="oc-fab-backdrop" aria-label="ปิด" onClick={() => setFabOpen(false)} />}
       {toast && <div className="oc-toast">{toast}</div>}
     </>
   )

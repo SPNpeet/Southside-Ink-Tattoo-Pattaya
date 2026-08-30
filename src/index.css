@@ -7,8 +7,7 @@
 }
 html { scroll-behavior: smooth; scroll-padding-top: 64px; }
 body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--sans); line-height: 1.65; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
-#root { max-width: 1120px; margin: 0 auto; padding: 0 20px 80px; }
-@media(min-width:769px){ #root{ padding-bottom: 0; } }
+#root { max-width: 1120px; margin: 0 auto; padding: 0 20px 24px; }
 a { color: var(--blue); text-decoration: none; }
 img { display: block; max-width: 100%; }
 :focus-visible { outline: 2px solid var(--yellow); outline-offset: 2px; }
@@ -84,10 +83,9 @@ img { display: block; max-width: 100%; }
 .oc-section { padding: 44px 0; }
 .oc-section.alt { background: rgba(255,255,255,.015); border-block: 1px solid rgba(255,255,255,.04); margin-inline: -20px; padding-inline: 20px; }
 .oc-section-head { margin-bottom: 18px; }
-.oc-section-head h2 { font-size: clamp(20px, 3vw, 26px); margin: 0 0 6px; color: var(--heading); font-weight: 800; letter-spacing: -.6px; }
+.oc-section-head h2 { display: flex; align-items: baseline; flex-wrap: wrap; gap: 8px; font-size: clamp(20px, 3vw, 26px); margin: 0 0 6px; color: var(--heading); font-weight: 800; letter-spacing: -.6px; }
 .oc-section-head h2 em { font-style: normal; color: var(--blue); }
-.oc-section-head p { color: var(--dim); font-size: 13px; margin: 0; }
-.oc-num { font-family: var(--mono); color: var(--blue); font-size: 12px; margin-right: 6px; }
+.oc-num { display: inline-flex; align-items: center; justify-content: center; min-width: 36px; height: 24px; padding: 0 8px; background: var(--blue); color: #fff; border-radius: 6px; font-family: var(--mono); font-size: 11px; font-weight: 800; letter-spacing: .5px; }
 
 /* svc list — with image */
 .oc-svc-list { display: grid; grid-template-columns: repeat(2,1fr); gap: 10px; }
@@ -129,7 +127,7 @@ img { display: block; max-width: 100%; }
 /* steps */
 .oc-steps { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; }
 .oc-step { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px; }
-.oc-step code { font-family: var(--mono); color: var(--blue); font-weight: 800; font-size: 13px; }
+.oc-step code { display: inline-flex; align-items: center; justify-content: center; min-width: 36px; height: 24px; padding: 0 8px; background: var(--blue); color: #fff; border-radius: 6px; font-family: var(--mono); font-weight: 800; font-size: 11px; letter-spacing: .5px; }
 .oc-step h3 { margin: 6px 0 4px; font-size: 14px; color: var(--heading); }
 .oc-step p { margin: 0; font-size: 12px; color: var(--dim); line-height: 1.5; }
 
@@ -202,12 +200,21 @@ img { display: block; max-width: 100%; }
 .oc-lb-x { top: 12px; right: 12px; }
 .oc-lb-prev { left: 12px; top: 50%; transform: translateY(-50%); }
 .oc-lb-next { right: 12px; top: 50%; transform: translateY(-50%); }
-.oc-mobilebar { position: fixed; left: 10px; right: 10px; bottom: 10px; z-index: 35; background: rgba(11,16,38,.96); border: 1px solid var(--border); border-radius: 16px; padding: 6px; display: none; gap: 6px; backdrop-filter: blur(10px); }
-.oc-mbtn { flex: 1; min-height: 44px; border-radius: 999px; font-weight: 800; font-size: 12px; border: 1px solid var(--border); display: grid; place-items: center; cursor: pointer; text-align: center; }
-.oc-mbtn.ghost { background: var(--surface); color: var(--heading); }
-.oc-mbtn.primary { background: var(--yellow); color: #080a12; border-color: var(--yellow); }
-.oc-mbtn.blue { background: var(--blue); color: #fff; border-color: var(--blue); }
-.oc-toast { position: fixed; left: 50%; bottom: 76px; transform: translateX(-50%); background: #fff; color: #080a12; font-weight: 800; font-size: 12px; padding: 8px 14px; border-radius: 999px; z-index: 80; }
+/* fab — minimal, not blocking */
+.oc-fab { position: fixed; right: 16px; bottom: 16px; z-index: 35; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
+.oc-fab-btn { width: 56px; height: 56px; border-radius: 50%; border: 1px solid var(--border); background: var(--yellow); color: #080a12; display: grid; place-items: center; cursor: pointer; box-shadow: 0 8px 24px rgba(15,23,42,.18); transition: transform .2s; }
+.oc-fab-btn:hover { transform: scale(1.05); }
+.oc-fab-btn.open { background: var(--heading); color: var(--bg); }
+.oc-fab-ic { font-size: 20px; font-weight: 900; }
+.oc-fab-menu { display: grid; gap: 8px; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 8px; box-shadow: 0 12px 32px rgba(15,23,42,.15); min-width: 180px; }
+.oc-fab-item { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--border); background: var(--surface); color: var(--heading); font-weight: 700; font-size: 13px; cursor: pointer; text-align: left; min-height: 44px; }
+.oc-fab-item.call { border-color: var(--border); }
+.oc-fab-item.wa { background: #25D366; color: #fff; border-color: #25D366; }
+.oc-fab-item.fb { background: #1877F2; color: #fff; border-color: #1877F2; }
+.oc-fab-item.book { background: var(--blue); color: #fff; border-color: var(--blue); }
+.oc-fab-item span { font-weight: 800; }
+.oc-fab-backdrop { position: fixed; inset: 0; z-index: 34; background: transparent; border: 0; }
+.oc-toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); background: #0f172a; color: #fff; font-weight: 800; font-size: 12px; padding: 8px 14px; border-radius: 999px; z-index: 80; box-shadow: 0 8px 24px rgba(0,0,0,.2); }
 
 @media(max-width: 900px){
   .oc-hero-grid{ grid-template-columns: 1fr; }
