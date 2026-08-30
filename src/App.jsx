@@ -63,18 +63,21 @@ const I18N = {
     contactLines: [
       { code: "โทรหลัก", value: "065-696-4693", href: "tel:0656964693" },
       { code: "สำรอง", value: "083-815-3762", href: "tel:0838153762" },
+      { code: "LINE", value: "Ponair1", href: "https://line.me/ti/p/Ponair1" },
       { code: "WhatsApp", value: "0656964693", href: "https://wa.me/66656964693" },
       { code: "Facebook", value: "ploytattoopt", href: "https://www.facebook.com/ploytattoopt" },
     ],
     mapBtn: "เปิดใน Google Maps →",
-    bookTitle: "พร้อมสักแล้วหรือยัง?", bookDesc: "ส่งแบบมาประเมินฟรี ตอบไวใน 1 ชม.",
+    bookTitle: "พร้อมสักแล้วหรือยัง?", bookDesc: "ส่งแบบมาประเมินฟรี ตอบไวใน 1 ชม. — ทัก LINE สแกน QR ได้เลย",
     bookBtn: "ส่งแบบประเมินฟรี", callBtn: "โทรเลย",
     footerCopy: "Southside Ink Tattoo Pattaya · EST.2023 · เข็มใหม่ 100%",
     drawerTitle: "ส่งแบบประเมินฟรี", drawerDesc: "แนบรูป + บอกตำแหน่ง/ขนาด ตอบไวใน 1 ชม.",
     drawerFb: "ทัก Facebook เพจ", drawerFbSub: "ploytattoopt · ตอบไวสุด",
+    drawerLine: "แอด LINE", drawerLineSub: "Ponair1 · สแกน QR",
     drawerWa: "ทัก WhatsApp", drawerWaSub: "065-696-4693",
     drawerCall: "โทรเลย", drawerCallSub: "065-696-4693 / 083-815-3762",
     mobileCall: "โทร", mobileBook: "จองคิว · ประเมินฟรี",
+    lineId: "Ponair1", lineQr: "line-qr.png", lineUrl: "https://line.me/ti/p/Ponair1",
   },
   en: {
     navWorks: "Works", navServices: "Services", navShop: "Studio", navProcess: "Process", navReviews: "Reviews", navContact: "Location",
@@ -131,18 +134,21 @@ const I18N = {
     contactLines: [
       { code: "Main", value: "065-696-4693", href: "tel:0656964693" },
       { code: "Alt", value: "083-815-3762", href: "tel:0838153762" },
+      { code: "LINE", value: "Ponair1", href: "https://line.me/ti/p/Ponair1" },
       { code: "WhatsApp", value: "0656964693", href: "https://wa.me/66656964693" },
       { code: "Facebook", value: "ploytattoopt", href: "https://www.facebook.com/ploytattoopt" },
     ],
     mapBtn: "Open in Google Maps →",
-    bookTitle: "Ready for your tattoo?", bookDesc: "Send your idea for a free quote — reply within 1h",
+    bookTitle: "Ready for your tattoo?", bookDesc: "Send your idea for a free quote — reply within 1h — scan LINE QR",
     bookBtn: "Send for free quote", callBtn: "Call now",
     footerCopy: "Southside Ink Tattoo Pattaya · EST.2023 · 100% sterile",
     drawerTitle: "Free quote", drawerDesc: "Attach image + placement/size — reply within 1h",
     drawerFb: "Message Facebook", drawerFbSub: "ploytattoopt · fastest",
+    drawerLine: "Add LINE", drawerLineSub: "Ponair1 · scan QR",
     drawerWa: "WhatsApp", drawerWaSub: "065-696-4693",
     drawerCall: "Call now", drawerCallSub: "065-696-4693 / 083-815-3762",
     mobileCall: "Call", mobileBook: "Book · Free quote",
+    lineId: "Ponair1", lineQr: "line-qr.png", lineUrl: "https://line.me/ti/p/Ponair1",
   }
 }
 
@@ -221,7 +227,7 @@ export default function App() {
         <div className="oc-nav-inner">
           <a className="oc-logo" href="#top" onClick={(e) => { e.preventDefault(); scrollTo('top') }}>
             <img src={`${import.meta.env.BASE_URL}logo-nav.png`} alt="Southside Ink Pattaya" className="oc-logo-img" width="44" height="39" loading="eager" decoding="async" />
-            <span className="oc-logo-text">Southside Ink <span className="oc-logo-sub">PATTAYA · EST.2023</span></span>
+            <span className="oc-logo-text">Southside Ink <span className="oc-logo-sub">PATTAYA</span></span>
           </a>
           <nav className={`oc-links ${menuOpen ? 'open' : ''}`}>
             <a href="#works" onClick={(e) => { e.preventDefault(); scrollTo('works') }}>{L.navWorks}</a>
@@ -236,8 +242,15 @@ export default function App() {
               <button className={lang==='th'?'on':''} onClick={() => setLang('th')} aria-pressed={lang==='th'}>TH</button>
               <button className={lang==='en'?'on':''} onClick={() => setLang('en')} aria-pressed={lang==='en'}>EN</button>
             </div>
-            <a className="oc-ic" href="https://www.facebook.com/ploytattoopt" target="_blank" rel="noreferrer" aria-label="Facebook">f</a>
-            <a className="oc-ic" href="https://wa.me/66656964693" target="_blank" rel="noreferrer" aria-label="WhatsApp">wa</a>
+            <a className="oc-ic" href="https://line.me/ti/p/Ponair1" target="_blank" rel="noreferrer" aria-label="LINE" style={{ background: '#06C755', borderColor: '#06C755' }}>
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="white" aria-hidden="true"><path d="M19.5 12c0-3.3-3.1-6-6.9-6S5.7 8.7 5.7 12c0 1.8.8 3.4 2.1 4.5l-.3 1.5 1.6-.9c.8.3 1.7.5 2.5.5 3.8 0 6.9-2.7 6.9-6z"/><text x="12" y="13.5" textAnchor="middle" fontSize="6" fontWeight="800" fill="white">LINE</text></svg>
+            </a>
+            <a className="oc-ic" href="https://www.facebook.com/ploytattoopt" target="_blank" rel="noreferrer" aria-label="Facebook" style={{ background: '#1877F2', borderColor: '#1877F2' }}>
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="white" aria-hidden="true"><path d="M14 8h2.5l-.5-3H14c-1.7 0-3 1.3-3 3v2H9v3h2v5h3v-5h2.2l.3-3H14V9c0-.6.4-1 1-1z"/></svg>
+            </a>
+            <a className="oc-ic" href="https://wa.me/66656964693" target="_blank" rel="noreferrer" aria-label="WhatsApp" style={{ background: '#25D366', borderColor: '#25D366' }}>
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="white" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1.1 3.9 4-1A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-2.4.6.6-2.3-.2-.3A8 8 0 1 1 12 20zm4.3-5.9c-.2-.1-1.3-.6-1.5-.7-.2 0-.4 0-.5.2l-.7.8c-.2.2-.4.2-.6.1-.2-.1-.9-.3-1.7-1-.6-.5-1-1.2-1.2-1.4 0-.2 0-.4.1-.5l.6-.7c.1-.1.1-.2 0-.4l-.6-1.5c-.2-.4-.3-.4-.5-.4h-.4c-.2 0-.4.1-.6.3-.2.2-.7.7-.7 1.7s.7 2 1 2.3c.2.2 1.3 2 3.1 2.8l1.3.5c.3.1.5.1.7 0 .2-.1.9-.4 1-.7.1-.3.1-.6 0-.7 0 0-.1 0-.3 0z"/></svg>
+            </a>
             <button className="oc-menu" aria-label="Menu" onClick={() => setMenuOpen(v => !v)}><span /><span /><span /></button>
           </div>
         </div>
@@ -252,7 +265,7 @@ export default function App() {
  \\___ \\| | | | | | | | | | |_| \\___ \\| || | | |  _|
   ___) | |_| | |_| | | | |  _  |___) | || |_| | |___
  |____/ \\___/ \\___/  |_| |_| |_|____/___|____/|_____|
-         I N K  ·  P A T T A Y A  ·  EST.2023`}</pre>
+         I N K  ·  P A T T A Y A`}</pre>
               <div className="oc-kicker">{L.kicker}</div>
               <h1 className="oc-h1">
                 {L.h1a} <em>{L.h1b}</em> {L.h1c}
@@ -267,14 +280,15 @@ export default function App() {
                 <div className="oc-term-bar"><span className="d r" /><span className="d y" /><span className="d g" /><span className="oc-term-title">{L.termTitle}</span></div>
                 <pre>{L.term}</pre>
               </div>
-              <div className="oc-proof">
-                <span>★★★★★ <b>5.0</b> {L.proofReviews}</span><span>·</span><span>{L.proofTats}</span><span>·</span><span>{L.proofNeedle}</span>
-                <span className="oc-proof-actions">
-                  <button className="oc-pill yellow" onClick={() => copyTel('0656964693')}>065-696-4693</button>
-                  <a className="oc-pill" href="tel:0838153762">083-815-3762</a>
-                  <a className="oc-pill blue" href="https://wa.me/66656964693" target="_blank" rel="noreferrer">WhatsApp</a>
-                </span>
-              </div>
+          <div className="oc-proof">
+            <span>★★★★★ <b>5.0</b> {L.proofReviews}</span><span>·</span><span>{L.proofTats}</span><span>·</span><span>{L.proofNeedle}</span>
+            <span className="oc-proof-actions">
+              <button className="oc-pill yellow" onClick={() => copyTel('0656964693')}>065-696-4693</button>
+              <a className="oc-pill" href="tel:0838153762">083-815-3762</a>
+              <a className="oc-pill" href="https://line.me/ti/p/Ponair1" target="_blank" rel="noreferrer" style={{ background: '#06C755', color: '#fff', borderColor: '#06C755' }}>LINE Ponair1</a>
+              <a className="oc-pill blue" href="https://wa.me/66656964693" target="_blank" rel="noreferrer">WhatsApp</a>
+            </span>
+          </div>
             </div>
             <div className="oc-hero-visual">
               <div className="oc-hero-card">
@@ -439,6 +453,14 @@ export default function App() {
                   <a key={l.code} href={l.href} target={l.href.startsWith('http')?'_blank':undefined} rel={l.href.startsWith('http')?'noreferrer':undefined}><code>{l.code}</code> {l.value}</a>
                 ))}
               </div>
+              <div className="oc-line-qr-card">
+                <img src={`${import.meta.env.BASE_URL}images/line-qr.png`} alt="LINE QR Ponair1" width="120" height="120" loading="lazy" />
+                <div>
+                  <b>LINE ID: Ponair1</b>
+                  <span>{lang==='th'?'สแกน QR แอดไลน์ ตอบไวสุด':'Scan QR to add LINE — fastest reply'}</span>
+                  <a href="https://line.me/ti/p/Ponair1" target="_blank" rel="noreferrer">line.me/ti/p/Ponair1 →</a>
+                </div>
+              </div>
               <a className="btn btn-primary" href="https://share.google/lUOdKhWmDRqsbYEMv" target="_blank" rel="noreferrer">{L.mapBtn}</a>
             </div>
             <div className="oc-map">
@@ -465,6 +487,7 @@ export default function App() {
         </div>
         <div>น้ำเงิน เหลือง ขาว ดำ · Crafted with care</div>
       </footer>
+      <style>{`@media(max-width: 768px){ .oc-footer-grid{ grid-template-columns: 1fr !important; } }`}</style>
 
       <div className={`oc-drawer ${drawer ? 'open' : ''}`} role="dialog" aria-modal="true" aria-label="booking">
         <button className="oc-drawer-bg" aria-label="Close" onClick={() => setDrawer(false)} />
@@ -472,6 +495,10 @@ export default function App() {
           <button className="oc-drawer-x" onClick={() => setDrawer(false)} aria-label="Close">×</button>
           <h3>{L.drawerTitle}</h3>
           <p>{L.drawerDesc}</p>
+          <a className="oc-choice" href="https://line.me/ti/p/Ponair1" target="_blank" rel="noreferrer" style={{ background: '#06C755', color: '#fff', borderColor: '#06C755', display: 'flex', alignItems: 'center', gap: 10 }}>
+            <img src={`${import.meta.env.BASE_URL}images/line-qr.png`} alt="LINE QR" width="36" height="36" style={{ borderRadius: 6, background: '#fff', padding: 2 }} />
+            <span><b>{L.drawerLine}</b><span style={{ color: 'rgba(255,255,255,.9)' }}>{L.drawerLineSub}</span></span>
+          </a>
           <a className="oc-choice primary" href="https://www.facebook.com/ploytattoopt" target="_blank" rel="noreferrer"><b>{L.drawerFb}</b><span>{L.drawerFbSub}</span></a>
           <a className="oc-choice blue" href="https://wa.me/66656964693?text=สวัสดีครับ ขอประเมินราคาสักครับ" target="_blank" rel="noreferrer"><b>{L.drawerWa}</b><span>{L.drawerWaSub}</span></a>
           <a className="oc-choice" href="tel:0656964693"><b>{L.drawerCall}</b><span>{L.drawerCallSub}</span></a>
@@ -494,6 +521,7 @@ export default function App() {
       <div className="oc-fab" aria-label="ติดต่อ">
         {fabOpen && (
           <div className="oc-fab-menu" role="menu">
+            <a href="https://line.me/ti/p/Ponair1" target="_blank" rel="noreferrer" className="oc-fab-item line" role="menuitem" style={{ background: '#06C755', color: '#fff', borderColor: '#06C755' }}>LINE <span>Ponair1 · QR</span></a>
             <a href="tel:0656964693" className="oc-fab-item call" role="menuitem">☎ <span>065-696-4693</span></a>
             <a href="https://wa.me/66656964693" target="_blank" rel="noreferrer" className="oc-fab-item wa" role="menuitem">WA <span>WhatsApp</span></a>
             <a href="https://www.facebook.com/ploytattoopt" target="_blank" rel="noreferrer" className="oc-fab-item fb" role="menuitem">f <span>Facebook</span></a>
