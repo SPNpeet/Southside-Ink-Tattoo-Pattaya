@@ -10,7 +10,7 @@ const TAGS_TH = ["Fine line","Blackwork","งานสี","มินิมอ�
 const I18N = {
   th: {
     navWorks: "ผลงาน", navServices: "บริการ", navShop: "ร้าน", navProcess: "ขั้นตอน", navReviews: "รีวิว", navContact: "แผนที่",
-    kicker: "เปิด 13:00–22:00 · Walk-in ยินดีต้อนรับ · สาย 2 ซอย 14 ใกล้วอล์กกิ้งสตรีท · 5.0★ 43 รีวิว",
+    kicker: "เปิด 13:00–00:00 · Walk-in ยินดีต้อนรับ · 133/9 ม.10 เมืองพัทยา · 5.0★ 43 รีวิว",
     h1a: "The tattoo that", h1b: "really", h1c: "stays.",
     h1sub: "สักให้คม สะอาด ปลอดภัย — ราคาชัดเจน",
     sub: "Southside Ink — สตูดิโอสักพัทยา ถนัด Fine line / สี / ดำ / แก้ลาย เข็มใหม่แกะต่อหน้า ปลอดเชื้อ 100% ปรับแบบจนถูกใจค่อยสัก",
@@ -29,7 +29,7 @@ const I18N = {
       { tag: "ดูแล", title: "ดูแลหลังสัก & เจาะ", desc: "ฟิล์มกันน้ำ ครีมดูแล คำแนะนำแผลแบบละเอียด", price: "ฟรี", meta: "รับประกันเติม*" },
     ],
     shopTitle: "หน้าร้าน —", shopEm: "สะอาด สว่าง มองเห็นจากถนน",
-    shopDesc: "สาขาเดียวพัทยาใต้ ไฟเหลือง-น้ำเงินเด่นชัด เดินถึงจาก Walking Street 3 นาที",
+    shopDesc: "133/9 ม.10 เมืองพัทยา — ไฟเหลือง-น้ำเงินเด่นชัด เดิน 3 นาทีจาก Walking Street",
     worksTitle: "ผลงานจริง —", worksEm: "แตะเพื่อขยาย", worksDesc: "รูปจริงทั้งหมดจากร้าน — 30 รูป ไม่ใช่รูปตัวอย่าง",
     filterAll: "ทั้งหมด",
     worksCta: "ชอบสไตล์ไหน? ส่งแบบมาประเมินฟรีได้เลย",
@@ -58,8 +58,8 @@ const I18N = {
       { q: "ต้องจองไหม กี่นาที", a: "เล็ก 30–60 นาที กลาง 1–2 ชม. แนะนำจองล่วงหน้า 1 วัน แต่ Walk-in ได้ถึง 20:00" },
       { q: "เข็มสะอาดไหม", a: "เข็มใหม่แกะต่อหน้า ถุงมือ/อุปกรณ์ฆ่าเชื้อมาตรฐานโรงพยาบาล สีนำเข้า ปลอดภัย" },
     ],
-    contactTitle: "สาย 2 ซอย 14", contactEm: "ใกล้วอล์กกิ้งสตรีท",
-    contactDesc: "พัทยาใต้ อ.บางละมุง ชลบุรี 20150 · เปิดทุกวัน 13:00–22:00 · Walk-in ได้ถึง 20:00",
+    contactTitle: "133/9 ม.10", contactEm: "เมืองพัทยา · ใกล้วอล์กกิ้งสตรีท",
+    contactDesc: "133/9 ม.10 เมืองพัทยา บางละมุง ชลบุรี 20150 · เปิดทุกวัน 13:00–00:00 · Walk-in ได้ถึง 23:00",
     contactLines: [
       { code: "โทรหลัก", value: "065-696-4693", href: "tel:0656964693" },
       { code: "สำรอง", value: "083-815-3762", href: "tel:0838153762" },
@@ -81,7 +81,7 @@ const I18N = {
   },
   en: {
     navWorks: "Works", navServices: "Services", navShop: "Studio", navProcess: "Process", navReviews: "Reviews", navContact: "Location",
-    kicker: "Open 13:00–22:00 · Walk-ins welcome · Soi 14, Second Road, near Walking Street · 5.0★ 43 reviews",
+    kicker: "Open 13:00–00:00 · Walk-ins welcome · 133/9 M.10 Muang Pattaya · 5.0★ 43 reviews",
     h1a: "The tattoo that", h1b: "really", h1c: "stays.",
     h1sub: "Sharp. Sterile. Transparent pricing.",
     sub: "Southside Ink — Pattaya studio. Fine line / Color / Blackwork / Cover-ups. Fresh needle every time, 100% sterile. Free design until you love it.",
@@ -100,7 +100,7 @@ const I18N = {
       { tag: "aftercare", title: "Aftercare & Piercing", desc: "Waterproof film, cream, detailed healing guide", price: "free", meta: "free touch-up*" },
     ],
     shopTitle: "Studio —", shopEm: "bright, clean, visible from the road",
-    shopDesc: "One location in South Pattaya, yellow-blue facade, 3 min walk from Walking Street",
+    shopDesc: "133/9 M.10 Muang Pattaya — yellow-blue facade, 3 min walk from Walking Street",
     worksTitle: "Real works —", worksEm: "tap to enlarge", worksDesc: "All photos are real works from our studio — 30 photos, no stock images",
     filterAll: "All",
     worksCta: "Like a style? Send your idea for a free quote",
@@ -129,8 +129,8 @@ const I18N = {
       { q: "Need booking? How long?", a: "Small 30–60 min, medium 1–2h. Book 1 day ahead, walk-ins until 20:00." },
       { q: "Is it sterile?", a: "Fresh needle opened in front of you, gloves, hospital-standard, safe inks." },
     ],
-    contactTitle: "Soi 14, Second Road", contactEm: "near Walking Street",
-    contactDesc: "South Pattaya, Bang Lamung, Chonburi 20150 · Open daily 13:00–22:00 · Walk-ins until 20:00",
+    contactTitle: "133/9 M.10 Muang Pattaya", contactEm: "near Walking Street",
+    contactDesc: "133/9 M.10 Muang Pattaya, Bang Lamung, Chonburi 20150 · Open daily 13:00–00:00 · Walk-ins until 23:00",
     contactLines: [
       { code: "Main", value: "065-696-4693", href: "tel:0656964693" },
       { code: "Alt", value: "083-815-3762", href: "tel:0838153762" },
@@ -464,7 +464,7 @@ export default function App() {
               <a className="btn btn-primary" href="https://share.google/lUOdKhWmDRqsbYEMv" target="_blank" rel="noreferrer">{L.mapBtn}</a>
             </div>
             <div className="oc-map">
-              <iframe title="Southside Ink Map" src="https://www.google.com/maps?q=Southside+Ink+Tattoo+Pattaya+สาย2+ซอย14&z=16&output=embed" loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
+              <iframe title="Southside Ink Map" src="https://www.google.com/maps?q=133/9+M.10+Muang+Pattaya+Southside+Ink+Tattoo+Pattaya&z=16&output=embed" loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
             </div>
           </div>
           <div className="oc-book">
@@ -481,11 +481,37 @@ export default function App() {
       </main>
 
       <footer className="oc-footer">
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <img src={`${import.meta.env.BASE_URL}logo-nav.png`} alt="" width="28" height="24" style={{ borderRadius: 6, background: '#000', padding: 2 }} />
-          <span>© {new Date().getFullYear()} {L.footerCopy}</span>
+        <div className="oc-footer-grid">
+          <div>
+            <img src={`${import.meta.env.BASE_URL}logo-nav.png`} alt="Southside Ink" width="52" height="46" style={{ borderRadius: 8, background: '#000', padding: 4, border: '1px solid var(--border)' }} />
+            <div style={{ marginTop: 10, fontWeight: 800, color: 'var(--heading)', fontFamily: 'var(--mono)', fontSize: 13 }}>Southside Ink Tattoo Pattaya</div>
+            <div style={{ fontSize: 12, color: 'var(--dim)', marginTop: 6, lineHeight: 1.6 }}>133/9 ม.10 เมืองพัทยา<br />บางละมุง ชลบุรี 20150<br />เปิดทุกวัน 13:00–00:00</div>
+          </div>
+          <div>
+            <h4>ติดต่อ — ทุกช่องทาง</h4>
+            <a href="tel:0656964693">☎ 065-696-4693</a>
+            <a href="tel:0838153762">083-815-3762</a>
+            <a href="https://line.me/ti/p/Ponair1" target="_blank" rel="noreferrer" style={{ color: '#06C755', fontWeight: 800 }}>LINE Ponair1</a>
+            <a href="https://wa.me/66656964693" target="_blank" rel="noreferrer">WhatsApp</a>
+            <a href="https://www.facebook.com/ploytattoopt" target="_blank" rel="noreferrer">Facebook ploytattoopt</a>
+          </div>
+          <div>
+            <h4>ที่อยู่</h4>
+            <p style={{ fontSize: 12, color: 'var(--dim)', lineHeight: 1.6, margin: 0 }}>133/9 ม.10 เมืองพัทยา<br />ใกล้วอล์กกิ้งสตรีท พัทยา<br />20150 · <a href="https://share.google/lUOdKhWmDRqsbYEMv" target="_blank" rel="noreferrer">ดูแผนที่ →</a></p>
+            <div style={{ marginTop: 12, display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+              <a href="https://line.me/ti/p/Ponair1" target="_blank" rel="noreferrer" className="oc-pill" style={{ background: '#06C755', color: '#fff', borderColor: '#06C755' }}>LINE</a>
+              <a href="https://wa.me/66656964693" target="_blank" rel="noreferrer" className="oc-pill blue">WhatsApp</a>
+            </div>
+          </div>
+          <div className="oc-footer-qr">
+            <img src={`${import.meta.env.BASE_URL}images/line-qr.png`} alt="LINE QR Ponair1" width="110" height="110" style={{ borderRadius: 10, border: '1px solid var(--border)', background: '#fff', padding: 4 }} />
+            <div style={{ fontFamily: 'var(--mono)', fontSize: 11, color: 'var(--dim)', marginTop: 6, textAlign: 'center' }}>สแกน QR แอด LINE<br /><b style={{ color: 'var(--heading)' }}>Ponair1</b></div>
+          </div>
         </div>
-        <div>น้ำเงิน เหลือง ขาว ดำ · Crafted with care</div>
+        <div className="oc-footer-bottom">
+          <span>© {new Date().getFullYear()} {L.footerCopy}</span>
+          <span>น้ำเงิน เหลือง ขาว ดำ · Crafted with care</span>
+        </div>
       </footer>
       <style>{`@media(max-width: 768px){ .oc-footer-grid{ grid-template-columns: 1fr !important; } }`}</style>
 
