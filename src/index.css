@@ -33,8 +33,11 @@ img { display: block; max-width: 100%; }
 /* main */
 .oc-main { padding: 18px 0 0; }
 
-/* hero — light blue/white — ชัด ไม่เลื่อน */
-.oc-ascii { margin: 0 0 14px; font-family: var(--mono); font-size: clamp(7px, 1.4vw, 11px); line-height: 1; color: var(--blue); white-space: pre; overflow: hidden; text-align: left; font-weight: 700; letter-spacing: 0; max-width: 100%; }
+/* hero — ASCII สวยโดดเด่น น่ามองทุกมุม — card */
+.oc-ascii-card { background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%); border: 1px solid #1e293b; border-radius: 14px; padding: 18px 14px 14px; margin: 0 0 16px; box-shadow: 0 12px 32px rgba(15,23,42,.18), inset 0 1px 0 rgba(255,255,255,.06); position: relative; overflow: hidden; }
+.oc-ascii-card::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(115deg, transparent 0 22px, rgba(250,204,21,.06) 22px 24px); pointer-events: none; }
+.oc-ascii { margin: 0; font-family: var(--mono); font-size: clamp(6px, 1.35vw, 10.5px); line-height: 1.05; white-space: pre; overflow: hidden; text-align: center; font-weight: 800; letter-spacing: .3px; max-width: 100%; color: #facc15; text-shadow: 0 1px 0 rgba(0,0,0,.2); position: relative; }
+.oc-ascii-sub { text-align: center; font-family: var(--mono); font-size: 11px; font-weight: 800; letter-spacing: 4px; color: #38bdf8; margin-top: 10px; position: relative; }
 .oc-kicker { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: .6px; margin-bottom: 18px; background: #eef6ff; border: 1px solid var(--border); display: inline-block; padding: 6px 10px; border-radius: 999px; }
 .oc-h1 { font-size: clamp(30px, 5vw, 44px); line-height: 1.05; margin: 0 0 12px; color: var(--heading); font-weight: 900; letter-spacing: -1.2px; }
 .oc-h1 em { font-style: normal; color: var(--blue); }

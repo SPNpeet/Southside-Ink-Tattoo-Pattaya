@@ -260,12 +260,14 @@ export default function App() {
         <section className="oc-hero">
           <div className="oc-hero-grid">
             <div>
-              <pre className="oc-ascii" aria-hidden>{`  ____   ___  _   _ _____ _   _ ____ ___ ____  _____
+              <div className="oc-ascii-card">
+                <pre className="oc-ascii" aria-hidden>{`  ____   ___  _   _ _____ _   _ ____ ___ ____  _____
  / ___| / _ \\| | | |_   _| | | / ___|_ _|  _ \\| ____|
  \\___ \\| | | | | | | | | | |_| \\___ \\| || | | |  _|
   ___) | |_| | |_| | | | |  _  |___) | || |_| | |___
- |____/ \\___/ \\___/  |_| |_| |_|____/___|____/|_____|
-         I N K  ·  P A T T A Y A`}</pre>
+ |____/ \\___/ \\___/  |_| |_| |_|____/___|____/|_____|`}</pre>
+                <div className="oc-ascii-sub">I N K  ·  P A T T A Y A  ·  SOUTHSIDE</div>
+              </div>
               <div className="oc-kicker">{L.kicker}</div>
               <h1 className="oc-h1">
                 {L.h1a} <em>{L.h1b}</em> {L.h1c}
