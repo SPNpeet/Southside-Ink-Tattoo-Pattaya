@@ -547,15 +547,30 @@ export default function App() {
       <div className="oc-fab" aria-label="ติดต่อ">
         {fabOpen && (
           <div className="oc-fab-menu" role="menu">
-            <a href="https://line.me/ti/p/Ponair1" target="_blank" rel="noreferrer" className="oc-fab-item line" role="menuitem" style={{ background: '#06C755', color: '#fff', borderColor: '#06C755' }}>LINE <span>Ponair1 · QR</span></a>
-            <a href="tel:0656964693" className="oc-fab-item call" role="menuitem">☎ <span>065-696-4693</span></a>
-            <a href="https://wa.me/66656964693" target="_blank" rel="noreferrer" className="oc-fab-item wa" role="menuitem">WA <span>WhatsApp</span></a>
-            <a href="https://www.facebook.com/ploytattoopt" target="_blank" rel="noreferrer" className="oc-fab-item fb" role="menuitem">f <span>Facebook</span></a>
-            <button className="oc-fab-item book" onClick={() => { setFabOpen(false); setDrawer(true) }} role="menuitem">✦ <span>{L.mobileBook}</span></button>
+            <a href="https://line.me/ti/p/Ponair1" target="_blank" rel="noreferrer" className="oc-fab-item line" role="menuitem">
+              <span className="oc-fab-ic2" style={{ background: '#06C755' }}><svg viewBox="0 0 24 24" width="16" height="16" fill="white"><path d="M19.5 12c0-3.3-3.1-6-6.9-6S5.7 8.7 5.7 12c0 1.8.8 3.4 2.1 4.5l-.3 1.5 1.6-.9c.8.3 1.7.5 2.5.5 3.8 0 6.9-2.7 6.9-6z"/></svg></span>
+              <span><b>LINE</b> Ponair1</span><small>สแกน QR</small>
+            </a>
+            <a href="tel:0656964693" className="oc-fab-item call" role="menuitem">
+              <span className="oc-fab-ic2" style={{ background: '#0f172a' }}>☎</span>
+              <span><b>โทร</b> 065-696-4693</span>
+            </a>
+            <a href="https://wa.me/66656964693" target="_blank" rel="noreferrer" className="oc-fab-item wa" role="menuitem">
+              <span className="oc-fab-ic2" style={{ background: '#25D366' }}><svg viewBox="0 0 24 24" width="16" height="16" fill="white"><path d="M12 2a10 10 0 0 0-8.6 15l-1.1 3.9 4-1A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-2.4.6.6-2.3-.2-.3A8 8 0 1 1 12 20zm4.3-5.9c-.2-.1-1.3-.6-1.5-.7-.2 0-.4 0-.5.2l-.7.8c-.2.2-.4.2-.6.1-.2-.1-.9-.3-1.7-1-.6-.5-1-1.2-1.2-1.4 0-.2 0-.4.1-.5l.6-.7c.1-.1.1-.2 0-.4l-.6-1.5c-.2-.4-.3-.4-.5-.4h-.4c-.2 0-.4.1-.6.3-.2.2-.7.7-.7 1.7s.7 2 1 2.3c.2.2 1.3 2 3.1 2.8l1.3.5c.3.1.5.1.7 0 .2-.1.9-.4 1-.7.1-.3.1-.6 0-.7 0 0-.1 0-.3 0z"/></svg></span>
+              <span><b>WhatsApp</b> 065-696-4693</span>
+            </a>
+            <a href="https://www.facebook.com/ploytattoopt" target="_blank" rel="noreferrer" className="oc-fab-item fb" role="menuitem">
+              <span className="oc-fab-ic2" style={{ background: '#1877F2' }}><svg viewBox="0 0 24 24" width="16" height="16" fill="white"><path d="M14 8h2.5l-.5-3H14c-1.7 0-3 1.3-3 3v2H9v3h2v5h3v-5h2.2l.3-3H14V9c0-.6.4-1 1-1z"/></svg></span>
+              <span><b>Facebook</b> ploytattoopt</span>
+            </a>
+            <button className="oc-fab-item book" onClick={() => { setFabOpen(false); setDrawer(true) }} role="menuitem">
+              <span className="oc-fab-ic2" style={{ background: 'var(--blue)' }}>✦</span>
+              <span><b>{lang==='th'?'จองคิว':'Book'}</b> {lang==='th'?'ประเมินฟรี':'Free quote'}</span>
+            </button>
           </div>
         )}
         <button className={`oc-fab-btn ${fabOpen ? 'open' : ''}`} onClick={() => setFabOpen(v => !v)} aria-expanded={fabOpen} aria-label={fabOpen ? 'ปิดเมนูติดต่อ' : 'เปิดเมนูติดต่อ'}>
-          <span className="oc-fab-ic">{fabOpen ? '×' : '✦'}</span>
+          {fabOpen ? <span className="oc-fab-close">×</span> : <><img src={`${import.meta.env.BASE_URL}logo-nav.png`} alt="" width="28" height="24" className="oc-fab-logo" /><span className="oc-fab-label">ติดต่อ</span></>}
         </button>
       </div>
 

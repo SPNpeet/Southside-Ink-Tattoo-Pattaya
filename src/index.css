@@ -212,21 +212,25 @@ img { display: block; max-width: 100%; }
 .oc-lb-x { top: 12px; right: 12px; }
 .oc-lb-prev { left: 12px; top: 50%; transform: translateY(-50%); }
 .oc-lb-next { right: 12px; top: 50%; transform: translateY(-50%); }
-/* fab — shop theme, not AI — unique shield */
-.oc-fab { position: fixed; right: 16px; bottom: 16px; z-index: 35; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
-.oc-fab-btn { width: 62px; height: 62px; border-radius: 16px; border: 2px solid #000; background: linear-gradient(135deg, #facc15 0%, #eab308 100%); color: #000; display: grid; place-items: center; cursor: pointer; box-shadow: 0 8px 24px rgba(0,0,0,.25); transition: all .2s; position: relative; }
-.oc-fab-btn:hover { transform: scale(1.04) rotate(1deg); }
-.oc-fab-btn.open { background: #000; color: #facc15; border-color: #facc15; }
-.oc-fab-ic { font-size: 22px; font-weight: 900; line-height: 1; }
-.oc-fab-btn::after { content: 'ติดต่อ'; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); background: #000; color: #facc15; font-family: var(--mono); font-size: 9px; font-weight: 800; padding: 2px 6px; border-radius: 4px; white-space: nowrap; letter-spacing: .5px; }
-.oc-fab-menu { display: grid; gap: 8px; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 8px; box-shadow: 0 12px 32px rgba(15,23,42,.2); min-width: 200px; }
+/* fab — shop theme, handcrafted, not AI */
+.oc-fab { position: fixed; right: 14px; bottom: 14px; z-index: 35; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
+.oc-fab-btn { width: 64px; height: 64px; border-radius: 18px; border: 2px solid #000; background: #000; display: grid; place-items: center; cursor: pointer; box-shadow: 0 10px 28px rgba(0,0,0,.28); padding: 4px; gap: 2px; transition: transform .18s; }
+.oc-fab-btn:hover { transform: translateY(-2px); }
+.oc-fab-btn.open { background: #0f172a; border-color: var(--yellow); }
+.oc-fab-logo { width: 32px; height: 28px; object-fit: contain; border-radius: 4px; display: block; }
+.oc-fab-label { font-family: var(--mono); font-size: 8px; font-weight: 800; color: var(--yellow); letter-spacing: .6px; line-height: 1; }
+.oc-fab-close { font-size: 26px; font-weight: 900; color: var(--yellow); line-height: 1; }
+.oc-fab-menu { display: grid; gap: 8px; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 8px; box-shadow: 0 12px 32px rgba(15,23,42,.2); min-width: 210px; }
 .oc-fab-item { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--border); background: var(--surface); color: var(--heading); font-weight: 700; font-size: 13px; cursor: pointer; text-align: left; min-height: 44px; }
+.oc-fab-ic2 { width: 32px; height: 32px; border-radius: 8px; display: grid; place-items: center; flex-shrink: 0; font-weight: 800; font-size: 12px; }
 .oc-fab-item.line { background: #06C755; color: #fff; border-color: #06C755; }
-.oc-fab-item.call { border-color: var(--border); }
+.oc-fab-item.call { border-color: var(--border); background: #fff; }
 .oc-fab-item.wa { background: #25D366; color: #fff; border-color: #25D366; }
 .oc-fab-item.fb { background: #1877F2; color: #fff; border-color: #1877F2; }
 .oc-fab-item.book { background: var(--blue); color: #fff; border-color: var(--blue); }
-.oc-fab-item span { font-weight: 800; }
+.oc-fab-item b { font-size: 13px; }
+.oc-fab-item span { font-weight: 600; font-size: 12px; }
+.oc-fab-item small { font-family: var(--mono); font-size: 10px; opacity: .9; margin-left: auto; }
 .oc-fab-backdrop { position: fixed; inset: 0; z-index: 34; background: transparent; border: 0; }
 .oc-toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); background: #0f172a; color: #fff; font-weight: 800; font-size: 12px; padding: 8px 14px; border-radius: 999px; z-index: 80; box-shadow: 0 8px 24px rgba(0,0,0,.2); }
 
