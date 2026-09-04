@@ -258,7 +258,8 @@ export default function App() {
 
       <main id="top" className="oc-main">
         <section className="oc-hero">
-          <div className="oc-hero-grid">
+          <div className="oc-hero-bg" aria-hidden style={{ backgroundImage: `linear-gradient(180deg, rgba(7,10,20,.55) 0%, rgba(7,10,20,.85) 100%), url(${SHOP_SRC[0]})` }} />
+          <div className="oc-hero-inner">
             <div>
               <div className="oc-ascii-card">
                 <pre className="oc-ascii" aria-hidden>{`  ____   ___  _   _ _____ _   _ ____ ___ ____  _____
@@ -282,15 +283,15 @@ export default function App() {
                 <div className="oc-term-bar"><span className="d r" /><span className="d y" /><span className="d g" /><span className="oc-term-title">{L.termTitle}</span></div>
                 <pre>{L.term}</pre>
               </div>
-          <div className="oc-proof">
-            <span>★★★★★ <b>5.0</b> {L.proofReviews}</span><span>·</span><span>{L.proofTats}</span><span>·</span><span>{L.proofNeedle}</span>
-            <span className="oc-proof-actions">
-              <button className="oc-pill yellow" onClick={() => copyTel('0656964693')}>065-696-4693</button>
-              <a className="oc-pill" href="tel:0838153762">083-815-3762</a>
-              <a className="oc-pill" href="https://line.me/ti/p/Ponair1" target="_blank" rel="noreferrer" style={{ background: '#06C755', color: '#fff', borderColor: '#06C755' }}>LINE Ponair1</a>
-              <a className="oc-pill blue" href="https://wa.me/66656964693" target="_blank" rel="noreferrer">WhatsApp</a>
-            </span>
-          </div>
+              <div className="oc-proof">
+                <span>★★★★★ <b>5.0</b> {L.proofReviews}</span><span>·</span><span>{L.proofTats}</span><span>·</span><span>{L.proofNeedle}</span>
+                <span className="oc-proof-actions">
+                  <button className="oc-pill yellow" onClick={() => copyTel('0656964693')}>065-696-4693</button>
+                  <a className="oc-pill" href="tel:0838153762">083-815-3762</a>
+                  <a className="oc-pill" href="https://line.me/ti/p/Ponair1" target="_blank" rel="noreferrer" style={{ background: '#06C755', color: '#fff', borderColor: '#06C755' }}>LINE Ponair1</a>
+                  <a className="oc-pill blue" href="https://wa.me/66656964693" target="_blank" rel="noreferrer">WhatsApp</a>
+                </span>
+              </div>
             </div>
             <div className="oc-hero-visual">
               <div className="oc-hero-card">
