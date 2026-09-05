@@ -4,178 +4,199 @@ const WORKS = [
   "1juqLfCJ8rMus2TWOjrvMi5-ScWqTFQ2i","1Y_UHXZKVVa-BeNGie6VZ1bZDsTKvaaEP","1AakBm6zRlxdU18-O0OZMsZBtXJec4cjy","1CJcz60zMz2FAsiTp8peXexBvckRR2Sje","1mvqnMOsuKOkkez-v_LwRXjESalyyQM6u","1wez5GHlEmSGPSGOFSGKv7TjZb33w2ay6","1JE7RvJS9z4mJnac6FTv7IbzNKl0xMgtT","18Sxx5C7vxdBdD1Vx2M7rB-dVeSmdf4wT","1UqICiJMIogflvg49LlN0aY5XIls7-9-u","1wRKLneJwNOqA6cMw-YgmfrQDJ2wod9oU","1p2t7M8TjgttoPjFLLZJQddmntVv127fK","1s3_oTYl2dsWPa-L6-04U3Ujq-B0e7LPW","1lj9O7B5YVODclQbytPDYdsDdWEx6FhbY","12b6gAAIKsFg8fYAqhGjlaTotcCO5P-LW","1mRemjlWbFPKVmoHxE8l2-ILXNiTpQEN6","1bZ_tiEF_w5g2CpCYvBFSQmJ7InH64zFi","1d55chDA5fq2GiW-OVFcik_Fb7uZFd_3u","1RGABkEBV_NKAzrhmSoILBIb0ntfMC4ka","1MmTWMflnMW1UBas_QM0MTffrBEle_YkD","1wabeadflb2uqkl6vCmUe00_yxcDdYMcN","1hwQi9k3-vuqcZp_BR0qasYe48ohPDSKY","12mQYgLHfDgodOQ49HncpDDU2UmfzE7Io","1eO87gXAGeA8phrPA_BGElyeyFxztsD3C","1L03vX6Gtgn4btn21SGZmbhFYj7doDoU6","1ABhsZCWhnAzmQk1Tc1HURcAJ67fvxyJb","1cl-hCX2gP8I9J31-Vxb8ZMoZOUgvJY7N","1KrAzbfZqZnnePKlZ-xRRty__wqg1Luxv","1jZ0ux5JtJYCeJpj7IZZufJ2B1Z6VrJ2W","1GUYMDjO5cKVRrWQiRF4cx79_4TTQxav8","1bf22cCZ8nkOQj4DTKkWehOqVqmDGwqZ6",
 ]
 const SHOP = ["1uZSA_1RswqRn_pAMW9wQx62ORcIEG1_Y","1WyQ_jfm05gZY_ihhjDCIWuUS7LL65524","1uRIBZHtOpJrfdMMmUJQyo6WeBehyxj9b","1QsuQgVxlhEjVYXTBZJGdULz_bf4M9cot"]
-const TAGS_EN = ["Fine line","Blackwork","Color","Minimal","Japanese","Cover up"]
-const TAGS_TH = ["Fine line","Blackwork","งานสี","มินิมอล","ญี่ปุ่น","แก้ลาย"]
+
+const STYLES = ["Realism","Traditional","Japanese","Mandala","Neo-Traditional","Portrait","Abstract","Black Work","Colour","Cover Ups","Floral","Mythology Realistic","Sak Yank"]
+
+const CONTACT = {
+  phone: "065-696-4693", phoneHref: "tel:0656964693",
+  phone2: "083-815-3762", phone2Href: "tel:0838153762",
+  lineId: "Ponair1", lineUrl: "https://line.me/ti/p/Ponair1",
+  waUrl: "https://wa.me/66656964693",
+  fbId: "ploytattoopt", fbUrl: "https://www.facebook.com/ploytattoopt",
+  mapUrl: "https://share.google/lUOdKhWmDRqsbYEMv",
+  mapEmbed: "https://www.google.com/maps?q=133/9+M.10+Muang+Pattaya+Southside+Ink+Tattoo+Pattaya&z=16&output=embed",
+}
 
 const I18N = {
   th: {
-    navWorks: "ผลงาน", navServices: "บริการ", navShop: "ร้าน", navProcess: "ขั้นตอน", navReviews: "รีวิว", navContact: "แผนที่",
-    kicker: "เปิด 13:00–00:00 · Walk-in ยินดีต้อนรับ · 133/9 ม.10 เมืองพัทยา · 5.0★ 43 รีวิว",
-    h1a: "The tattoo that", h1b: "really", h1c: "stays.",
-    h1sub: "สักให้คม สะอาด ปลอดภัย — ราคาชัดเจน",
-    sub: "Southside Ink — สตูดิโอสักพัทยา ถนัด Fine line / สี / ดำ / แก้ลาย เข็มใหม่แกะต่อหน้า ปลอดเชื้อ 100% ปรับแบบจนถูกใจค่อยสัก",
-    ctaBook: "จองคิว — ประเมินฟรี →", ctaWorks: "ดูผลงาน",
-    termTitle: "southside — booking",
-    term: `$ southside book --style "fine line" --size 5cm\n✓ เข็มใหม่แกะต่อหน้า\n✓ ออกแบบฟรีจนถูกใจ\n✓ บอกราคาก่อนเริ่ม — ไม่บวกหน้างาน\n\n> ส่งแบบมาที่ fb.com/ploytattoopt\n> หรือ WhatsApp 065-696-4693 — ตอบไวใน 1 ชม.`,
-    proofReviews: "43 รีวิว", proofTats: "1,000+ รอยสัก", proofNeedle: "เข็มใหม่ 100%",
-    stats1: "เข็มใหม่แกะต่อหน้า", stats2: "ออกแบบจนถูกใจ", stats3: "ตอบประเมินไว", stats4: "คุยง่าย เป็นกันเอง",
-    svcTitle: "บริการ —", svcEm: "ราคาโปร่งใส", svcDesc: "ปรับแบบฟรีจนกว่าจะชอบ ไม่บวกเพิ่มหน้างาน · เล็กเริ่ม 1,000฿ สี/ดำเริ่ม 1,500฿",
-    services: [
-      { tag: "ยอดนิยม", title: "Fine Line & Minimal", desc: "เส้นเล็ก 0.3mm คมกริบ ตัวอักษร สัญลักษณ์ ลายแรกไม่เจ็บมาก", price: "เริ่ม 1,000฿", meta: "30–60 นาที" },
-      { tag: "งานสี", title: "งานสีสด คัลเลอร์", desc: "ลงสีแน่น ไม่ดรอป เทคนิคแพ็คสีเนียน สีนำเข้าปลอดภัย", price: "เริ่ม 1,500฿", meta: "60–120 นาที" },
-      { tag: "ดำเข้ม", title: "Blackwork / Tribal", desc: "งานดำดุดัน ถมดำ Tribal Maori งานใหญ่คุมโทนเท่", price: "เริ่ม 1,500฿", meta: "45–180 นาที" },
-      { tag: "แก้ลาย", title: "แก้ลาย / สักทับ", desc: "แก้รอยพัง คิดแบบใหม่ให้ฟรี ปรับจนชอบค่อยสัก", price: "ประเมินฟรี", meta: "ปรึกษาฟรี" },
-      { tag: "ญี่ปุ่น", title: "Japanese / Old School", desc: "ปลาคาร์พ มังกร ดอกโบตั๋น เส้นแข็งแรง เงาสวย", price: "เริ่ม 2,000฿", meta: "90–240 นาที" },
-      { tag: "ดูแล", title: "ดูแลหลังสัก & เจาะ", desc: "ฟิล์มกันน้ำ ครีมดูแล คำแนะนำแผลแบบละเอียด", price: "ฟรี", meta: "รับประกันเติม*" },
+    nav: ["เกี่ยวกับเรา","สไตล์","ช่างสัก","ที่ตั้ง","ติดต่อ"],
+    heroKicker: "เปิดทุกวัน 13:00–24:00 · รับ Walk-in · 5.0★ 43 รีวิว",
+    heroH1a: "ร้านสักพัทยา", heroH1b: "ห่างจาก Walking Street เพียงไม่กี่นาที",
+    heroSub: "รับออกแบบและสักลายตามความต้องการของลูกค้า ครบทุกสไตล์ ช่างสักประสบการณ์มากกว่า 10 ปี สตูดิโอสะอาด ปลอดภัย",
+    ctaBook: "ปรึกษา / จองคิว", ctaWorks: "ดูผลงาน",
+    aboutTitle: "About us",
+    aboutLead1: "กำลังมองหาร้านสักในพัทยาอยู่ไหม?",
+    aboutLead2: "ร้านเราอยู่ห่างจาก Walking Street เพียงไม่กี่นาที!",
+    aboutIntro: "เรารับออกแบบและสักลายตามความต้องการของลูกค้า ครบทุกสไตล์ ไม่ว่าจะเป็น",
+    aboutStyles: ["Fine Line & Minimal","Blackwork","Japanese","Realism","Custom Design"],
+    aboutPoints: [
+      "ช่างสักประจำร้าน ประสบการณ์มากกว่า 10 ปี",
+      "ผ่านการทำงานกับร้านสักชั้นนำมากกว่า 10 ร้านในพัทยา",
+      "สตูดิโอสะอาด ปลอดภัย และใส่ใจเรื่องสุขอนามัย",
+      "รับประกันคุณภาพผลงาน",
+      "ปรึกษาและออกแบบเบื้องต้นฟรี",
+      "รับ Walk-in",
     ],
-    shopTitle: "หน้าร้าน —", shopEm: "สะอาด สว่าง มองเห็นจากถนน",
-    shopDesc: "133/9 ม.10 เมืองพัทยา — ไฟเหลือง-น้ำเงินเด่นชัด เดิน 3 นาทีจาก Walking Street",
-    worksTitle: "ผลงานจริง —", worksEm: "แตะเพื่อขยาย", worksDesc: "รูปจริงทั้งหมดจากร้าน — 30 รูป ไม่ใช่รูปตัวอย่าง",
-    filterAll: "ทั้งหมด",
-    worksCta: "ชอบสไตล์ไหน? ส่งแบบมาประเมินฟรีได้เลย",
-    worksBtn: "ดูเพิ่มใน Facebook →",
-    whyTitle: "ทำไมต้อง Southside",
-    why: [
-      { n: "100%", t: "ปลอดเชื้อ", d: "เข็มใหม่แกะต่อหน้า ถุงมือ ฆ่าเชื้อมาตรฐานโรงพยาบาล" },
-      { n: "ฟรี", t: "ออกแบบ", d: "วาดให้ดู ปรับจนถูกใจ ไม่คิดเงินเพิ่ม" },
-      { n: "1ชม.", t: "ตอบไว", d: "ส่งแบบมาประเมินฟรี ตอบไวใน 1 ชม. ไม่สักก็ปรึกษาได้" },
-    ],
-    stepsTitle: "ขั้นตอน —", stepsEm: "ครั้งแรกก็ไม่เกร็ง",
-    steps: [
-      { n: "01", t: "ส่งแบบ", d: "ทักเพจ/WhatsApp ส่งรูป บอกตำแหน่ง ขนาด" },
-      { n: "02", t: "ออกแบบ & ตีราคา", d: "วาดให้ดู ปรับจนถูกใจ บอกราคาก่อนเริ่ม" },
-      { n: "03", t: "สักจริง", d: "เข็มใหม่แกะต่อหน้า มือเบา ไทย/อังกฤษ" },
-      { n: "04", t: "ดูแลหลังสัก", d: "สอนล้างแผล ฟิล์ม/ครีม นัดเติมฟรี*" },
-    ],
-    artistTitle: "ช่างสัก Southside — ดูแลเองทุกเคส",
-    artistDesc: "ไทย/อังกฤษ ใส่ใจรายละเอียด ปรับแบบจนถูกใจ ไม่เร่ง ไม่กดดัน สักครั้งแรกก็ไม่เกร็ง · 1,000+ รอยสัก · 5.0★ 43 รีวิว",
-    artistBtn: "ดูผลงานช่าง", artistWa: "WhatsApp",
+    aboutClose1: "ไม่ว่าคุณจะกำลังหาสักครั้งแรก หรือกำลังมองหาผลงานชิ้นต่อไป",
+    aboutClose2: "เราพร้อมสร้างรอยสักที่เป็นเอกลักษณ์และน่าจดจำสำหรับคุณ",
+    aboutCta: "สนใจสอบถามรายละเอียดหรือจองคิว ทักข้อความหาเราได้เลยค่ะ",
+    styleTitle: "Style",
+    styleSub: "Tattoo Styles",
+    styleDesc: "รับสักทุกสไตล์ ส่งแบบที่ชอบมาปรึกษาได้เลย",
+    styleAll: "All",
+    worksTitle: "ผลงานจริงจากร้าน",
+    worksDesc: "แตะรูปเพื่อขยาย",
+    worksBtn: "ดูผลงานเพิ่มใน Facebook",
+    artistTitle: "Artist",
+    artistName: "Artist Ploy",
+    artistRole: "ช่างสักประจำร้าน Southside Ink Pattaya",
+    artistDesc: "ช่างพลอยถนัดงาน Realistic แนว Black and Grey เก็บรายละเอียดสูง ทั้งภาพเหมือนบุคคลและลายนักรบโบราณตามแบบที่ลูกค้าต้องการ ใส่ใจทุกรายละเอียด มาสร้างผลงานชิ้นเอกของคุณกับเราได้เลย",
+    artistTags: ["Realistic","Black & Grey","Portrait","Ancient Warrior"],
+    artistBtn: "ดูผลงานช่างใน Facebook",
     reviewsTitle: "ลูกค้าพูดถึงเรา",
-    faqsTitle: "ถามบ่อย",
-    faqs: [
-      { q: "เจ็บไหม? สักครั้งแรกต้องเตรียมอะไร", a: "เจ็บแบบแสบๆ ทนได้ ยิ่งเส้นเล็กยิ่งเจ็บน้อย นอนพอ งดแอลกอฮอล์ 24 ชม. กินข้าวมาก่อน" },
-      { q: "ราคาเท่าไหร่", a: "Fine line เริ่ม 1,000฿ สี/ดำ เริ่ม 1,500฿ ส่งแบบมาประเมินฟรี บอกราคาก่อนเริ่ม ไม่บวกหน้างาน" },
-      { q: "ต้องจองไหม กี่นาที", a: "เล็ก 30–60 นาที กลาง 1–2 ชม. แนะนำจองล่วงหน้า 1 วัน แต่ Walk-in ได้ถึง 20:00" },
-      { q: "เข็มสะอาดไหม", a: "เข็มใหม่แกะต่อหน้า ถุงมือ/อุปกรณ์ฆ่าเชื้อมาตรฐานโรงพยาบาล สีนำเข้า ปลอดภัย" },
-    ],
-    contactTitle: "133/9 ม.10", contactEm: "เมืองพัทยา · ใกล้วอล์กกิ้งสตรีท",
-    contactDesc: "133/9 ม.10 เมืองพัทยา บางละมุง ชลบุรี 20150 · เปิดทุกวัน 13:00–00:00 · Walk-in ได้ถึง 23:00",
+    locTitle: "Locations",
+    locName: "Southside Ink Pattaya",
+    locAddr: ["133/9 หมู่ 10 เมืองพัทยา","อำเภอบางละมุง จังหวัดชลบุรี 20150","ใกล้ Walking Street พัทยา"],
+    locHoursLabel: "เวลาเปิด–ปิด",
+    locHours: "ทุกวัน 13:00–24:00",
+    locWalk: "รับ Walk-in",
+    mapBtn: "เปิดใน Google Maps",
+    contactTitle: "Contact",
+    contactDesc: "สอบถามรายละเอียดหรือจองคิว ทักข้อความหาเราได้เลย",
     contactLines: [
-      { code: "โทรหลัก", value: "065-696-4693", href: "tel:0656964693" },
-      { code: "สำรอง", value: "083-815-3762", href: "tel:0838153762" },
-      { code: "LINE", value: "Ponair1", href: "https://line.me/ti/p/Ponair1" },
-      { code: "WhatsApp", value: "0656964693", href: "https://wa.me/66656964693" },
-      { code: "Facebook", value: "ploytattoopt", href: "https://www.facebook.com/ploytattoopt" },
+      { code: "โทร", value: CONTACT.phone, href: CONTACT.phoneHref },
+      { code: "โทรสำรอง", value: CONTACT.phone2, href: CONTACT.phone2Href },
+      { code: "LINE", value: CONTACT.lineId, href: CONTACT.lineUrl },
+      { code: "WhatsApp", value: CONTACT.phone, href: CONTACT.waUrl },
+      { code: "Facebook", value: "Southside Ink Pattaya", href: CONTACT.fbUrl },
     ],
-    mapBtn: "เปิดใน Google Maps →",
-    bookTitle: "พร้อมสักแล้วหรือยัง?", bookDesc: "ส่งแบบมาประเมินฟรี ตอบไวใน 1 ชม. — ทัก LINE สแกน QR ได้เลย",
-    bookBtn: "ส่งแบบประเมินฟรี", callBtn: "โทรเลย",
-    footerCopy: "Southside Ink Tattoo Pattaya · EST.2023 · เข็มใหม่ 100%",
-    drawerTitle: "ส่งแบบประเมินฟรี", drawerDesc: "แนบรูป + บอกตำแหน่ง/ขนาด ตอบไวใน 1 ชม.",
-    drawerFb: "ทัก Facebook เพจ", drawerFbSub: "ploytattoopt · ตอบไวสุด",
-    drawerLine: "แอด LINE", drawerLineSub: "Ponair1 · สแกน QR",
-    drawerWa: "ทัก WhatsApp", drawerWaSub: "065-696-4693",
-    drawerCall: "โทรเลย", drawerCallSub: "065-696-4693 / 083-815-3762",
-    mobileCall: "โทร", mobileBook: "จองคิว · ประเมินฟรี",
-    lineId: "Ponair1", lineQr: "line-qr.png", lineUrl: "https://line.me/ti/p/Ponair1",
+    qrText: "สแกน QR เพื่อแอด LINE",
+    footerCopy: "Southside Ink Tattoo Pattaya · EST.2023",
+    drawerTitle: "ปรึกษา / จองคิว", drawerDesc: "แนบรูปแบบที่ชอบ บอกตำแหน่งและขนาด แล้วทักมาได้เลย",
+    drawerFb: "ทัก Facebook เพจ", drawerFbSub: "Southside Ink Pattaya",
+    drawerLine: "แอด LINE", drawerLineSub: `${CONTACT.lineId} · สแกน QR`,
+    drawerWa: "ทัก WhatsApp", drawerWaSub: CONTACT.phone,
+    drawerCall: "โทรเลย", drawerCallSub: `${CONTACT.phone} / ${CONTACT.phone2}`,
+    fabLabel: "ติดต่อ", fabBook: "จองคิว", fabBookSub: "ปรึกษาฟรี", fabCall: "โทร",
+    copied: "คัดลอกแล้ว", copyBtn: "คัดลอกเบอร์",
   },
   en: {
-    navWorks: "Works", navServices: "Services", navShop: "Studio", navProcess: "Process", navReviews: "Reviews", navContact: "Location",
-    kicker: "Open 13:00–00:00 · Walk-ins welcome · 133/9 M.10 Muang Pattaya · 5.0★ 43 reviews",
-    h1a: "The tattoo that", h1b: "really", h1c: "stays.",
-    h1sub: "Sharp. Sterile. Transparent pricing.",
-    sub: "Southside Ink — Pattaya studio. Fine line / Color / Blackwork / Cover-ups. Fresh needle every time, 100% sterile. Free design until you love it.",
-    ctaBook: "Book now — Free quote →", ctaWorks: "View works",
-    termTitle: "southside — booking",
-    term: `$ southside book --style "fine line" --size 5cm\n✓ fresh needle opened in front of you\n✓ free design until perfect\n✓ fixed price — no hidden fees\n\n> send design to fb.com/ploytattoopt\n> or WhatsApp 065-696-4693 — reply within 1h`,
-    proofReviews: "43 reviews", proofTats: "1,000+ tattoos", proofNeedle: "100% sterile",
-    stats1: "fresh needle every time", stats2: "free design", stats3: "reply in 1h", stats4: "TH/EN friendly",
-    svcTitle: "Services —", svcEm: "transparent pricing", svcDesc: "Free revisions until you love it. No hidden fees. Small from 1,000 THB, color/black from 1,500 THB.",
-    services: [
-      { tag: "most popular", title: "Fine Line & Minimal", desc: "Ultra-fine 0.3mm, crisp scripts, symbols — great for first tattoo", price: "from 1,000 THB", meta: "30–60 min" },
-      { tag: "color", title: "Color", desc: "Vibrant, packed color that lasts. Safe imported inks", price: "from 1,500 THB", meta: "60–120 min" },
-      { tag: "blackwork", title: "Blackwork / Tribal", desc: "Bold black, tribal, Maori, large scale", price: "from 1,500 THB", meta: "45–180 min" },
-      { tag: "cover up", title: "Cover-up", desc: "Fix or cover old tattoos. Free redesign until perfect", price: "free quote", meta: "free consult" },
-      { tag: "japanese", title: "Japanese / Old School", desc: "Koi, dragon, peony — strong lines, smooth shading", price: "from 2,000 THB", meta: "90–240 min" },
-      { tag: "aftercare", title: "Aftercare & Piercing", desc: "Waterproof film, cream, detailed healing guide", price: "free", meta: "free touch-up*" },
+    nav: ["About us","Style","Artist","Locations","Contact"],
+    heroKicker: "Open daily 13:00–24:00 · Walk-ins welcome · 5.0★ 43 reviews",
+    heroH1a: "Custom Tattoos in Pattaya", heroH1b: "Just minutes from Walking Street",
+    heroSub: "We create custom tattoos in every style. Artists with 10+ years of experience in a clean, hygienic and professional studio.",
+    ctaBook: "Get a Quote", ctaWorks: "View works",
+    aboutTitle: "About us",
+    aboutLead1: "Looking for a tattoo in Pattaya?",
+    aboutLead2: "You're just minutes away from Walking Street.",
+    aboutIntro: "We create custom tattoos in every style, from Fine Line and Minimal to Blackwork, Japanese, Realism, and completely custom designs.",
+    aboutStyles: ["Fine Line & Minimal","Blackwork","Japanese","Realism","Custom Design"],
+    aboutPoints: [
+      "Tattoo artists with 10+ years of experience",
+      "Experience working at 10+ established tattoo studios in Pattaya",
+      "Clean, hygienic and professional studio",
+      "Quality guaranteed",
+      "Free consultation & design discussion",
+      "Walk-ins welcome",
     ],
-    shopTitle: "Studio —", shopEm: "bright, clean, visible from the road",
-    shopDesc: "133/9 M.10 Muang Pattaya — yellow-blue facade, 3 min walk from Walking Street",
-    worksTitle: "Real works —", worksEm: "tap to enlarge", worksDesc: "All photos are real works from our studio — 30 photos, no stock images",
-    filterAll: "All",
-    worksCta: "Like a style? Send your idea for a free quote",
-    worksBtn: "More on Facebook →",
-    whyTitle: "Why Southside",
-    why: [
-      { n: "100%", t: "Sterile", d: "Fresh needle, gloves, hospital-standard sterilization" },
-      { n: "Free", t: "Design", d: "Draw & revise until you love it, no extra charge" },
-      { n: "1h", t: "Fast reply", d: "Free quote within 1h, no pressure" },
-    ],
-    stepsTitle: "Process —", stepsEm: "first time? no worries",
-    steps: [
-      { n: "01", t: "Send idea", d: "Message us reference, placement and size" },
-      { n: "02", t: "Design & quote", d: "We draw, revise until perfect, fixed price" },
-      { n: "03", t: "Get tattooed", d: "Fresh needle, gentle hand, TH/EN" },
-      { n: "04", t: "Aftercare", d: "Wash, film, cream, free touch-up*" },
-    ],
-    artistTitle: "Southside Artist — every case personally handled",
-    artistDesc: "TH/EN, detail-oriented, revise until perfect. No rush, no pressure. First tattoo feels easy. 1,000+ tattoos · 5.0★ 43 reviews",
-    artistBtn: "See artist works", artistWa: "WhatsApp",
+    aboutClose1: "Whether it's your first tattoo or your next masterpiece,",
+    aboutClose2: "we're here to create a unique piece that you'll be proud to wear.",
+    aboutCta: "Your idea. Your style. Your tattoo. Message us for a consultation or to book your appointment.",
+    styleTitle: "Style",
+    styleSub: "Tattoo Styles",
+    styleDesc: "Every style welcome. Send us a reference and let's talk.",
+    styleAll: "All",
+    worksTitle: "Real works from our studio",
+    worksDesc: "Tap to enlarge",
+    worksBtn: "More works on Facebook",
+    artistTitle: "Artist",
+    artistName: "Artist Ploy",
+    artistRole: "Resident artist, Southside Ink Pattaya",
+    artistDesc: "Artist Ploy of Southside Ink Tattoo Pattaya demonstrates the highest level of expertise. With a specialization in realistic, hyper-detailed black and grey work, including custom portraits and ancient warrior designs, Ploy's skill and attention to detail are exceptional. Come and get your custom masterpiece.",
+    artistTags: ["Realistic","Black & Grey","Portrait","Ancient Warrior"],
+    artistBtn: "See artist works on Facebook",
     reviewsTitle: "What clients say",
-    faqsTitle: "FAQ",
-    faqs: [
-      { q: "Does it hurt? How to prepare for first tattoo?", a: "Mild stinging, fine lines hurt less. Sleep well, no alcohol 24h, eat before." },
-      { q: "How much does it cost?", a: "Fine line from 1,000 THB, color/black from 1,500 THB. Free quote, fixed price, no add-ons." },
-      { q: "Need booking? How long?", a: "Small 30–60 min, medium 1–2h. Book 1 day ahead, walk-ins until 20:00." },
-      { q: "Is it sterile?", a: "Fresh needle opened in front of you, gloves, hospital-standard, safe inks." },
-    ],
-    contactTitle: "133/9 M.10 Muang Pattaya", contactEm: "near Walking Street",
-    contactDesc: "133/9 M.10 Muang Pattaya, Bang Lamung, Chonburi 20150 · Open daily 13:00–00:00 · Walk-ins until 23:00",
+    locTitle: "Locations",
+    locName: "Southside Ink Pattaya",
+    locAddr: ["133/9 M.10 Muang Pattaya","Bang Lamung, Chonburi 20150","Near Walking Street, Pattaya"],
+    locHoursLabel: "Opening hours",
+    locHours: "Daily 13:00–24:00",
+    locWalk: "Walk-ins welcome",
+    mapBtn: "Open in Google Maps",
+    contactTitle: "Contact",
+    contactDesc: "Message us for a consultation or to book your appointment",
     contactLines: [
-      { code: "Main", value: "065-696-4693", href: "tel:0656964693" },
-      { code: "Alt", value: "083-815-3762", href: "tel:0838153762" },
-      { code: "LINE", value: "Ponair1", href: "https://line.me/ti/p/Ponair1" },
-      { code: "WhatsApp", value: "0656964693", href: "https://wa.me/66656964693" },
-      { code: "Facebook", value: "ploytattoopt", href: "https://www.facebook.com/ploytattoopt" },
+      { code: "Call", value: CONTACT.phone, href: CONTACT.phoneHref },
+      { code: "Alt", value: CONTACT.phone2, href: CONTACT.phone2Href },
+      { code: "LINE", value: CONTACT.lineId, href: CONTACT.lineUrl },
+      { code: "WhatsApp", value: CONTACT.phone, href: CONTACT.waUrl },
+      { code: "Facebook", value: "Southside Ink Pattaya", href: CONTACT.fbUrl },
     ],
-    mapBtn: "Open in Google Maps →",
-    bookTitle: "Ready for your tattoo?", bookDesc: "Send your idea for a free quote — reply within 1h — scan LINE QR",
-    bookBtn: "Send for free quote", callBtn: "Call now",
-    footerCopy: "Southside Ink Tattoo Pattaya · EST.2023 · 100% sterile",
-    drawerTitle: "Free quote", drawerDesc: "Attach image + placement/size — reply within 1h",
-    drawerFb: "Message Facebook", drawerFbSub: "ploytattoopt · fastest",
-    drawerLine: "Add LINE", drawerLineSub: "Ponair1 · scan QR",
-    drawerWa: "WhatsApp", drawerWaSub: "065-696-4693",
-    drawerCall: "Call now", drawerCallSub: "065-696-4693 / 083-815-3762",
-    mobileCall: "Call", mobileBook: "Book · Free quote",
-    lineId: "Ponair1", lineQr: "line-qr.png", lineUrl: "https://line.me/ti/p/Ponair1",
-  }
+    qrText: "Scan QR to add LINE",
+    footerCopy: "Southside Ink Tattoo Pattaya · EST.2023",
+    drawerTitle: "Get a Quote", drawerDesc: "Attach a reference, tell us placement and size, and message us",
+    drawerFb: "Message on Facebook", drawerFbSub: "Southside Ink Pattaya",
+    drawerLine: "Add LINE", drawerLineSub: `${CONTACT.lineId} · scan QR`,
+    drawerWa: "WhatsApp", drawerWaSub: CONTACT.phone,
+    drawerCall: "Call now", drawerCallSub: `${CONTACT.phone} / ${CONTACT.phone2}`,
+    fabLabel: "CONTACT", fabBook: "Book", fabBookSub: "Free consult", fabCall: "Call",
+    copied: "Copied", copyBtn: "Copy number",
+  },
+}
+
+const SECTION_IDS = ["about","style","artist","locations","contact"]
+
+function IconCheck() {
+  return <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+}
+function IconLine() {
+  return <svg viewBox="0 0 24 24" width="18" height="18" fill="white" aria-hidden="true"><path d="M19.5 12c0-3.3-3.1-6-6.9-6S5.7 8.7 5.7 12c0 1.8.8 3.4 2.1 4.5l-.3 1.5 1.6-.9c.8.3 1.7.5 2.5.5 3.8 0 6.9-2.7 6.9-6z"/></svg>
+}
+function IconFb() {
+  return <svg viewBox="0 0 24 24" width="18" height="18" fill="white" aria-hidden="true"><path d="M14 8h2.5l-.5-3H14c-1.7 0-3 1.3-3 3v2H9v3h2v5h3v-5h2.2l.3-3H14V9c0-.6.4-1 1-1z"/></svg>
+}
+function IconWa() {
+  return <svg viewBox="0 0 24 24" width="18" height="18" fill="white" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1.1 3.9 4-1A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-2.4.6.6-2.3-.2-.3A8 8 0 1 1 12 20zm4.3-5.9c-.2-.1-1.3-.6-1.5-.7-.2 0-.4 0-.5.2l-.7.8c-.2.2-.4.2-.6.1-.2-.1-.9-.3-1.7-1-.6-.5-1-1.2-1.2-1.4 0-.2 0-.4.1-.5l.6-.7c.1-.1.1-.2 0-.4l-.6-1.5c-.2-.4-.3-.4-.5-.4h-.4c-.2 0-.4.1-.6.3-.2.2-.7.7-.7 1.7s.7 2 1 2.3c.2.2 1.3 2 3.1 2.8l1.3.5c.3.1.5.1.7 0 .2-.1.9-.4 1-.7.1-.3.1-.6 0-.7 0 0-.1 0-.3 0z"/></svg>
+}
+function IconPhone() {
+  return <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>
+}
+function IconPin() {
+  return <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 21s7-6.5 7-11.5a7 7 0 1 0-14 0C5 14.5 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+}
+function IconClock() {
+  return <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+}
+
+const REVIEWS = {
+  th: [
+    { name: 'Anna M. · UK', text: 'งานเนี๊ยบมาก พี่ช่างใส่ใจมาก สะอาด ปลอดภัย แนะนำดีสุดๆ' },
+    { name: 'Mark T. · AU', text: 'Best tattoo in Pattaya! Clean, pro, fair price. Done fine line script perfect.' },
+    { name: 'คุณฟ้า · กทม', text: 'สักครั้งแรกไม่เจ็บอย่างที่คิด ช่างมือเบา อธิบายดูแลละเอียด กลับมาซ้ำแน่นอนค่ะ' },
+    { name: 'Lisa K. · DE', text: 'Cover up old tattoo — looks brand new! Design was adjusted 3 times until perfect.' },
+  ],
+  en: [
+    { name: 'Anna M. · UK', text: 'Super clean and precise, artist cares a lot, safe and well advised.' },
+    { name: 'Mark T. · AU', text: 'Best tattoo in Pattaya! Clean, pro, fair price. Done fine line script perfect.' },
+    { name: 'Khun Fah · BKK', text: 'First tattoo, less painful than expected, gentle hand and clear aftercare.' },
+    { name: 'Lisa K. · DE', text: 'Cover up old tattoo — looks brand new! Design was adjusted 3 times until perfect.' },
+  ],
 }
 
 export default function App() {
   const [lang, setLang] = useState(() => localStorage.getItem('southside-lang') || 'th')
   const [menuOpen, setMenuOpen] = useState(false)
-  const [filter, setFilter] = useState(null)
   const [lightbox, setLightbox] = useState(null)
   const [toast, setToast] = useState('')
-  const [openFaq, setOpenFaq] = useState(0)
   const [drawer, setDrawer] = useState(false)
   const [reviewIdx, setReviewIdx] = useState(0)
   const [fabOpen, setFabOpen] = useState(false)
 
   const L = I18N[lang]
-  const TAGS = lang === 'th' ? TAGS_TH : TAGS_EN
-  const allLabel = L.filterAll
-  const PORTFOLIO = WORKS.map((id, i) => ({
-    id,
-    src: `${import.meta.env.BASE_URL}images/works/${id}.jpg`,
-    tag: TAGS[i % TAGS.length],
-    label: lang === 'th' ? `ผลงาน ${String(i+1).padStart(2,'0')}` : `Work ${String(i+1).padStart(2,'0')}`,
-  }))
-  const curFilter = filter ?? allLabel
-  const filtered = PORTFOLIO.filter(p => curFilter === allLabel || p.tag === curFilter)
-  const filters = [allLabel, ...TAGS]
-  const SHOP_SRC = SHOP.map(id => `${import.meta.env.BASE_URL}images/works/${id}.jpg`)
+  const base = import.meta.env.BASE_URL
+  const PORTFOLIO = WORKS.map((id, i) => ({ id, src: `${base}images/works/${id}.jpg`, alt: `Southside Ink Pattaya tattoo work ${i + 1}` }))
+  const SHOP_SRC = SHOP.map(id => `${base}images/works/${id}.jpg`)
+  const reviews = REVIEWS[lang]
 
   useEffect(() => {
     localStorage.setItem('southside-lang', lang)
@@ -189,295 +210,206 @@ export default function App() {
     else window.scrollTo({ top: 0, behavior: 'smooth' })
   }
   const copyTel = async (num) => {
-    try { await navigator.clipboard.writeText(num); setToast(lang==='th'?`คัดลอก ${num} แล้ว`:`Copied ${num}`); setTimeout(() => setToast(''), 1800) } catch { window.location.href = `tel:${num}` }
+    try { await navigator.clipboard.writeText(num); setToast(`${L.copied} ${num}`); setTimeout(() => setToast(''), 1800) } catch { window.location.href = `tel:${num}` }
   }
   useEffect(() => {
     if (lightbox === null) return
     const onKey = (e) => {
       if (e.key === 'Escape') setLightbox(null)
-      if (e.key === 'ArrowRight') setLightbox(v => (v + 1) % filtered.length)
-      if (e.key === 'ArrowLeft') setLightbox(v => (v - 1 + filtered.length) % filtered.length)
+      if (e.key === 'ArrowRight') setLightbox(v => (v + 1) % PORTFOLIO.length)
+      if (e.key === 'ArrowLeft') setLightbox(v => (v - 1 + PORTFOLIO.length) % PORTFOLIO.length)
     }
     window.addEventListener('keydown', onKey)
     document.body.style.overflow = 'hidden'
     return () => { window.removeEventListener('keydown', onKey); document.body.style.overflow = '' }
-  }, [lightbox, filtered.length])
+  }, [lightbox, PORTFOLIO.length])
   useEffect(() => {
-    const id = setInterval(() => setReviewIdx(v => (v + 1) % 4), 3800)
+    const id = setInterval(() => setReviewIdx(v => (v + 1) % reviews.length), 3800)
     return () => clearInterval(id)
-  }, [])
+  }, [reviews.length])
 
-  const reviewTexts = lang==='th'
-    ? [
-        { name: 'Anna M. · UK', text: 'งานเนี๊ยบมาก พี่ช่างใส่ใจมาก สะอาด ปลอดภัย แนะนำดีสุดๆ', date: '2 สัปดาห์ที่แล้ว' },
-        { name: 'Mark T. · AU', text: 'Best tattoo in Pattaya! Clean, pro, fair price. Done fine line script perfect.', date: 'เมื่อวาน' },
-        { name: 'คุณฟ้า · กทม', text: 'สักครั้งแรกไม่เจ็บอย่างที่คิด ช่างมือเบา อธิบายดูแลละเอียด กลับมาซ้ำแน่นอนค่ะ', date: '3 วันที่แล้ว' },
-        { name: 'Lisa K. · DE', text: 'Cover up old tattoo — looks brand new! Design was adjusted 3 times until perfect.', date: '1 สัปดาห์ที่แล้ว' },
-      ]
-    : [
-        { name: 'Anna M. · UK', text: 'Super clean and precise, artist cares a lot, safe and well advised.', date: '2 weeks ago' },
-        { name: 'Mark T. · AU', text: 'Best tattoo in Pattaya! Clean, pro, fair price. Done fine line script perfect.', date: 'Yesterday' },
-        { name: 'Khun Fah · BKK', text: 'First tattoo, less painful than expected, gentle hand and clear aftercare.', date: '3 days ago' },
-        { name: 'Lisa K. · DE', text: 'Cover up old tattoo — looks brand new! Design was adjusted 3 times until perfect.', date: '1 week ago' },
-      ]
+  const navLink = (id, i) => (
+    <a key={id} href={`#${id}`} onClick={(e) => { e.preventDefault(); scrollTo(id) }}>{L.nav[i]}</a>
+  )
 
   return (
     <>
       <header className="oc-nav">
         <div className="oc-nav-inner">
           <a className="oc-logo" href="#top" onClick={(e) => { e.preventDefault(); scrollTo('top') }}>
-            <img src={`${import.meta.env.BASE_URL}logo-nav.png`} alt="Southside Ink Pattaya" className="oc-logo-img" width="44" height="39" loading="eager" decoding="async" />
+            <img src={`${base}logo-nav.png`} alt="Southside Ink Pattaya" className="oc-logo-img" width="44" height="39" loading="eager" decoding="async" />
             <span className="oc-logo-text">Southside Ink <span className="oc-logo-sub">PATTAYA</span></span>
           </a>
           <nav className={`oc-links ${menuOpen ? 'open' : ''}`}>
-            <a href="#works" onClick={(e) => { e.preventDefault(); scrollTo('works') }}>{L.navWorks}</a>
-            <a href="#services" onClick={(e) => { e.preventDefault(); scrollTo('services') }}>{L.navServices}</a>
-            <a href="#shop" onClick={(e) => { e.preventDefault(); scrollTo('shop') }}>{L.navShop}</a>
-            <a href="#process" onClick={(e) => { e.preventDefault(); scrollTo('process') }}>{L.navProcess}</a>
-            <a href="#reviews" onClick={(e) => { e.preventDefault(); scrollTo('reviews') }}>{L.navReviews}</a>
-            <a href="#contact" onClick={(e) => { e.preventDefault(); scrollTo('contact') }}>{L.navContact}</a>
+            {SECTION_IDS.map(navLink)}
           </nav>
           <div className="oc-actions">
             <div className="oc-lang" role="group" aria-label="Language">
               <button className={lang==='th'?'on':''} onClick={() => setLang('th')} aria-pressed={lang==='th'}>TH</button>
               <button className={lang==='en'?'on':''} onClick={() => setLang('en')} aria-pressed={lang==='en'}>EN</button>
             </div>
-            <a className="oc-ic" href="https://line.me/ti/p/Ponair1" target="_blank" rel="noreferrer" aria-label="LINE" style={{ background: '#06C755', borderColor: '#06C755' }}>
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="white" aria-hidden="true"><path d="M19.5 12c0-3.3-3.1-6-6.9-6S5.7 8.7 5.7 12c0 1.8.8 3.4 2.1 4.5l-.3 1.5 1.6-.9c.8.3 1.7.5 2.5.5 3.8 0 6.9-2.7 6.9-6z"/><text x="12" y="13.5" textAnchor="middle" fontSize="6" fontWeight="800" fill="white">LINE</text></svg>
-            </a>
-            <a className="oc-ic" href="https://www.facebook.com/ploytattoopt" target="_blank" rel="noreferrer" aria-label="Facebook" style={{ background: '#1877F2', borderColor: '#1877F2' }}>
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="white" aria-hidden="true"><path d="M14 8h2.5l-.5-3H14c-1.7 0-3 1.3-3 3v2H9v3h2v5h3v-5h2.2l.3-3H14V9c0-.6.4-1 1-1z"/></svg>
-            </a>
-            <a className="oc-ic" href="https://wa.me/66656964693" target="_blank" rel="noreferrer" aria-label="WhatsApp" style={{ background: '#25D366', borderColor: '#25D366' }}>
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="white" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1.1 3.9 4-1A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-2.4.6.6-2.3-.2-.3A8 8 0 1 1 12 20zm4.3-5.9c-.2-.1-1.3-.6-1.5-.7-.2 0-.4 0-.5.2l-.7.8c-.2.2-.4.2-.6.1-.2-.1-.9-.3-1.7-1-.6-.5-1-1.2-1.2-1.4 0-.2 0-.4.1-.5l.6-.7c.1-.1.1-.2 0-.4l-.6-1.5c-.2-.4-.3-.4-.5-.4h-.4c-.2 0-.4.1-.6.3-.2.2-.7.7-.7 1.7s.7 2 1 2.3c.2.2 1.3 2 3.1 2.8l1.3.5c.3.1.5.1.7 0 .2-.1.9-.4 1-.7.1-.3.1-.6 0-.7 0 0-.1 0-.3 0z"/></svg>
-            </a>
-            <button className="oc-menu" aria-label="Menu" onClick={() => setMenuOpen(v => !v)}><span /><span /><span /></button>
+            <a className="oc-ic line" href={CONTACT.lineUrl} target="_blank" rel="noreferrer" aria-label="LINE"><IconLine /></a>
+            <a className="oc-ic fb" href={CONTACT.fbUrl} target="_blank" rel="noreferrer" aria-label="Facebook"><IconFb /></a>
+            <a className="oc-ic wa" href={CONTACT.waUrl} target="_blank" rel="noreferrer" aria-label="WhatsApp"><IconWa /></a>
+            <button className="oc-menu" aria-label="Menu" aria-expanded={menuOpen} onClick={() => setMenuOpen(v => !v)}><span /><span /><span /></button>
           </div>
         </div>
       </header>
 
       <main id="top" className="oc-main">
         <section className="oc-hero">
-          <div className="oc-hero-bg" aria-hidden style={{ backgroundImage: `linear-gradient(180deg, rgba(7,10,20,.55) 0%, rgba(7,10,20,.85) 100%), url(${SHOP_SRC[0]})` }} />
+          <img className="oc-hero-img" src={SHOP_SRC[0]} alt="" aria-hidden="true" fetchPriority="high" />
+          <div className="oc-hero-shade" aria-hidden="true" />
           <div className="oc-hero-inner">
-            <div>
-              <div className="oc-ascii-card">
-                <pre className="oc-ascii" aria-hidden>{`  ____   ___  _   _ _____ _   _ ____ ___ ____  _____
- / ___| / _ \\| | | |_   _| | | / ___|_ _|  _ \\| ____|
- \\___ \\| | | | | | | | | | |_| \\___ \\| || | | |  _|
-  ___) | |_| | |_| | | | |  _  |___) | || |_| | |___
- |____/ \\___/ \\___/  |_| |_| |_|____/___|____/|_____|`}</pre>
-                <div className="oc-ascii-sub">I N K  ·  P A T T A Y A  ·  SOUTHSIDE</div>
-              </div>
-              <div className="oc-kicker">{L.kicker}</div>
-              <h1 className="oc-h1">
-                {L.h1a} <em>{L.h1b}</em> {L.h1c}
-                <span>{L.h1sub}</span>
-              </h1>
-              <p className="oc-sub">{L.sub}</p>
-              <div className="oc-cta">
-                <button className="btn btn-primary" onClick={() => setDrawer(true)}>{L.ctaBook}</button>
-                <a className="btn btn-ghost" href="#works" onClick={(e) => { e.preventDefault(); scrollTo('works') }}>{L.ctaWorks}</a>
-              </div>
-              <div className="oc-terminal">
-                <div className="oc-term-bar"><span className="d r" /><span className="d y" /><span className="d g" /><span className="oc-term-title">{L.termTitle}</span></div>
-                <pre>{L.term}</pre>
-              </div>
-              <div className="oc-proof">
-                <span>★★★★★ <b>5.0</b> {L.proofReviews}</span><span>·</span><span>{L.proofTats}</span><span>·</span><span>{L.proofNeedle}</span>
-                <span className="oc-proof-actions">
-                  <button className="oc-pill yellow" onClick={() => copyTel('0656964693')}>065-696-4693</button>
-                  <a className="oc-pill" href="tel:0838153762">083-815-3762</a>
-                  <a className="oc-pill" href="https://line.me/ti/p/Ponair1" target="_blank" rel="noreferrer" style={{ background: '#06C755', color: '#fff', borderColor: '#06C755' }}>LINE Ponair1</a>
-                  <a className="oc-pill blue" href="https://wa.me/66656964693" target="_blank" rel="noreferrer">WhatsApp</a>
-                </span>
-              </div>
+            <div className="oc-kicker">{L.heroKicker}</div>
+            <h1 className="oc-h1">{L.heroH1a}<span>{L.heroH1b}</span></h1>
+            <p className="oc-sub">{L.heroSub}</p>
+            <div className="oc-cta">
+              <button className="btn btn-primary" onClick={() => setDrawer(true)}>{L.ctaBook}</button>
+              <a className="btn btn-ghost" href="#style" onClick={(e) => { e.preventDefault(); scrollTo('style') }}>{L.ctaWorks}</a>
             </div>
-            <div className="oc-hero-visual">
-              <div className="oc-hero-card">
-                <img src={SHOP_SRC[0]} alt="Southside Ink Pattaya shop" />
-                <div className="oc-hero-badge">
-                  <b>SOUTHSIDE INK PATTAYA</b>
-                  <span>EXPERT TATTOOING · EST.2023</span>
-                  <span>OPEN DAILY 13:00–22:00 · WALK-IN WELCOME</span>
-                </div>
-              </div>
-              <div className="oc-hero-mini">
-                <img src={`${import.meta.env.BASE_URL}images/works/${WORKS[0]}.jpg`} alt="fine line work" />
-                <span>Fine line · 0.3mm</span>
-              </div>
+            <div className="oc-hero-contact">
+              <a href={CONTACT.phoneHref}><IconPhone /> {CONTACT.phone}</a>
+              <a href={CONTACT.lineUrl} target="_blank" rel="noreferrer">LINE {CONTACT.lineId}</a>
+              <a href={CONTACT.waUrl} target="_blank" rel="noreferrer">WhatsApp</a>
             </div>
           </div>
         </section>
 
-        <section className="oc-stats">
-          <div><code>100%</code><span>{L.stats1}</span></div>
-          <div><code>{lang==='th'?'ฟรี':'Free'}</code><span>{L.stats2}</span></div>
-          <div><code>1h</code><span>{L.stats3}</span></div>
-          <div><code>TH/EN</code><span>{L.stats4}</span></div>
-        </section>
-
-        <section id="services" className="oc-section">
+        <section id="about" className="oc-section">
           <div className="oc-section-head">
-            <h2><span className="oc-num">01</span> {L.svcTitle} <em>{L.svcEm}</em></h2>
-            <p>{L.svcDesc}</p>
+            <h2><span className="oc-num">01</span> {L.aboutTitle}</h2>
           </div>
-          <div className="oc-svc-list">
-            {L.services.map((s, i) => (
-              <button key={s.title} className="oc-svc" onClick={() => setDrawer(true)}>
-                <div className="oc-svc-img"><img src={`${import.meta.env.BASE_URL}images/works/${WORKS[i%WORKS.length]}.jpg`} alt={s.title} loading="lazy" /></div>
-                <span className="oc-svc-tag">{s.tag}</span>
-                <span className="oc-svc-title">{s.title}</span>
-                <span className="oc-svc-desc">{s.desc}</span>
-                <span className="oc-svc-meta">{s.price} · {s.meta}</span>
-              </button>
-            ))}
-          </div>
-        </section>
-
-        <section id="shop" className="oc-section alt">
-          <div className="oc-section-head">
-            <h2><span className="oc-num">02</span> {L.shopTitle} <em>{L.shopEm}</em></h2>
-            <p>{L.shopDesc}</p>
-          </div>
-          <div className="oc-shop-grid">
-            {SHOP_SRC.map((src, i) => (
-              <div key={src} className={`oc-shop-card ${i===0?'wide':''}`}>
-                <img src={src} alt={`shop ${i+1}`} loading="lazy" />
-              </div>
-            ))}
-          </div>
-          <div className="oc-why">
-            {L.why.map(w => (
-              <div key={w.t} className="oc-why-card">
-                <code>{w.n}</code>
-                <h3>{w.t}</h3>
-                <p>{w.d}</p>
-              </div>
-            ))}
+          <div className="oc-about">
+            <div className="oc-about-text">
+              <p className="oc-about-lead">{L.aboutLead1}<br />{L.aboutLead2}</p>
+              <p className="oc-about-name"><IconPin /> Southside Ink Pattaya</p>
+              <p>{L.aboutIntro}</p>
+              <ul className="oc-about-styles">
+                {L.aboutStyles.map(s => <li key={s}>{s}</li>)}
+              </ul>
+              <ul className="oc-checklist">
+                {L.aboutPoints.map(p => <li key={p}><IconCheck />{p}</li>)}
+              </ul>
+              <p className="oc-about-close">{L.aboutClose1}<br />{L.aboutClose2}</p>
+              <p className="oc-about-cta">{L.aboutCta}</p>
+              <button className="btn btn-primary" onClick={() => setDrawer(true)}>{L.ctaBook}</button>
+            </div>
+            <div className="oc-about-photos">
+              <img src={SHOP_SRC[1]} alt="Southside Ink Pattaya studio" loading="lazy" />
+              <img src={PORTFOLIO[1].src} alt={PORTFOLIO[1].alt} loading="lazy" />
+            </div>
           </div>
         </section>
 
-        <section id="works" className="oc-section">
+        <section id="style" className="oc-section alt">
           <div className="oc-section-head">
-            <h2><span className="oc-num">03</span> {L.worksTitle} <em>{L.worksEm}</em></h2>
-            <p>{L.worksDesc}</p>
+            <h2><span className="oc-num">02</span> {L.styleTitle}</h2>
+            <p>{L.styleSub} · {L.styleDesc}</p>
           </div>
-          <div className="oc-filters">
-            {filters.map(f => (
-              <button key={f} className={`oc-chip ${curFilter === f ? 'on' : ''}`} onClick={() => { setFilter(f); setLightbox(null) }}>{f}</button>
-            ))}
-          </div>
+          <ul className="oc-styles">
+            <li className="on">{L.styleAll}</li>
+            {STYLES.map(s => <li key={s}>{s}</li>)}
+          </ul>
+          <h3 className="oc-works-title">{L.worksTitle} <small>{L.worksDesc}</small></h3>
           <div className="oc-grid">
-            {filtered.map((it, idx) => (
-              <button key={it.id} className={`oc-tile ${idx===0?'tall': idx===7?'wide':''}`} onClick={() => setLightbox(idx)} aria-label={it.label}>
-                <img src={it.src} alt={it.label} loading="lazy" />
-                <span className="oc-tile-tag">{it.tag}</span>
+            {PORTFOLIO.map((it, idx) => (
+              <button key={it.id} className={`oc-tile ${idx===0?'tall': idx===7?'wide':''}`} onClick={() => setLightbox(idx)} aria-label={`${L.worksDesc} ${idx + 1}`}>
+                <img src={it.src} alt={it.alt} loading="lazy" />
               </button>
             ))}
           </div>
           <div className="oc-cta-row">
-            <span>{L.worksCta}</span>
-            <a className="btn btn-primary" href="https://www.facebook.com/ploytattoopt" target="_blank" rel="noreferrer">{L.worksBtn}</a>
+            <a className="btn btn-primary" href={CONTACT.fbUrl} target="_blank" rel="noreferrer">{L.worksBtn}</a>
           </div>
         </section>
 
-        <section id="process" className="oc-section alt">
+        <section id="artist" className="oc-section">
           <div className="oc-section-head">
-            <h2><span className="oc-num">04</span> {L.stepsTitle} <em>{L.stepsEm}</em></h2>
+            <h2><span className="oc-num">03</span> {L.artistTitle}</h2>
           </div>
-          <div className="oc-steps">
-            {L.steps.map(s => (
-              <div key={s.n} className="oc-step">
-                <code>{s.n}</code>
-                <h3>{s.t}</h3>
-                <p>{s.d}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section id="reviews" className="oc-section">
-          <div className="oc-split">
-            <div className="oc-artist">
-              <img src={`${import.meta.env.BASE_URL}images/artist.jpg`} alt="Southside Ink artist" />
-              <div className="oc-artist-body">
-                <h3>{L.artistTitle}</h3>
-                <p>{L.artistDesc}</p>
-                <div className="oc-artist-actions">
-                  <a className="btn btn-primary" href="https://www.facebook.com/ploytattoopt" target="_blank" rel="noreferrer">{L.artistBtn}</a>
-                  <a className="btn btn-ghost" href="https://wa.me/66656964693" target="_blank" rel="noreferrer">{L.artistWa}</a>
-                </div>
+          <div className="oc-artist">
+            <img src={`${base}images/artist.jpg`} alt="Artist Ploy, Southside Ink Pattaya" loading="lazy" />
+            <div className="oc-artist-body">
+              <h3>{L.artistName}</h3>
+              <span className="oc-artist-role">{L.artistRole}</span>
+              <p>{L.artistDesc}</p>
+              <ul className="oc-artist-tags">
+                {L.artistTags.map(t => <li key={t}>{t}</li>)}
+              </ul>
+              <div className="oc-artist-actions">
+                <a className="btn btn-primary" href={CONTACT.fbUrl} target="_blank" rel="noreferrer">{L.artistBtn}</a>
+                <a className="btn btn-ghost" href={CONTACT.waUrl} target="_blank" rel="noreferrer">WhatsApp</a>
               </div>
             </div>
-            <div className="oc-reviews">
-              <h3>{L.reviewsTitle}</h3>
-              <div className="oc-carousel">
-                <div className="oc-track" style={{ transform: `translateX(-${reviewIdx * 100}%)` }}>
-                  {reviewTexts.map(r => (
-                    <div key={r.name} className="oc-review">
-                      <div className="oc-stars">★★★★★</div>
-                      <p>“{r.text}”</p>
-                      <small>{r.name} · {r.date}</small>
-                    </div>
-                  ))}
-                </div>
+          </div>
+          <div className="oc-reviews">
+            <h3>{L.reviewsTitle}</h3>
+            <div className="oc-carousel">
+              <div className="oc-track" style={{ transform: `translateX(-${reviewIdx * 100}%)` }}>
+                {reviews.map(r => (
+                  <div key={r.name} className="oc-review">
+                    <div className="oc-stars" aria-label="5 stars">★★★★★</div>
+                    <p>“{r.text}”</p>
+                    <small>{r.name}</small>
+                  </div>
+                ))}
               </div>
-              <div className="oc-dots">
-                {reviewTexts.map((_, i) => <button key={i} className={i === reviewIdx ? 'on' : ''} onClick={() => setReviewIdx(i)} aria-label={`review ${i+1}`} />)}
-              </div>
+            </div>
+            <div className="oc-dots">
+              {reviews.map((_, i) => <button key={i} className={i === reviewIdx ? 'on' : ''} onClick={() => setReviewIdx(i)} aria-label={`review ${i+1}`} />)}
             </div>
           </div>
         </section>
 
-        <section className="oc-section alt">
+        <section id="locations" className="oc-section alt">
           <div className="oc-section-head">
-            <h2><span className="oc-num">05</span> {L.faqsTitle}</h2>
+            <h2><span className="oc-num">04</span> {L.locTitle}</h2>
           </div>
-          <div className="oc-faq">
-            {L.faqs.map((f, i) => (
-              <div key={f.q} className={`oc-faq-item ${openFaq === i ? 'open' : ''}`}>
-                <button className="oc-faq-q" onClick={() => setOpenFaq(openFaq === i ? -1 : i)} aria-expanded={openFaq === i}>
-                  <span>{f.q}</span><em>{openFaq === i ? '−' : '+'}</em>
-                </button>
-                <div className="oc-faq-a"><p>{f.a}</p></div>
+          <div className="oc-loc">
+            <div className="oc-loc-info">
+              <h3>{L.locName}</h3>
+              <p className="oc-loc-addr"><IconPin /><span>{L.locAddr.map(a => <span key={a}>{a}<br /></span>)}</span></p>
+              <p className="oc-loc-hours"><IconClock /><span><b>{L.locHoursLabel}</b><br />{L.locHours} · {L.locWalk}</span></p>
+              <a className="btn btn-primary" href={CONTACT.mapUrl} target="_blank" rel="noreferrer">{L.mapBtn}</a>
+              <div className="oc-shop-grid">
+                {SHOP_SRC.map((src, i) => (
+                  <img key={src} src={src} alt={`Southside Ink Pattaya studio ${i + 1}`} loading="lazy" />
+                ))}
               </div>
-            ))}
+            </div>
+            <div className="oc-map">
+              <iframe title="Southside Ink Pattaya map" src={CONTACT.mapEmbed} loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
+            </div>
           </div>
         </section>
 
         <section id="contact" className="oc-section">
+          <div className="oc-section-head">
+            <h2><span className="oc-num">05</span> {L.contactTitle}</h2>
+            <p>{L.contactDesc}</p>
+          </div>
           <div className="oc-contact">
-            <div>
-              <h2>{L.contactTitle}<br /><em>{L.contactEm}</em></h2>
-              <p>{L.contactDesc}</p>
-              <div className="oc-contact-lines">
-                {L.contactLines.map(l => (
-                  <a key={l.code} href={l.href} target={l.href.startsWith('http')?'_blank':undefined} rel={l.href.startsWith('http')?'noreferrer':undefined}><code>{l.code}</code> {l.value}</a>
-                ))}
-              </div>
-              <div className="oc-line-qr-card">
-                <img src={`${import.meta.env.BASE_URL}images/line-qr.png`} alt="LINE QR Ponair1" width="120" height="120" loading="lazy" />
-                <div>
-                  <b>LINE ID: Ponair1</b>
-                  <span>{lang==='th'?'สแกน QR แอดไลน์ ตอบไวสุด':'Scan QR to add LINE — fastest reply'}</span>
-                  <a href="https://line.me/ti/p/Ponair1" target="_blank" rel="noreferrer">line.me/ti/p/Ponair1 →</a>
-                </div>
-              </div>
-              <a className="btn btn-primary" href="https://share.google/lUOdKhWmDRqsbYEMv" target="_blank" rel="noreferrer">{L.mapBtn}</a>
+            <div className="oc-contact-lines">
+              {L.contactLines.map(l => (
+                <a key={l.code} href={l.href} target={l.href.startsWith('http')?'_blank':undefined} rel={l.href.startsWith('http')?'noreferrer':undefined}><code>{l.code}</code> {l.value}</a>
+              ))}
             </div>
-            <div className="oc-map">
-              <iframe title="Southside Ink Map" src="https://www.google.com/maps?q=133/9+M.10+Muang+Pattaya+Southside+Ink+Tattoo+Pattaya&z=16&output=embed" loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
+            <div className="oc-line-qr-card">
+              <img src={`${base}images/line-qr.png`} alt={`LINE QR ${CONTACT.lineId}`} width="140" height="140" loading="lazy" />
+              <b>LINE ID: {CONTACT.lineId}</b>
+              <span>{L.qrText}</span>
+              <a href={CONTACT.lineUrl} target="_blank" rel="noreferrer">line.me/ti/p/{CONTACT.lineId}</a>
             </div>
           </div>
           <div className="oc-book">
             <div>
-              <h3>{L.bookTitle}</h3>
-              <p>{L.bookDesc}</p>
+              <h3>{L.drawerTitle}</h3>
+              <p>{L.drawerDesc}</p>
             </div>
             <div className="oc-book-actions">
-              <button className="btn btn-primary" onClick={() => setDrawer(true)}>{L.bookBtn}</button>
-              <a className="btn btn-ghost" href="tel:0656964693">{L.callBtn}</a>
+              <button className="btn btn-primary" onClick={() => setDrawer(true)}>{L.ctaBook}</button>
+              <a className="btn btn-ghost" href={CONTACT.phoneHref}>{L.drawerCall}</a>
             </div>
           </div>
         </section>
@@ -486,37 +418,28 @@ export default function App() {
       <footer className="oc-footer">
         <div className="oc-footer-grid">
           <div>
-            <img src={`${import.meta.env.BASE_URL}logo-nav.png`} alt="Southside Ink" width="52" height="46" style={{ borderRadius: 8, background: '#000', padding: 4, border: '1px solid var(--border)' }} />
-            <div style={{ marginTop: 10, fontWeight: 800, color: 'var(--heading)', fontFamily: 'var(--mono)', fontSize: 13 }}>Southside Ink Tattoo Pattaya</div>
-            <div style={{ fontSize: 12, color: 'var(--dim)', marginTop: 6, lineHeight: 1.6 }}>133/9 ม.10 เมืองพัทยา<br />บางละมุง ชลบุรี 20150<br />เปิดทุกวัน 13:00–00:00</div>
+            <img src={`${base}logo-nav.png`} alt="Southside Ink" width="52" height="46" className="oc-footer-logo" />
+            <div className="oc-footer-name">Southside Ink Tattoo Pattaya</div>
+            <div className="oc-footer-addr">{L.locAddr[0]}<br />{L.locAddr[1]}<br />{L.locHours}</div>
           </div>
           <div>
-            <h4>ติดต่อ — ทุกช่องทาง</h4>
-            <a href="tel:0656964693">☎ 065-696-4693</a>
-            <a href="tel:0838153762">083-815-3762</a>
-            <a href="https://line.me/ti/p/Ponair1" target="_blank" rel="noreferrer" style={{ color: '#06C755', fontWeight: 800 }}>LINE Ponair1</a>
-            <a href="https://wa.me/66656964693" target="_blank" rel="noreferrer">WhatsApp</a>
-            <a href="https://www.facebook.com/ploytattoopt" target="_blank" rel="noreferrer">Facebook ploytattoopt</a>
-          </div>
-          <div>
-            <h4>ที่อยู่</h4>
-            <p style={{ fontSize: 12, color: 'var(--dim)', lineHeight: 1.6, margin: 0 }}>133/9 ม.10 เมืองพัทยา<br />ใกล้วอล์กกิ้งสตรีท พัทยา<br />20150 · <a href="https://share.google/lUOdKhWmDRqsbYEMv" target="_blank" rel="noreferrer">ดูแผนที่ →</a></p>
-            <div style={{ marginTop: 12, display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-              <a href="https://line.me/ti/p/Ponair1" target="_blank" rel="noreferrer" className="oc-pill" style={{ background: '#06C755', color: '#fff', borderColor: '#06C755' }}>LINE</a>
-              <a href="https://wa.me/66656964693" target="_blank" rel="noreferrer" className="oc-pill blue">WhatsApp</a>
-            </div>
+            <h4>{L.contactTitle}</h4>
+            <a href={CONTACT.phoneHref}>{CONTACT.phone}</a>
+            <a href={CONTACT.phone2Href}>{CONTACT.phone2}</a>
+            <a href={CONTACT.lineUrl} target="_blank" rel="noreferrer" className="line">LINE {CONTACT.lineId}</a>
+            <a href={CONTACT.waUrl} target="_blank" rel="noreferrer">WhatsApp</a>
+            <a href={CONTACT.fbUrl} target="_blank" rel="noreferrer">Facebook</a>
           </div>
           <div className="oc-footer-qr">
-            <img src={`${import.meta.env.BASE_URL}images/line-qr.png`} alt="LINE QR Ponair1" width="110" height="110" style={{ borderRadius: 10, border: '1px solid var(--border)', background: '#fff', padding: 4 }} />
-            <div style={{ fontFamily: 'var(--mono)', fontSize: 11, color: 'var(--dim)', marginTop: 6, textAlign: 'center' }}>สแกน QR แอด LINE<br /><b style={{ color: 'var(--heading)' }}>Ponair1</b></div>
+            <img src={`${base}images/line-qr.png`} alt={`LINE QR ${CONTACT.lineId}`} width="110" height="110" />
+            <div>{L.qrText}<br /><b>{CONTACT.lineId}</b></div>
           </div>
         </div>
         <div className="oc-footer-bottom">
           <span>© {new Date().getFullYear()} {L.footerCopy}</span>
-          <span>น้ำเงิน เหลือง ขาว ดำ · Crafted with care</span>
+          <a href={CONTACT.mapUrl} target="_blank" rel="noreferrer">{L.mapBtn}</a>
         </div>
       </footer>
-      <style>{`@media(max-width: 768px){ .oc-footer-grid{ grid-template-columns: 1fr !important; } }`}</style>
 
       <div className={`oc-drawer ${drawer ? 'open' : ''}`} role="dialog" aria-modal="true" aria-label="booking">
         <button className="oc-drawer-bg" aria-label="Close" onClick={() => setDrawer(false)} />
@@ -524,60 +447,61 @@ export default function App() {
           <button className="oc-drawer-x" onClick={() => setDrawer(false)} aria-label="Close">×</button>
           <h3>{L.drawerTitle}</h3>
           <p>{L.drawerDesc}</p>
-          <a className="oc-choice" href="https://line.me/ti/p/Ponair1" target="_blank" rel="noreferrer" style={{ background: '#06C755', color: '#fff', borderColor: '#06C755', display: 'flex', alignItems: 'center', gap: 10 }}>
-            <img src={`${import.meta.env.BASE_URL}images/line-qr.png`} alt="LINE QR" width="36" height="36" style={{ borderRadius: 6, background: '#fff', padding: 2 }} />
-            <span><b>{L.drawerLine}</b><span style={{ color: 'rgba(255,255,255,.9)' }}>{L.drawerLineSub}</span></span>
+          <a className="oc-choice line" href={CONTACT.lineUrl} target="_blank" rel="noreferrer">
+            <img src={`${base}images/line-qr.png`} alt="LINE QR" width="36" height="36" />
+            <span><b>{L.drawerLine}</b><span>{L.drawerLineSub}</span></span>
           </a>
-          <a className="oc-choice primary" href="https://www.facebook.com/ploytattoopt" target="_blank" rel="noreferrer"><b>{L.drawerFb}</b><span>{L.drawerFbSub}</span></a>
-          <a className="oc-choice blue" href="https://wa.me/66656964693?text=สวัสดีครับ ขอประเมินราคาสักครับ" target="_blank" rel="noreferrer"><b>{L.drawerWa}</b><span>{L.drawerWaSub}</span></a>
-          <a className="oc-choice" href="tel:0656964693"><b>{L.drawerCall}</b><span>{L.drawerCallSub}</span></a>
+          <a className="oc-choice primary" href={CONTACT.fbUrl} target="_blank" rel="noreferrer"><b>{L.drawerFb}</b><span>{L.drawerFbSub}</span></a>
+          <a className="oc-choice blue" href={CONTACT.waUrl} target="_blank" rel="noreferrer"><b>{L.drawerWa}</b><span>{L.drawerWaSub}</span></a>
+          <a className="oc-choice" href={CONTACT.phoneHref}><b>{L.drawerCall}</b><span>{L.drawerCallSub}</span></a>
+          <button className="oc-choice" onClick={() => copyTel(CONTACT.phone.replace(/-/g, ''))}><b>{L.copyBtn}</b><span>{CONTACT.phone}</span></button>
         </div>
       </div>
 
       {lightbox !== null && (
         <div className="oc-lightbox" role="dialog" aria-modal="true" aria-label="works">
           <button className="oc-lb-bg" onClick={() => setLightbox(null)} aria-label="Close" />
-          <button className="oc-lb-x" onClick={() => setLightbox(null)}>×</button>
-          <button className="oc-lb-prev" onClick={() => setLightbox(v => (v - 1 + filtered.length) % filtered.length)}>‹</button>
+          <button className="oc-lb-x" onClick={() => setLightbox(null)} aria-label="Close">×</button>
+          <button className="oc-lb-prev" onClick={() => setLightbox(v => (v - 1 + PORTFOLIO.length) % PORTFOLIO.length)} aria-label="Previous">‹</button>
           <div className="oc-lb-main">
-            <img src={filtered[lightbox].src} alt={filtered[lightbox].label} />
-            <div className="oc-lb-cap"><span>{filtered[lightbox].tag}</span> {filtered[lightbox].label} · {lightbox + 1}/{filtered.length}</div>
+            <img src={PORTFOLIO[lightbox].src} alt={PORTFOLIO[lightbox].alt} />
+            <div className="oc-lb-cap">{lightbox + 1} / {PORTFOLIO.length}</div>
           </div>
-          <button className="oc-lb-next" onClick={() => setLightbox(v => (v + 1) % filtered.length)}>›</button>
+          <button className="oc-lb-next" onClick={() => setLightbox(v => (v + 1) % PORTFOLIO.length)} aria-label="Next">›</button>
         </div>
       )}
 
-      <div className="oc-fab" aria-label="ติดต่อ">
+      <div className="oc-fab">
         {fabOpen && (
           <div className="oc-fab-menu" role="menu">
-            <a href="https://line.me/ti/p/Ponair1" target="_blank" rel="noreferrer" className="oc-fab-item line" role="menuitem">
-              <span className="oc-fab-ic2" style={{ background: '#06C755' }}><svg viewBox="0 0 24 24" width="16" height="16" fill="white"><path d="M19.5 12c0-3.3-3.1-6-6.9-6S5.7 8.7 5.7 12c0 1.8.8 3.4 2.1 4.5l-.3 1.5 1.6-.9c.8.3 1.7.5 2.5.5 3.8 0 6.9-2.7 6.9-6z"/></svg></span>
-              <span><b>LINE</b> Ponair1</span><small>สแกน QR</small>
+            <a href={CONTACT.lineUrl} target="_blank" rel="noreferrer" className="oc-fab-item line" role="menuitem">
+              <span className="oc-fab-ic2"><IconLine /></span>
+              <span><b>LINE</b> {CONTACT.lineId}</span>
             </a>
-            <a href="tel:0656964693" className="oc-fab-item call" role="menuitem">
-              <span className="oc-fab-ic2" style={{ background: '#0f172a' }}>☎</span>
-              <span><b>โทร</b> 065-696-4693</span>
+            <a href={CONTACT.phoneHref} className="oc-fab-item call" role="menuitem">
+              <span className="oc-fab-ic2"><IconPhone /></span>
+              <span><b>{L.fabCall}</b> {CONTACT.phone}</span>
             </a>
-            <a href="https://wa.me/66656964693" target="_blank" rel="noreferrer" className="oc-fab-item wa" role="menuitem">
-              <span className="oc-fab-ic2" style={{ background: '#25D366' }}><svg viewBox="0 0 24 24" width="16" height="16" fill="white"><path d="M12 2a10 10 0 0 0-8.6 15l-1.1 3.9 4-1A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-2.4.6.6-2.3-.2-.3A8 8 0 1 1 12 20zm4.3-5.9c-.2-.1-1.3-.6-1.5-.7-.2 0-.4 0-.5.2l-.7.8c-.2.2-.4.2-.6.1-.2-.1-.9-.3-1.7-1-.6-.5-1-1.2-1.2-1.4 0-.2 0-.4.1-.5l.6-.7c.1-.1.1-.2 0-.4l-.6-1.5c-.2-.4-.3-.4-.5-.4h-.4c-.2 0-.4.1-.6.3-.2.2-.7.7-.7 1.7s.7 2 1 2.3c.2.2 1.3 2 3.1 2.8l1.3.5c.3.1.5.1.7 0 .2-.1.9-.4 1-.7.1-.3.1-.6 0-.7 0 0-.1 0-.3 0z"/></svg></span>
-              <span><b>WhatsApp</b> 065-696-4693</span>
+            <a href={CONTACT.waUrl} target="_blank" rel="noreferrer" className="oc-fab-item wa" role="menuitem">
+              <span className="oc-fab-ic2"><IconWa /></span>
+              <span><b>WhatsApp</b> {CONTACT.phone}</span>
             </a>
-            <a href="https://www.facebook.com/ploytattoopt" target="_blank" rel="noreferrer" className="oc-fab-item fb" role="menuitem">
-              <span className="oc-fab-ic2" style={{ background: '#1877F2' }}><svg viewBox="0 0 24 24" width="16" height="16" fill="white"><path d="M14 8h2.5l-.5-3H14c-1.7 0-3 1.3-3 3v2H9v3h2v5h3v-5h2.2l.3-3H14V9c0-.6.4-1 1-1z"/></svg></span>
-              <span><b>Facebook</b> ploytattoopt</span>
+            <a href={CONTACT.fbUrl} target="_blank" rel="noreferrer" className="oc-fab-item fb" role="menuitem">
+              <span className="oc-fab-ic2"><IconFb /></span>
+              <span><b>Facebook</b> Southside Ink Pattaya</span>
             </a>
             <button className="oc-fab-item book" onClick={() => { setFabOpen(false); setDrawer(true) }} role="menuitem">
-              <span className="oc-fab-ic2" style={{ background: 'var(--blue)' }}>✦</span>
-              <span><b>{lang==='th'?'จองคิว':'Book'}</b> {lang==='th'?'ประเมินฟรี':'Free quote'}</span>
+              <span className="oc-fab-ic2"><IconCheck /></span>
+              <span><b>{L.fabBook}</b> {L.fabBookSub}</span>
             </button>
           </div>
         )}
-        <button className={`oc-fab-btn ${fabOpen ? 'open' : ''}`} onClick={() => setFabOpen(v => !v)} aria-expanded={fabOpen} aria-label={fabOpen ? 'ปิดเมนูติดต่อ' : 'เปิดเมนูติดต่อ'}>
-          {fabOpen ? <span className="oc-fab-close">×</span> : <><img src={`${import.meta.env.BASE_URL}logo-nav.png`} alt="" width="28" height="24" className="oc-fab-logo" /><span className="oc-fab-label">ติดต่อ</span></>}
+        <button className={`oc-fab-btn ${fabOpen ? 'open' : ''}`} onClick={() => setFabOpen(v => !v)} aria-expanded={fabOpen} aria-label={L.fabLabel}>
+          {fabOpen ? <span className="oc-fab-close">×</span> : <><img src={`${base}logo-nav.png`} alt="" width="28" height="24" className="oc-fab-logo" /><span className="oc-fab-label">{L.fabLabel}</span></>}
         </button>
       </div>
 
-      {fabOpen && <button className="oc-fab-backdrop" aria-label="ปิด" onClick={() => setFabOpen(false)} />}
+      {fabOpen && <button className="oc-fab-backdrop" aria-label="Close" onClick={() => setFabOpen(false)} />}
       {toast && <div className="oc-toast">{toast}</div>}
     </>
   )
