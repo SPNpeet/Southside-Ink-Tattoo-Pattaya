@@ -13,7 +13,7 @@ const CONTACT = {
   lineId: "Ponair1", lineUrl: "https://line.me/ti/p/Ponair1",
   waUrl: "https://wa.me/66656964693",
   fbId: "ploytattoopt", fbUrl: "https://www.facebook.com/ploytattoopt",
-  mapUrl: "https://share.google/lUOdKhWmDRqsbYEMv",
+  mapUrl: "https://maps.app.goo.gl/5ewABJZuthpYTu2v8",
   mapEmbed: "https://www.google.com/maps?q=133/9+M.10+Muang+Pattaya+Southside+Ink+Tattoo+Pattaya&z=16&output=embed",
 }
 

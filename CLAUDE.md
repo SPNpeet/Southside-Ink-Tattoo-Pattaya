@@ -1,7 +1,7 @@
 # Southside Ink Tattoo Pattaya — กฎประจำโปรเจกต์
 
 เว็บหน้าร้านสัก Southside Ink Pattaya (เจ้าของร้าน: คุณ Orawan ส่งงานผ่าน Messenger กลุ่ม "เว็บร้านสัก")
-React + Vite → GitHub Pages ที่ https://spnpeet.github.io/Southside-Ink-Tattoo-Pattaya/
+React + Vite → GitHub Pages ที่ https://southsideinkpattaya.com/ (โดเมนซื้อที่ Hostinger, DNS ชี้ GitHub Pages, `public/CNAME`)
 หน้าเดียว ไม่มี router ไม่มีหลังบ้าน ข้อความทั้งหมดอยู่ใน `I18N` และช่องทางติดต่อใน `CONTACT` หัวไฟล์ `src/App.jsx`
 
 ---
@@ -53,6 +53,6 @@ npm run lint     # oxlint
 ```
 
 deploy อัตโนมัติเมื่อ push ขึ้น `main` ผ่าน `.github/workflows/deploy.yml`
-`vite.config.js` ต้องคง `base: '/Southside-Ink-Tattoo-Pattaya/'` ไว้เสมอ ไม่งั้น asset 404 ทั้งเว็บ
+`vite.config.js` ใช้ `base: './'` ให้ asset เป็น path สัมพัทธ์ ใช้ได้ทั้งโดเมนหลักและ spnpeet.github.io/Southside-Ink-Tattoo-Pattaya/ ห้ามลบ `public/CNAME`
 
 ตรวจผลรัน workflow จาก API (`/actions/runs` ดู `conclusion`) อย่าเชื่อหน้า Actions ที่ render มา
