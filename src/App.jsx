@@ -59,7 +59,7 @@ const CONTACT = {
   waUrl: "https://wa.me/66656964693",
   fbId: "ploytattoopt", fbUrl: "https://www.facebook.com/ploytattoopt",
   mapUrl: "https://maps.app.goo.gl/5ewABJZuthpYTu2v8",
-  mapEmbed: "https://www.google.com/maps?q=133/9+M.10+Muang+Pattaya+Southside+Ink+Tattoo+Pattaya&z=16&output=embed",
+  mapEmbed: "https://maps.google.com/maps?q=12.926258,100.8751928+(Southside+Ink+Tattoo+Pattaya)&z=17&hl=th&output=embed",
 }
 
 const I18N = {
@@ -128,8 +128,8 @@ const I18N = {
   en: {
     nav: ["About us","Style","Artist","Locations","Contact"],
     heroKicker: "Open daily 13:00–24:00 · Walk-ins welcome · 5.0★ 43 reviews",
-    heroH1a: "Custom Tattoos in Pattaya", heroH1b: "Just minutes from Walking Street",
-    heroSub: "We create custom tattoos in every style. Artists with 10+ years of experience in a clean, hygienic and professional studio.",
+    heroH1a: "Tattoo Studio in Pattaya", heroH1b: "Just a few minutes from Walking Street.",
+    heroSub: "We create custom tattoos tailored to your ideas and preferences, offering a wide range of tattoo styles. Our tattoo artists have over 10 years of experience, and our studio is clean, safe, and hygienic.",
     ctaBook: "Get a Quote", ctaWorks: "View works",
     aboutTitle: "About us",
     aboutLead1: "Looking for a tattoo in Pattaya?",
