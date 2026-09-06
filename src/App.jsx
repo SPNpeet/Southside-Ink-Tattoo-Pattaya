@@ -118,7 +118,9 @@ const I18N = {
       { code: "Facebook", value: "Southside Ink Pattaya", href: CONTACT.fbUrl },
       { code: "Instagram", value: `@${CONTACT.igId}`, href: CONTACT.igUrl },
     ],
-    qrText: "สแกน QR เพื่อแอด LINE",
+    qrText: "สแกน QR เพื่อแอด LINE", qrOpen: "หรือแตะเพื่อเปิดใน LINE",
+    pageTitle: "Southside Ink Tattoo Pattaya — ร้านสักพัทยา ใกล้ Walking Street",
+    pageDesc: "ร้านสักพัทยา ห่างจาก Walking Street ไม่กี่นาที เปิดทุกวัน 13:00–24:00 รับ Walk-in ช่างสักประสบการณ์กว่า 10 ปี Realism, Black & Grey, Japanese, Fine Line และทุกสไตล์ 5.0★ 47 รีวิวใน Google",
     footerCopy: "Southside Ink Tattoo Pattaya · EST.2023",
     drawerTitle: "ปรึกษา / จองคิว", drawerDesc: "แนบรูปแบบที่ชอบ บอกตำแหน่งและขนาด แล้วทักมาได้เลย",
     drawerFb: "ทัก Facebook เพจ", drawerFbSub: "Southside Ink Pattaya",
@@ -184,7 +186,9 @@ const I18N = {
       { code: "Facebook", value: "Southside Ink Pattaya", href: CONTACT.fbUrl },
       { code: "Instagram", value: `@${CONTACT.igId}`, href: CONTACT.igUrl },
     ],
-    qrText: "Scan QR to add LINE",
+    qrText: "Scan QR to add LINE", qrOpen: "or tap to open in LINE",
+    pageTitle: "Southside Ink Tattoo Pattaya — Tattoo Studio near Walking Street",
+    pageDesc: "Tattoo studio in Pattaya, a few minutes from Walking Street. Open daily 13:00–24:00, walk-ins welcome. Artists with 10+ years of experience. Realism, Black & Grey, Japanese, Fine Line and every style. 5.0★ 47 Google reviews.",
     footerCopy: "Southside Ink Tattoo Pattaya · EST.2023",
     drawerTitle: "Get a Quote", drawerDesc: "Attach a reference, tell us placement and size, and message us",
     drawerFb: "Message on Facebook", drawerFbSub: "Southside Ink Pattaya",
@@ -305,6 +309,9 @@ export default function App() {
     if (!ready) return
     try { localStorage.setItem('southside-lang', lang) } catch { /* storage blocked */ }
     document.documentElement.lang = lang
+    document.title = I18N[lang].pageTitle
+    const meta = document.querySelector('meta[name="description"]')
+    if (meta) meta.setAttribute('content', I18N[lang].pageDesc)
   }, [lang, ready])
   useEffect(() => {
     if (!drawer && !fabOpen && !menuOpen) return
@@ -545,7 +552,7 @@ export default function App() {
               <img src={`${base}images/line-qr.png`} alt={`LINE QR ${CONTACT.lineId}`} width="140" height="140" loading="lazy" />
               <b>LINE ID: {CONTACT.lineId}</b>
               <span>{L.qrText}</span>
-              <a href={CONTACT.lineUrl} target="_blank" rel="noreferrer">line.me/ti/p/{CONTACT.lineId}</a>
+              <a href={CONTACT.lineUrl} target="_blank" rel="noreferrer">{L.qrOpen}</a>
             </div>
           </div>
           <div className="oc-visit">
