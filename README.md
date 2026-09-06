@@ -1,16 +1,29 @@
-# React + Vite
+# Southside Ink Tattoo Pattaya
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+เว็บหน้าร้านสัก Southside Ink Pattaya หน้าเดียว (React + Vite) เสิร์ฟผ่าน GitHub Pages ที่ https://southsideinkpattaya.com
 
-Currently, two official plugins are available:
+## โครงสร้าง
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- `src/App.jsx` เนื้อหาทั้งหมด ข้อความสองภาษาอยู่ใน `I18N` ช่องทางติดต่อใน `CONTACT` รายการรูปใน `WORKS` และหมวดสไตล์ของแต่ละรูปใน `WORK_STYLES`
+- `src/index.css` สไตล์ทั้งหมด
+- `public/images/works/` รูปผลงานขนาด 1600px และ `thumb/` ขนาด 720px สำหรับกริด
+- `public/CNAME` โดเมนหลัก ห้ามลบ
 
-## React Compiler
+## คำสั่ง
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+npm ci
+npm run dev
+npm run build
+npm run preview
+npm run lint
+```
 
-## Expanding the Oxlint configuration
+## เพิ่มรูปผลงานใหม่
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+1. วางไฟล์ `.jpg` ใน `public/images/works/` (ย่อให้ไม่เกิน 1600px) และสร้างไฟล์ชื่อเดียวกันขนาด 720px ใน `public/images/works/thumb/`
+2. เพิ่มชื่อไฟล์ (ไม่มีนามสกุล) ต่อท้าย `WORKS` และเพิ่มหมวดสไตล์ในตำแหน่งเดียวกันของ `WORK_STYLES`
+
+## Deploy
+
+push ขึ้น `main` แล้ว GitHub Actions (`.github/workflows/deploy.yml`) จะ build และ deploy ให้เอง

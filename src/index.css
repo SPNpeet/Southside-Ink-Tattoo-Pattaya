@@ -117,6 +117,9 @@ ul { margin: 0; padding: 0; list-style: none; }
 .oc-stars { color: var(--yellow); font-size: 13px; letter-spacing: 1px; margin-bottom: 8px; }
 .oc-review p { margin: 0 0 8px; font-size: 14px; line-height: 1.65; color: var(--text); }
 .oc-review small { font-family: var(--mono); font-size: 11px; color: var(--dim); }
+.oc-reviews-link { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 14px; margin-top: 4px; border-radius: 999px; border: 1px solid var(--border2); color: #fff; font-size: 13px; font-weight: 700; align-self: center; transition: border-color .15s; }
+.oc-reviews-link:hover { border-color: var(--yellow); }
+.oc-reviews { display: grid; }
 .oc-dots { display: flex; gap: 2px; justify-content: center; padding: 8px 0 0; }
 .oc-dots button { width: 44px; height: 44px; border: 0; background: transparent; cursor: pointer; padding: 0; display: grid; place-items: center; }
 .oc-dots button::before { content: ''; width: 10px; height: 10px; border-radius: 999px; background: var(--border2); transition: all .2s; }

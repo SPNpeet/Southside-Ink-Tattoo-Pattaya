@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 const WORKS = [
   "1juqLfCJ8rMus2TWOjrvMi5-ScWqTFQ2i","1Y_UHXZKVVa-BeNGie6VZ1bZDsTKvaaEP","1AakBm6zRlxdU18-O0OZMsZBtXJec4cjy","1CJcz60zMz2FAsiTp8peXexBvckRR2Sje","1mvqnMOsuKOkkez-v_LwRXjESalyyQM6u","1wez5GHlEmSGPSGOFSGKv7TjZb33w2ay6","1JE7RvJS9z4mJnac6FTv7IbzNKl0xMgtT","18Sxx5C7vxdBdD1Vx2M7rB-dVeSmdf4wT","1UqICiJMIogflvg49LlN0aY5XIls7-9-u","1wRKLneJwNOqA6cMw-YgmfrQDJ2wod9oU","1p2t7M8TjgttoPjFLLZJQddmntVv127fK","1s3_oTYl2dsWPa-L6-04U3Ujq-B0e7LPW","1lj9O7B5YVODclQbytPDYdsDdWEx6FhbY","12b6gAAIKsFg8fYAqhGjlaTotcCO5P-LW","1mRemjlWbFPKVmoHxE8l2-ILXNiTpQEN6","1bZ_tiEF_w5g2CpCYvBFSQmJ7InH64zFi","1d55chDA5fq2GiW-OVFcik_Fb7uZFd_3u","1RGABkEBV_NKAzrhmSoILBIb0ntfMC4ka","1MmTWMflnMW1UBas_QM0MTffrBEle_YkD","1wabeadflb2uqkl6vCmUe00_yxcDdYMcN","1hwQi9k3-vuqcZp_BR0qasYe48ohPDSKY","12mQYgLHfDgodOQ49HncpDDU2UmfzE7Io","1eO87gXAGeA8phrPA_BGElyeyFxztsD3C","1L03vX6Gtgn4btn21SGZmbhFYj7doDoU6","1ABhsZCWhnAzmQk1Tc1HURcAJ67fvxyJb","1cl-hCX2gP8I9J31-Vxb8ZMoZOUgvJY7N","1KrAzbfZqZnnePKlZ-xRRty__wqg1Luxv","1jZ0ux5JtJYCeJpj7IZZufJ2B1Z6VrJ2W","1GUYMDjO5cKVRrWQiRF4cx79_4TTQxav8","1bf22cCZ8nkOQj4DTKkWehOqVqmDGwqZ6",
@@ -55,10 +55,11 @@ const STYLE_ALIAS = {
 const CONTACT = {
   phone: "065-696-4693", phoneHref: "tel:0656964693",
   phone2: "083-815-3762", phone2Href: "tel:0838153762",
-  lineId: "Ponair1", lineUrl: "https://line.me/ti/p/Ponair1",
+  lineId: "Ponair1", lineUrl: "https://line.me/ti/p/VzL1rgJr-E",
   waUrl: "https://wa.me/66656964693",
   fbId: "ploytattoopt", fbUrl: "https://www.facebook.com/ploytattoopt",
   mapUrl: "https://maps.app.goo.gl/5ewABJZuthpYTu2v8",
+  reviewsUrl: "https://www.google.com/maps?cid=17392138095371947966",
   mapEmbed: "https://maps.google.com/maps?q=12.926258,100.8751928+(Southside+Ink+Tattoo+Pattaya)&z=17&hl=th&output=embed",
 }
 
@@ -98,7 +99,7 @@ const I18N = {
     artistDesc: "ช่างพลอยถนัดงาน Realistic แนว Black and Grey เก็บรายละเอียดสูง ทั้งภาพเหมือนบุคคลและลายนักรบโบราณตามแบบที่ลูกค้าต้องการ ใส่ใจทุกรายละเอียด มาสร้างผลงานชิ้นเอกของคุณกับเราได้เลย",
     artistTags: ["Realistic","Black & Grey","Portrait","Ancient Warrior"],
     artistBtn: "ดูผลงานช่างใน Facebook",
-    reviewsTitle: "ลูกค้าพูดถึงเรา",
+    reviewsTitle: "ลูกค้าพูดถึงเรา", reviewsLink: "ดูรีวิวทั้งหมดใน Google (5.0★ 43 รีวิว)",
     locTitle: "ที่ตั้งร้าน",
     locName: "Southside Ink Pattaya",
     locAddr: ["133/9 หมู่ 10 เมืองพัทยา","อำเภอบางละมุง จังหวัดชลบุรี 20150","ใกล้ Walking Street พัทยา"],
@@ -160,7 +161,7 @@ const I18N = {
     artistDesc: "Artist Ploy of Southside Ink Tattoo Pattaya demonstrates the highest level of expertise. With a specialization in realistic, hyper-detailed black and grey work, including custom portraits and ancient warrior designs, Ploy's skill and attention to detail are exceptional. Come and get your custom masterpiece.",
     artistTags: ["Realistic","Black & Grey","Portrait","Ancient Warrior"],
     artistBtn: "See artist works on Facebook",
-    reviewsTitle: "What clients say",
+    reviewsTitle: "What clients say", reviewsLink: "See all reviews on Google (5.0★ 43 reviews)",
     locTitle: "Locations",
     locName: "Southside Ink Pattaya",
     locAddr: ["133/9 M.10 Muang Pattaya","Bang Lamung, Chonburi 20150","Near Walking Street, Pattaya"],
@@ -229,7 +230,14 @@ const REVIEWS = {
 }
 
 export default function App() {
-  const [lang, setLang] = useState(() => localStorage.getItem('southside-lang') || 'th')
+  const [lang, setLang] = useState(() => {
+    try {
+      const saved = localStorage.getItem('southside-lang')
+      if (saved === 'th' || saved === 'en') return saved
+    } catch { /* storage blocked */ }
+    const nav = (navigator.language || '').toLowerCase()
+    return nav.startsWith('th') ? 'th' : 'en'
+  })
   const [menuOpen, setMenuOpen] = useState(false)
   const [lightbox, setLightbox] = useState(null)
   const [toast, setToast] = useState('')
@@ -257,9 +265,29 @@ export default function App() {
   const reviews = REVIEWS[lang]
 
   useEffect(() => {
-    localStorage.setItem('southside-lang', lang)
+    try { localStorage.setItem('southside-lang', lang) } catch { /* storage blocked */ }
     document.documentElement.lang = lang
   }, [lang])
+  useEffect(() => {
+    if (!drawer && !fabOpen && !menuOpen) return
+    const onKey = (e) => { if (e.key === 'Escape') { setDrawer(false); setFabOpen(false); setMenuOpen(false) } }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [drawer, fabOpen, menuOpen])
+  useEffect(() => {
+    if (!drawer) return
+    const x = document.querySelector('.oc-drawer-x')
+    if (x) x.focus()
+  }, [drawer])
+  const swipe = useRef(null)
+  const onTouchStart = (e) => { swipe.current = e.touches[0].clientX }
+  const onTouchEnd = (e) => {
+    if (swipe.current === null) return
+    const dx = e.changedTouches[0].clientX - swipe.current
+    swipe.current = null
+    if (Math.abs(dx) < 40) return
+    setLightbox(v => dx < 0 ? (v + 1) % PORTFOLIO.length : (v - 1 + PORTFOLIO.length) % PORTFOLIO.length)
+  }
 
   const scrollTo = (id) => {
     setMenuOpen(false); setDrawer(false)
@@ -419,6 +447,7 @@ export default function App() {
             <div className="oc-dots">
               {reviews.map((_, i) => <button key={i} className={i === reviewIdx ? 'on' : ''} onClick={() => setReviewIdx(i)} aria-label={`review ${i+1}`} />)}
             </div>
+            <a className="oc-reviews-link" href={CONTACT.reviewsUrl} target="_blank" rel="noreferrer">{L.reviewsLink}</a>
           </div>
         </section>
 
@@ -523,7 +552,7 @@ export default function App() {
           <button className="oc-lb-bg" onClick={() => setLightbox(null)} aria-label="Close" />
           <button className="oc-lb-x" onClick={() => setLightbox(null)} aria-label="Close">×</button>
           <button className="oc-lb-prev" onClick={() => setLightbox(v => (v - 1 + PORTFOLIO.length) % PORTFOLIO.length)} aria-label="Previous">‹</button>
-          <div className="oc-lb-main">
+          <div className="oc-lb-main" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
             <img src={PORTFOLIO[lightbox].src} alt={PORTFOLIO[lightbox].alt} />
             <div className="oc-lb-cap">{lightbox + 1} / {PORTFOLIO.length}</div>
           </div>
