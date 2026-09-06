@@ -245,14 +245,21 @@ const REVIEWS = [
 ]
 
 export default function App() {
-  const [lang, setLang] = useState(() => {
+  const [lang, setLang] = useState('th')
+  const [ready, setReady] = useState(false)
+  useEffect(() => {
+    let next = null
     try {
       const saved = localStorage.getItem('southside-lang')
-      if (saved === 'th' || saved === 'en') return saved
+      if (saved === 'th' || saved === 'en') next = saved
     } catch { /* storage blocked */ }
-    const nav = (navigator.language || '').toLowerCase()
-    return nav.startsWith('th') ? 'th' : 'en'
-  })
+    if (!next) {
+      const nav = (navigator.language || '').toLowerCase()
+      next = nav.startsWith('th') ? 'th' : 'en'
+    }
+    setLang(next)
+    setReady(true)
+  }, [])
   const [menuOpen, setMenuOpen] = useState(false)
   const [lightbox, setLightbox] = useState(null)
   const [toast, setToast] = useState('')
@@ -277,10 +284,17 @@ export default function App() {
   }
   const SHOP_THUMB = SHOP.map(id => `${base}images/works/thumb/${id}.jpg`)
   const SHOP_THUMB_WEBP = SHOP.map(id => `${base}images/works/thumb/${id}.webp`)
-  const bkkHour = (() => {
-    try { return Number(new Intl.DateTimeFormat('en-GB', { hour: 'numeric', hour12: false, timeZone: 'Asia/Bangkok' }).format(new Date())) } catch { return new Date().getHours() }
-  })()
-  const openNow = bkkHour >= 13
+  const [openNow, setOpenNow] = useState(true)
+  useEffect(() => {
+    const check = () => {
+      let h
+      try { h = Number(new Intl.DateTimeFormat('en-GB', { hour: 'numeric', hour12: false, timeZone: 'Asia/Bangkok' }).format(new Date())) } catch { h = new Date().getHours() }
+      setOpenNow(h >= 13)
+    }
+    check()
+    const id = setInterval(check, 60000)
+    return () => clearInterval(id)
+  }, [])
   const reviews = REVIEWS.map(r => {
     const translated = r.lang !== lang
     const text = translated ? (lang === 'th' ? r.th : r.en) : r.text
@@ -288,9 +302,10 @@ export default function App() {
   })
 
   useEffect(() => {
+    if (!ready) return
     try { localStorage.setItem('southside-lang', lang) } catch { /* storage blocked */ }
     document.documentElement.lang = lang
-  }, [lang])
+  }, [lang, ready])
   useEffect(() => {
     if (!drawer && !fabOpen && !menuOpen) return
     const onKey = (e) => { if (e.key === 'Escape') { setDrawer(false); setFabOpen(false); setMenuOpen(false) } }
@@ -576,7 +591,7 @@ export default function App() {
           </div>
         </div>
         <div className="oc-footer-bottom">
-          <span>© {new Date().getFullYear()} {L.footerCopy}</span>
+          <span>© 2026 {L.footerCopy}</span>
           <a href={CONTACT.mapUrl} target="_blank" rel="noreferrer">{L.mapBtn}</a>
         </div>
       </footer>
