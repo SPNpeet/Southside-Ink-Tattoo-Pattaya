@@ -7,6 +7,51 @@ const SHOP = ["1uZSA_1RswqRn_pAMW9wQx62ORcIEG1_Y","1WyQ_jfm05gZY_ihhjDCIWuUS7LL6
 
 const STYLES = ["Realism","Traditional","Japanese","Mandala","Neo-Traditional","Portrait","Abstract","Black Work","Colour","Cover Ups","Floral","Mythology Realistic","Sak Yank"]
 
+const WORK_STYLES = [
+  ["Mythology Realistic","Realism"],
+  ["Japanese","Colour"],
+  ["Realism"],
+  ["Sak Yank"],
+  ["Sak Yank"],
+  ["Realism","Floral"],
+  ["Realism","Mythology Realistic"],
+  ["Traditional","Colour"],
+  ["Realism"],
+  ["Mythology Realistic"],
+  ["Realism"],
+  ["Neo-Traditional","Colour"],
+  ["Floral"],
+  ["Realism","Mythology Realistic"],
+  ["Mythology Realistic"],
+  ["Realism","Portrait"],
+  ["Realism","Mythology Realistic"],
+  ["Portrait","Japanese","Colour"],
+  ["Floral","Black Work"],
+  ["Realism"],
+  ["Realism","Floral"],
+  ["Realism","Colour"],
+  ["Realism"],
+  ["Realism"],
+  ["Mandala","Realism"],
+  ["Mythology Realistic"],
+  ["Black Work","Realism"],
+  ["Abstract"],
+  ["Realism","Portrait"],
+  ["Japanese","Black Work"],
+]
+
+const STYLE_ALIAS = {
+  "Fine Line & Minimal": "Floral",
+  "Blackwork": "Black Work",
+  "Japanese": "Japanese",
+  "Realism": "Realism",
+  "Custom Design": null,
+  "Realistic": "Realism",
+  "Black & Grey": "Realism",
+  "Portrait": "Portrait",
+  "Ancient Warrior": "Mythology Realistic",
+}
+
 const CONTACT = {
   phone: "065-696-4693", phoneHref: "tel:0656964693",
   phone2: "083-815-3762", phone2Href: "tel:0838153762",
@@ -24,7 +69,7 @@ const I18N = {
     heroH1a: "ร้านสักพัทยา", heroH1b: "ห่างจาก Walking Street เพียงไม่กี่นาที",
     heroSub: "รับออกแบบและสักลายตามความต้องการของลูกค้า ครบทุกสไตล์ ช่างสักประสบการณ์มากกว่า 10 ปี สตูดิโอสะอาด ปลอดภัย",
     ctaBook: "ปรึกษา / จองคิว", ctaWorks: "ดูผลงาน",
-    aboutTitle: "About us",
+    aboutTitle: "เกี่ยวกับเรา",
     aboutLead1: "กำลังมองหาร้านสักในพัทยาอยู่ไหม?",
     aboutLead2: "ร้านเราอยู่ห่างจาก Walking Street เพียงไม่กี่นาที!",
     aboutIntro: "เรารับออกแบบและสักลายตามความต้องการของลูกค้า ครบทุกสไตล์ ไม่ว่าจะเป็น",
@@ -40,28 +85,28 @@ const I18N = {
     aboutClose1: "ไม่ว่าคุณจะกำลังหาสักครั้งแรก หรือกำลังมองหาผลงานชิ้นต่อไป",
     aboutClose2: "เราพร้อมสร้างรอยสักที่เป็นเอกลักษณ์และน่าจดจำสำหรับคุณ",
     aboutCta: "สนใจสอบถามรายละเอียดหรือจองคิว ทักข้อความหาเราได้เลยค่ะ",
-    styleTitle: "Style",
-    styleSub: "Tattoo Styles",
-    styleDesc: "รับสักทุกสไตล์ ส่งแบบที่ชอบมาปรึกษาได้เลย",
-    styleAll: "All",
+    styleTitle: "สไตล์",
+    styleSub: "สไตล์งานสัก",
+    styleDesc: "รับสักทุกสไตล์ แตะชื่อสไตล์เพื่อดูผลงาน หรือส่งแบบที่ชอบมาปรึกษาได้เลย",
+    styleAll: "ทั้งหมด",
     worksTitle: "ผลงานจริงจากร้าน",
     worksDesc: "แตะรูปเพื่อขยาย",
     worksBtn: "ดูผลงานเพิ่มใน Facebook",
-    artistTitle: "Artist",
-    artistName: "Artist Ploy",
+    artistTitle: "ช่างสัก",
+    artistName: "ช่างพลอย (Artist Ploy)",
     artistRole: "ช่างสักประจำร้าน Southside Ink Pattaya",
     artistDesc: "ช่างพลอยถนัดงาน Realistic แนว Black and Grey เก็บรายละเอียดสูง ทั้งภาพเหมือนบุคคลและลายนักรบโบราณตามแบบที่ลูกค้าต้องการ ใส่ใจทุกรายละเอียด มาสร้างผลงานชิ้นเอกของคุณกับเราได้เลย",
     artistTags: ["Realistic","Black & Grey","Portrait","Ancient Warrior"],
     artistBtn: "ดูผลงานช่างใน Facebook",
     reviewsTitle: "ลูกค้าพูดถึงเรา",
-    locTitle: "Locations",
+    locTitle: "ที่ตั้งร้าน",
     locName: "Southside Ink Pattaya",
     locAddr: ["133/9 หมู่ 10 เมืองพัทยา","อำเภอบางละมุง จังหวัดชลบุรี 20150","ใกล้ Walking Street พัทยา"],
     locHoursLabel: "เวลาเปิด–ปิด",
     locHours: "ทุกวัน 13:00–24:00",
     locWalk: "รับ Walk-in",
     mapBtn: "เปิดใน Google Maps",
-    contactTitle: "Contact",
+    contactTitle: "ติดต่อ",
     contactDesc: "สอบถามรายละเอียดหรือจองคิว ทักข้อความหาเราได้เลย",
     contactLines: [
       { code: "โทร", value: CONTACT.phone, href: CONTACT.phoneHref },
@@ -104,7 +149,7 @@ const I18N = {
     aboutCta: "Your idea. Your style. Your tattoo. Message us for a consultation or to book your appointment.",
     styleTitle: "Style",
     styleSub: "Tattoo Styles",
-    styleDesc: "Every style welcome. Send us a reference and let's talk.",
+    styleDesc: "Every style welcome. Tap a style to see our work, or send us a reference and let's talk.",
     styleAll: "All",
     worksTitle: "Real works from our studio",
     worksDesc: "Tap to enlarge",
@@ -191,10 +236,22 @@ export default function App() {
   const [drawer, setDrawer] = useState(false)
   const [reviewIdx, setReviewIdx] = useState(0)
   const [fabOpen, setFabOpen] = useState(false)
+  const [style, setStyle] = useState(null)
 
   const L = I18N[lang]
   const base = import.meta.env.BASE_URL
-  const PORTFOLIO = WORKS.map((id, i) => ({ id, src: `${base}images/works/${id}.jpg`, alt: `Southside Ink Pattaya tattoo work ${i + 1}` }))
+  const ALL = WORKS.map((id, i) => ({ id, src: `${base}images/works/${id}.jpg`, alt: `Southside Ink Pattaya tattoo work ${i + 1}`, styles: WORK_STYLES[i] || [] }))
+  const STYLE_LIST = STYLES.filter(s => ALL.some(w => w.styles.includes(s)))
+  const PORTFOLIO = style ? ALL.filter(w => w.styles.includes(style)) : ALL
+  const pickStyle = (s) => {
+    setStyle(s && STYLE_LIST.includes(s) ? s : null)
+    setLightbox(null)
+  }
+  const jumpToStyle = (label) => {
+    const target = STYLE_ALIAS[label]
+    pickStyle(target === undefined ? label : target)
+    scrollTo('style')
+  }
   const SHOP_SRC = SHOP.map(id => `${base}images/works/${id}.jpg`)
   const reviews = REVIEWS[lang]
 
@@ -286,7 +343,7 @@ export default function App() {
               <p className="oc-about-name"><IconPin /> Southside Ink Pattaya</p>
               <p>{L.aboutIntro}</p>
               <ul className="oc-about-styles">
-                {L.aboutStyles.map(s => <li key={s}>{s}</li>)}
+                {L.aboutStyles.map(s => <li key={s}><button type="button" onClick={() => jumpToStyle(s)}>{s}</button></li>)}
               </ul>
               <ul className="oc-checklist">
                 {L.aboutPoints.map(p => <li key={p}><IconCheck />{p}</li>)}
@@ -297,7 +354,7 @@ export default function App() {
             </div>
             <div className="oc-about-photos">
               <img src={SHOP_SRC[1]} alt="Southside Ink Pattaya studio" loading="lazy" />
-              <img src={PORTFOLIO[1].src} alt={PORTFOLIO[1].alt} loading="lazy" />
+              <img src={ALL[1].src} alt={ALL[1].alt} loading="lazy" />
             </div>
           </div>
         </section>
@@ -307,11 +364,13 @@ export default function App() {
             <h2><span className="oc-num">02</span> {L.styleTitle}</h2>
             <p>{L.styleSub} · {L.styleDesc}</p>
           </div>
-          <ul className="oc-styles">
-            <li className="on">{L.styleAll}</li>
-            {STYLES.map(s => <li key={s}>{s}</li>)}
-          </ul>
-          <h3 className="oc-works-title">{L.worksTitle} <small>{L.worksDesc}</small></h3>
+          <div className="oc-styles" role="group" aria-label="Tattoo styles">
+            <button type="button" className={style ? '' : 'on'} aria-pressed={!style} onClick={() => pickStyle(null)}>{L.styleAll}</button>
+            {STYLE_LIST.map(s => (
+              <button key={s} type="button" className={style === s ? 'on' : ''} aria-pressed={style === s} onClick={() => pickStyle(style === s ? null : s)}>{s}</button>
+            ))}
+          </div>
+          <h3 className="oc-works-title">{style || L.worksTitle} <small>{PORTFOLIO.length}/{ALL.length} · {L.worksDesc}</small></h3>
           <div className="oc-grid">
             {PORTFOLIO.map((it, idx) => (
               <button key={it.id} className={`oc-tile ${idx===0?'tall': idx===7?'wide':''}`} onClick={() => setLightbox(idx)} aria-label={`${L.worksDesc} ${idx + 1}`}>
@@ -335,7 +394,7 @@ export default function App() {
               <span className="oc-artist-role">{L.artistRole}</span>
               <p>{L.artistDesc}</p>
               <ul className="oc-artist-tags">
-                {L.artistTags.map(t => <li key={t}>{t}</li>)}
+                {L.artistTags.map(t => <li key={t}><button type="button" onClick={() => jumpToStyle(t)}>{t}</button></li>)}
               </ul>
               <div className="oc-artist-actions">
                 <a className="btn btn-primary" href={CONTACT.fbUrl} target="_blank" rel="noreferrer">{L.artistBtn}</a>
