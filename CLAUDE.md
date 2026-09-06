@@ -41,6 +41,12 @@ React + Vite → GitHub Pages ที่ https://southsideinkpattaya.com/ (โด
 - จอคอมต้องไม่ใช่ "มือถือขยาย": hero เต็มขอบจอ (`@media(min-width:1024px)`), h1 ถึง 84px, เนื้อหา 16-17px, ปุ่ม 52px ขึ้นไป
 - ฟอนต์โมโนใช้เฉพาะป้ายเล็ก ๆ (kicker, code) เมนูและปุ่มใช้ IBM Plex Sans Thai
 
+## 2.2 หน้าเว็บ pre-render (SSG)
+
+`npm run build` render `App` เป็น HTML ลง `dist/index.html` แล้ว client `hydrateRoot`
+ห้ามเรียก `window` / `localStorage` / `navigator` / `new Date()` ตอน render (ใส่ใน `useEffect` เท่านั้น)
+state เริ่มต้นต้องเท่ากันทั้ง server และ client (`lang='th'`, `openNow=true`) แล้วค่อยปรับใน effect
+
 ## 3. เกณฑ์ที่ต้องผ่านก่อนถือว่าเสร็จ
 
 - `npm run build` ผ่าน และ `npm run lint` exit 0

@@ -364,7 +364,7 @@ export default function App() {
       <header className="oc-nav">
         <div className="oc-nav-inner">
           <a className="oc-logo" href="#top" onClick={(e) => { e.preventDefault(); scrollTo('top') }}>
-            <img src={`${base}logo-nav.png`} alt="Southside Ink Pattaya" className="oc-logo-img" width="44" height="39" loading="eager" decoding="async" />
+            <img src={`${base}logo-nav.webp`} alt="Southside Ink Pattaya" className="oc-logo-img" width="44" height="39" loading="eager" decoding="async" />
             <span className="oc-logo-text">Southside Ink <span className="oc-logo-sub">PATTAYA</span></span>
           </a>
           <nav className={`oc-links ${menuOpen ? 'open' : ''}`}>
@@ -572,7 +572,7 @@ export default function App() {
       <footer className="oc-footer">
         <div className="oc-footer-grid">
           <div>
-            <img src={`${base}logo-nav.png`} alt="Southside Ink" width="52" height="46" className="oc-footer-logo" />
+            <img src={`${base}logo-nav.webp`} alt="Southside Ink" width="52" height="46" className="oc-footer-logo" />
             <div className="oc-footer-name">Southside Ink Tattoo Pattaya</div>
             <div className="oc-footer-addr">{L.locAddr[0]}<br />{L.locAddr[1]}<br />{L.locHours}</div>
           </div>
@@ -656,7 +656,7 @@ export default function App() {
           </div>
         )}
         <button className={`oc-fab-btn ${fabOpen ? 'open' : ''}`} onClick={() => setFabOpen(v => !v)} aria-expanded={fabOpen} aria-label={L.fabLabel}>
-          {fabOpen ? <span className="oc-fab-close">×</span> : <><img src={`${base}logo-nav.png`} alt="" width="28" height="24" className="oc-fab-logo" /><span className="oc-fab-label">{L.fabLabel}</span></>}
+          {fabOpen ? <span className="oc-fab-close">×</span> : <><img src={`${base}logo-nav.webp`} alt="" width="28" height="24" className="oc-fab-logo" /><span className="oc-fab-label">{L.fabLabel}</span></>}
         </button>
       </div>
 

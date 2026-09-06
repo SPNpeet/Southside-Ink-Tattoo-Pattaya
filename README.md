@@ -24,6 +24,13 @@ npm run lint
 1. วางไฟล์ `.jpg` ใน `public/images/works/` (ย่อให้ไม่เกิน 1600px) และสร้างไฟล์ชื่อเดียวกันขนาด 720px ใน `public/images/works/thumb/`
 2. เพิ่มชื่อไฟล์ (ไม่มีนามสกุล) ต่อท้าย `WORKS` และเพิ่มหมวดสไตล์ในตำแหน่งเดียวกันของ `WORK_STYLES`
 
+## Build แบบ pre-render
+
+`npm run build` ทำ 3 ขั้น: build ฝั่ง client, build `src/entry-server.jsx` แบบ SSR, แล้ว `scripts/prerender.mjs`
+ฝัง HTML ที่ render แล้วลง `dist/index.html` ให้หน้าแรกแสดงทันทีก่อน JS โหลด ฝั่ง client ใช้ `hydrateRoot`
+ข้อควรระวัง: โค้ดที่แตะ `window`/`localStorage`/`navigator`/เวลา ต้องอยู่ใน `useEffect` หรือ handler เท่านั้น
+ไม่งั้น build ล้มหรือ hydration ไม่ตรงกัน ภาษาเริ่มต้นของ HTML คือไทย แล้วสลับตามเบราว์เซอร์หลัง mount
+
 ## Deploy
 
 push ขึ้น `main` แล้ว GitHub Actions (`.github/workflows/deploy.yml`) จะ build และ deploy ให้เอง
