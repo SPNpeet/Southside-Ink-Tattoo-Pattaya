@@ -252,3 +252,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   .oc-footer-qr{ grid-column: auto; }
   .oc-toast{ max-width: calc(100vw - 28px); white-space: normal; text-align: center; }
 }
+@media(max-width: 400px){
+  .oc-ic.fb, .oc-ic.wa{ display: none; }
+  .oc-actions{ gap: 6px; }
+}
