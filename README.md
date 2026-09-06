@@ -34,7 +34,7 @@ npm run lint
 `npm run build` ทำ 3 ขั้น: build ฝั่ง client, build `src/entry-server.jsx` แบบ SSR, แล้ว `scripts/prerender.mjs`
 ฝัง HTML ที่ render แล้วลง `dist/index.html` ให้หน้าแรกแสดงทันทีก่อน JS โหลด ฝั่ง client ใช้ `hydrateRoot`
 ข้อควรระวัง: โค้ดที่แตะ `window`/`localStorage`/`navigator`/เวลา ต้องอยู่ใน `useEffect` หรือ handler เท่านั้น
-ไม่งั้น build ล้มหรือ hydration ไม่ตรงกัน ภาษาเริ่มต้นของ HTML คือไทย แล้วสลับตามเบราว์เซอร์หลัง mount
+ไม่งั้น build ล้มหรือ hydration ไม่ตรงกัน ภาษาของแต่ละหน้าถูกกำหนดตอน prerender แล้ว (`/` ไทย, `/en/` อังกฤษ) ไม่มีการสลับหลังโหลด
 
 ## Deploy
 
