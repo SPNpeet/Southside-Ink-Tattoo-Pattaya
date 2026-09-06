@@ -23,6 +23,13 @@ img { display: block; max-width: 100%; }
 ul { margin: 0; padding: 0; list-style: none; }
 :focus-visible { outline: 2px solid var(--yellow); outline-offset: 2px; }
 
+/* language hint bar (shown before paint by the inline head script) */
+.oc-langbar { display: none; align-items: center; justify-content: center; gap: 10px; min-height: 46px; padding: 8px 16px; background: var(--yellow); color: #070a14; font-size: 14px; font-weight: 600; text-align: center; }
+html[data-langhint] .oc-langbar { display: flex; }
+.oc-langbar b { text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
+.oc-langbar:hover { color: #070a14; }
+@media(max-width: 560px){ .oc-langbar span { display: none; } .oc-langbar { min-height: 44px; } }
+
 /* nav */
 .oc-nav { position: sticky; top: 0; z-index: 40; background: rgba(7,10,20,.96); backdrop-filter: blur(14px); border-bottom: 2px solid var(--yellow); }
 .oc-nav-inner { max-width: 1280px; margin: 0 auto; padding: 10px 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: var(--nav-h); }
@@ -37,8 +44,9 @@ ul { margin: 0; padding: 0; list-style: none; }
 .oc-links a:hover::after { width: 100%; }
 .oc-actions { display: flex; align-items: center; gap: 8px; }
 .oc-lang { display: flex; border: 1px solid var(--border); border-radius: 999px; overflow: hidden; background: var(--surface); }
-.oc-lang button { padding: 7px 10px; font-family: var(--mono); font-size: 12px; font-weight: 800; border: 0; background: transparent; color: var(--dim); cursor: pointer; min-width: 42px; min-height: 42px; }
-.oc-lang button.on { background: var(--yellow); color: #070a14; }
+.oc-lang a { display: grid; place-items: center; padding: 7px 10px; font-family: var(--mono); font-size: 12px; font-weight: 800; border: 0; background: transparent; color: var(--dim); cursor: pointer; min-width: 42px; min-height: 42px; }
+.oc-lang a.on { background: var(--yellow); color: #070a14; }
+.oc-lang a:not(.on):hover { color: #fff; }
 .oc-ic { width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--border); display: grid; place-items: center; background: var(--surface); color: #fff; transition: transform .18s; }
 .oc-ic:hover { transform: translateY(-2px); }
 .oc-ic.line { background: var(--line); border-color: var(--line); }

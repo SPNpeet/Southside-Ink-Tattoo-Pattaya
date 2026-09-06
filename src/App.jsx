@@ -248,22 +248,13 @@ const REVIEWS = [
     en: 'The tattoo turned out beautifully, and it did not hurt much.' },
 ]
 
-export default function App() {
-  const [lang, setLang] = useState('th')
-  const [ready, setReady] = useState(false)
-  useEffect(() => {
-    let next = null
-    try {
-      const saved = localStorage.getItem('southside-lang')
-      if (saved === 'th' || saved === 'en') next = saved
-    } catch { /* storage blocked */ }
-    if (!next) {
-      const nav = (navigator.language || '').toLowerCase()
-      next = nav.startsWith('th') ? 'th' : 'en'
-    }
-    setLang(next)
-    setReady(true)
-  }, [])
+export default function App({ initialLang = 'th' }) {
+  const lang = initialLang === 'en' ? 'en' : 'th'
+  const goLang = (next) => {
+    if (next === lang) return
+    try { localStorage.setItem('southside-lang', next) } catch { /* storage blocked */ }
+    window.location.assign(next === 'en' ? '/en/' : '/')
+  }
   const [menuOpen, setMenuOpen] = useState(false)
   const [lightbox, setLightbox] = useState(null)
   const [toast, setToast] = useState('')
@@ -305,14 +296,6 @@ export default function App() {
     return { name: r.name, text, translated }
   })
 
-  useEffect(() => {
-    if (!ready) return
-    try { localStorage.setItem('southside-lang', lang) } catch { /* storage blocked */ }
-    document.documentElement.lang = lang
-    document.title = I18N[lang].pageTitle
-    const meta = document.querySelector('meta[name="description"]')
-    if (meta) meta.setAttribute('content', I18N[lang].pageDesc)
-  }, [lang, ready])
   useEffect(() => {
     if (!drawer && !fabOpen && !menuOpen) return
     const onKey = (e) => { if (e.key === 'Escape') { setDrawer(false); setFabOpen(false); setMenuOpen(false) } }
@@ -368,6 +351,11 @@ export default function App() {
 
   return (
     <>
+      <a className="oc-langbar" href={lang === 'th' ? '/en/' : '/'} hrefLang={lang === 'th' ? 'en' : 'th'} onClick={(e) => { e.preventDefault(); goLang(lang === 'th' ? 'en' : 'th') }}>
+        <span>{lang === 'th' ? 'This site is also available in English' : 'ดูเว็บไซต์เป็นภาษาไทย'}</span>
+        <b>{lang === 'th' ? 'View in English' : 'เปลี่ยนเป็นภาษาไทย'}</b>
+      </a>
+
       <header className="oc-nav">
         <div className="oc-nav-inner">
           <a className="oc-logo" href="#top" onClick={(e) => { e.preventDefault(); scrollTo('top') }}>
@@ -379,8 +367,8 @@ export default function App() {
           </nav>
           <div className="oc-actions">
             <div className="oc-lang" role="group" aria-label="Language">
-              <button className={lang==='th'?'on':''} onClick={() => setLang('th')} aria-pressed={lang==='th'}>TH</button>
-              <button className={lang==='en'?'on':''} onClick={() => setLang('en')} aria-pressed={lang==='en'}>EN</button>
+              <a className={lang==='th'?'on':''} href="/" hrefLang="th" aria-current={lang==='th' ? 'page' : undefined} onClick={(e) => { e.preventDefault(); goLang('th') }}>TH</a>
+              <a className={lang==='en'?'on':''} href="/en/" hrefLang="en" aria-current={lang==='en' ? 'page' : undefined} onClick={(e) => { e.preventDefault(); goLang('en') }}>EN</a>
             </div>
             <a className="oc-ic line" href={CONTACT.lineUrl} target="_blank" rel="noreferrer" aria-label="LINE"><IconLine /></a>
             <a className="oc-ic fb" href={CONTACT.fbUrl} target="_blank" rel="noreferrer" aria-label="Facebook"><IconFb /></a>
@@ -436,11 +424,11 @@ export default function App() {
             <div className="oc-about-photos">
               <picture>
                 <source type="image/webp" srcSet={SHOP_THUMB_WEBP[1]} />
-                <img src={SHOP_THUMB[1]} alt="Southside Ink Pattaya studio" loading="lazy" decoding="async" />
+                <img src={SHOP_THUMB[1]} alt="Southside Ink Pattaya studio" loading="lazy" decoding="async" width="720" height="540" />
               </picture>
               <picture>
                 <source type="image/webp" srcSet={ALL[1].thumbWebp} />
-                <img src={ALL[1].thumb} alt={ALL[1].alt} loading="lazy" decoding="async" />
+                <img src={ALL[1].thumb} alt={ALL[1].alt} loading="lazy" decoding="async" width="720" height="720" />
               </picture>
             </div>
           </div>
@@ -478,7 +466,7 @@ export default function App() {
             <h2><span className="oc-num">03</span> {L.artistTitle}</h2>
           </div>
           <div className="oc-artist">
-            <img src={`${base}images/artist.jpg`} alt="Artist Ploy, Southside Ink Pattaya" loading="lazy" />
+            <img src={`${base}images/artist.jpg`} alt="Artist Ploy, Southside Ink Pattaya" loading="lazy" decoding="async" width="861" height="1200" />
             <div className="oc-artist-body">
               <h3>{L.artistName}</h3>
               <span className="oc-artist-role">{L.artistRole}</span>
@@ -526,7 +514,7 @@ export default function App() {
                 {SHOP_THUMB.map((src, i) => (
                   <picture key={src}>
                     <source type="image/webp" srcSet={SHOP_THUMB_WEBP[i]} />
-                    <img src={src} alt={`Southside Ink Pattaya studio ${i + 1}`} loading="lazy" decoding="async" />
+                    <img src={src} alt={`Southside Ink Pattaya studio ${i + 1}`} loading="lazy" decoding="async" width="720" height="720" />
                   </picture>
                 ))}
               </div>
@@ -558,7 +546,7 @@ export default function App() {
           <div className="oc-visit">
             <picture className="oc-visit-bg" aria-hidden="true">
               <source type="image/webp" srcSet={SHOP_THUMB_WEBP[2]} />
-              <img src={SHOP_THUMB[2]} alt="" loading="lazy" decoding="async" />
+              <img src={SHOP_THUMB[2]} alt="" loading="lazy" decoding="async" width="720" height="720" />
             </picture>
             <div className="oc-visit-shade" aria-hidden="true" />
             <div className="oc-visit-body">
@@ -626,7 +614,7 @@ export default function App() {
           <button className="oc-lb-x" onClick={() => setLightbox(null)} aria-label="Close">×</button>
           <button className="oc-lb-prev" onClick={() => setLightbox(v => (v - 1 + PORTFOLIO.length) % PORTFOLIO.length)} aria-label="Previous">‹</button>
           <div className="oc-lb-main" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
-            <img src={PORTFOLIO[lightbox].src} alt={PORTFOLIO[lightbox].alt} />
+            <img src={PORTFOLIO[lightbox].src} alt={PORTFOLIO[lightbox].alt} width="1200" height="1600" />
             <div className="oc-lb-cap">{lightbox + 1} / {PORTFOLIO.length}</div>
           </div>
           <button className="oc-lb-next" onClick={() => setLightbox(v => (v + 1) % PORTFOLIO.length)} aria-label="Next">›</button>

@@ -41,7 +41,14 @@ React + Vite → GitHub Pages ที่ https://southsideinkpattaya.com/ (โด
 - จอคอมต้องไม่ใช่ "มือถือขยาย": hero เต็มขอบจอ (`@media(min-width:1024px)`), h1 ถึง 84px, เนื้อหา 16-17px, ปุ่ม 52px ขึ้นไป
 - ฟอนต์โมโนใช้เฉพาะป้ายเล็ก ๆ (kicker, code) เมนูและปุ่มใช้ IBM Plex Sans Thai
 
-## 2.2 หน้าเว็บ pre-render (SSG)
+## 2.2 หน้าเว็บ pre-render (SSG) และสองภาษาแยก URL
+
+เว็บมี 2 หน้า: ไทย `/` และอังกฤษ `/en/` prerender แยกไฟล์ตอน build ทั้งคู่ (ดู `scripts/prerender.mjs`)
+head ของแต่ละหน้ามี title/description/og/canonical ของภาษานั้น และ hreflang ชี้กันครบ
+ปุ่ม TH/EN เป็นลิงก์จริงไปอีกหน้า (บันทึกตัวเลือกลง localStorage)
+ห้ามทำ redirect อัตโนมัติตามภาษาเบราว์เซอร์ เพราะ Googlebot จะถูกเด้งจนไม่เก็บหน้าไทย
+ใช้แถบ `.oc-langbar` แทน ซึ่งสคริปต์ใน head ตั้ง `data-langhint` ก่อนวาดหน้า จึงไม่มี layout shift
+`vite.config.js` ต้องใช้ `base: '/'` ไม่งั้นหน้า `/en/` จะหา `/assets/*.js` ไม่เจอและกดอะไรไม่ได้เลย
 
 `npm run build` render `App` เป็น HTML ลง `dist/index.html` แล้ว client `hydrateRoot`
 ห้ามเรียก `window` / `localStorage` / `navigator` / `new Date()` ตอน render (ใส่ใน `useEffect` เท่านั้น)

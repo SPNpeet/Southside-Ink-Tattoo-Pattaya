@@ -4,9 +4,10 @@ import './index.css'
 import App from './App.jsx'
 
 const root = document.getElementById('root')
+const initialLang = document.documentElement.lang === 'en' ? 'en' : 'th'
 const tree = (
   <StrictMode>
-    <App />
+    <App initialLang={initialLang} />
   </StrictMode>
 )
 if (root.hasChildNodes()) hydrateRoot(root, tree)
