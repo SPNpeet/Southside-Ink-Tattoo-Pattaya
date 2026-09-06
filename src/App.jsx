@@ -251,7 +251,7 @@ export default function App() {
 
   const L = I18N[lang]
   const base = import.meta.env.BASE_URL
-  const ALL = WORKS.map((id, i) => ({ id, src: `${base}images/works/${id}.jpg`, thumb: `${base}images/works/thumb/${id}.jpg`, alt: `Southside Ink Pattaya tattoo work ${i + 1}`, styles: WORK_STYLES[i] || [] }))
+  const ALL = WORKS.map((id, i) => ({ id, src: `${base}images/works/${id}.jpg`, thumb: `${base}images/works/thumb/${id}.jpg`, thumbWebp: `${base}images/works/thumb/${id}.webp`, alt: `Southside Ink Pattaya tattoo work ${i + 1}`, styles: WORK_STYLES[i] || [] }))
   const STYLE_LIST = STYLES.filter(s => ALL.some(w => w.styles.includes(s)))
   const PORTFOLIO = style ? ALL.filter(w => w.styles.includes(style)) : ALL
   const pickStyle = (s) => {
@@ -264,6 +264,7 @@ export default function App() {
     scrollTo('style')
   }
   const SHOP_THUMB = SHOP.map(id => `${base}images/works/thumb/${id}.jpg`)
+  const SHOP_THUMB_WEBP = SHOP.map(id => `${base}images/works/thumb/${id}.webp`)
   const reviews = REVIEWS.map(r => {
     const translated = r.lang !== lang
     const text = translated ? (lang === 'th' ? r.th : r.en) : r.text
@@ -394,8 +395,14 @@ export default function App() {
               <button className="btn btn-primary" onClick={() => setDrawer(true)}>{L.ctaBook}</button>
             </div>
             <div className="oc-about-photos">
-              <img src={SHOP_THUMB[1]} alt="Southside Ink Pattaya studio" loading="lazy" decoding="async" />
-              <img src={ALL[1].thumb} alt={ALL[1].alt} loading="lazy" decoding="async" />
+              <picture>
+                <source type="image/webp" srcSet={SHOP_THUMB_WEBP[1]} />
+                <img src={SHOP_THUMB[1]} alt="Southside Ink Pattaya studio" loading="lazy" decoding="async" />
+              </picture>
+              <picture>
+                <source type="image/webp" srcSet={ALL[1].thumbWebp} />
+                <img src={ALL[1].thumb} alt={ALL[1].alt} loading="lazy" decoding="async" />
+              </picture>
             </div>
           </div>
         </section>
@@ -415,7 +422,10 @@ export default function App() {
           <div className="oc-grid">
             {PORTFOLIO.map((it, idx) => (
               <button key={it.id} className={`oc-tile ${idx===0?'tall': idx===7?'wide':''}`} onClick={() => setLightbox(idx)} aria-label={`${L.worksDesc} ${idx + 1}`}>
-                <img src={it.thumb} alt={it.alt} loading="lazy" decoding="async" />
+                <picture>
+                  <source type="image/webp" srcSet={it.thumbWebp} />
+                  <img src={it.thumb} alt={it.alt} loading="lazy" decoding="async" width="720" height="720" />
+                </picture>
               </button>
             ))}
           </div>
@@ -475,7 +485,10 @@ export default function App() {
               <a className="btn btn-primary" href={CONTACT.mapUrl} target="_blank" rel="noreferrer">{L.mapBtn}</a>
               <div className="oc-shop-grid">
                 {SHOP_THUMB.map((src, i) => (
-                  <img key={src} src={src} alt={`Southside Ink Pattaya studio ${i + 1}`} loading="lazy" decoding="async" />
+                  <picture key={src}>
+                    <source type="image/webp" srcSet={SHOP_THUMB_WEBP[i]} />
+                    <img src={src} alt={`Southside Ink Pattaya studio ${i + 1}`} loading="lazy" decoding="async" />
+                  </picture>
                 ))}
               </div>
             </div>

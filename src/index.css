@@ -79,8 +79,9 @@ ul { margin: 0; padding: 0; list-style: none; }
 .oc-about-close { color: var(--dim) !important; }
 .oc-about-cta { font-weight: 700; color: #fff !important; }
 .oc-about-photos { display: grid; gap: 12px; }
+.oc-about-photos picture { display: block; }
 .oc-about-photos img { width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 14px; border: 1px solid var(--border); }
-.oc-about-photos img + img { aspect-ratio: 1; }
+.oc-about-photos picture + picture img { aspect-ratio: 1; }
 
 /* style + works */
 .oc-styles { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 26px; }
@@ -91,6 +92,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .oc-works-title small { font-family: var(--mono); font-size: 11px; color: var(--dim); font-weight: 600; }
 .oc-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
 .oc-tile { position: relative; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); background: var(--surface); padding: 0; cursor: pointer; aspect-ratio: 1; }
+.oc-tile picture { display: block; width: 100%; height: 100%; }
 .oc-tile img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
 .oc-tile:hover img { transform: scale(1.06); }
 .oc-tile.tall { aspect-ratio: .85; }
@@ -227,7 +229,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 @media(max-width: 900px){
   .oc-about{ grid-template-columns: 1fr; }
   .oc-about-photos{ grid-template-columns: 1fr 1fr; }
-  .oc-about-photos img, .oc-about-photos img + img{ aspect-ratio: 1; }
+  .oc-about-photos img, .oc-about-photos picture + picture img{ aspect-ratio: 1; }
   .oc-grid{ grid-template-columns: repeat(2,1fr); }
   .oc-artist{ grid-template-columns: 1fr; }
   .oc-artist img{ max-height: 420px; }
