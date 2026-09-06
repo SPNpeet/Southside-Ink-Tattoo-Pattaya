@@ -47,6 +47,12 @@ React + Vite → GitHub Pages ที่ https://southsideinkpattaya.com/ (โด
 ห้ามเรียก `window` / `localStorage` / `navigator` / `new Date()` ตอน render (ใส่ใน `useEffect` เท่านั้น)
 state เริ่มต้นต้องเท่ากันทั้ง server และ client (`lang='th'`, `openNow=true`) แล้วค่อยปรับใน effect
 
+## 2.3 ฟอนต์และ CSS
+
+- ฟอนต์ IBM Plex self-host ที่ `public/fonts/` (@font-face อยู่บนสุดของ `src/index.css`) ห้ามกลับไปใช้ Google Fonts
+  เพราะวัดแล้วหน่วง first paint บนมือถือ ~1.3 วินาที (Lighthouse มือถือ 82 -> 95)
+- CSS ทั้งไฟล์ถูก inline ลง `dist/index.html` ตอน prerender (`scripts/prerender.mjs`) ไม่มี stylesheet ภายนอกเลย
+
 ## 3. เกณฑ์ที่ต้องผ่านก่อนถือว่าเสร็จ
 
 - `npm run build` ผ่าน และ `npm run lint` exit 0
