@@ -127,6 +127,9 @@ const I18N = {
     drawerCall: "โทรเลย", drawerCallSub: `${CONTACT.phone} / ${CONTACT.phone2}`,
     fabLabel: "ติดต่อ", fabBook: "จองคิว", fabBookSub: "ปรึกษาฟรี", fabCall: "โทร",
     copied: "คัดลอกแล้ว", copyBtn: "คัดลอกเบอร์",
+    openNow: "เปิดอยู่ตอนนี้ · ถึงเที่ยงคืน", opensAt: "วันนี้เปิด 13:00",
+    visitTitle: "แวะมาที่ร้านได้เลย ไม่ต้องจองล่วงหน้า",
+    visitDesc: "133/9 หมู่ 10 เมืองพัทยา เดินจาก Walking Street ไม่กี่นาที มองหาป้ายเหลือง TATTOO หน้าร้าน หรือทักมาก่อนก็ได้",
   },
   en: {
     nav: ["About us","Style","Artist","Locations","Contact"],
@@ -190,6 +193,9 @@ const I18N = {
     drawerCall: "Call now", drawerCallSub: `${CONTACT.phone} / ${CONTACT.phone2}`,
     fabLabel: "CONTACT", fabBook: "Book", fabBookSub: "Free consult", fabCall: "Call",
     copied: "Copied", copyBtn: "Copy number",
+    openNow: "Open now · until midnight", opensAt: "Opens today at 13:00",
+    visitTitle: "Walk in anytime, no booking needed",
+    visitDesc: "133/9 M.10 Muang Pattaya, a few minutes on foot from Walking Street. Look for the yellow TATTOO sign, or message us first.",
   },
 }
 
@@ -271,6 +277,10 @@ export default function App() {
   }
   const SHOP_THUMB = SHOP.map(id => `${base}images/works/thumb/${id}.jpg`)
   const SHOP_THUMB_WEBP = SHOP.map(id => `${base}images/works/thumb/${id}.webp`)
+  const bkkHour = (() => {
+    try { return Number(new Intl.DateTimeFormat('en-GB', { hour: 'numeric', hour12: false, timeZone: 'Asia/Bangkok' }).format(new Date())) } catch { return new Date().getHours() }
+  })()
+  const openNow = bkkHour >= 13
   const reviews = REVIEWS.map(r => {
     const translated = r.lang !== lang
     const text = translated ? (lang === 'th' ? r.th : r.en) : r.text
@@ -523,14 +533,22 @@ export default function App() {
               <a href={CONTACT.lineUrl} target="_blank" rel="noreferrer">line.me/ti/p/{CONTACT.lineId}</a>
             </div>
           </div>
-          <div className="oc-book">
-            <div>
-              <h3>{L.drawerTitle}</h3>
-              <p>{L.drawerDesc}</p>
-            </div>
-            <div className="oc-book-actions">
-              <button className="btn btn-primary" onClick={() => setDrawer(true)}>{L.ctaBook}</button>
-              <a className="btn btn-ghost" href={CONTACT.phoneHref}>{L.drawerCall}</a>
+          <div className="oc-visit">
+            <picture className="oc-visit-bg" aria-hidden="true">
+              <source type="image/webp" srcSet={SHOP_THUMB_WEBP[2]} />
+              <img src={SHOP_THUMB[2]} alt="" loading="lazy" decoding="async" />
+            </picture>
+            <div className="oc-visit-shade" aria-hidden="true" />
+            <div className="oc-visit-body">
+              <span className={`oc-open ${openNow ? 'on' : ''}`}><i />{openNow ? L.openNow : L.opensAt}</span>
+              <h3>{L.visitTitle}</h3>
+              <p>{L.visitDesc}</p>
+              <div className="oc-visit-actions">
+                <a className="oc-visit-btn line" href={CONTACT.lineUrl} target="_blank" rel="noreferrer"><IconLine /> LINE</a>
+                <a className="oc-visit-btn wa" href={CONTACT.waUrl} target="_blank" rel="noreferrer"><IconWa /> WhatsApp</a>
+                <a className="oc-visit-btn call" href={CONTACT.phoneHref}><IconPhone /> {CONTACT.phone}</a>
+                <a className="oc-visit-btn map" href={CONTACT.mapUrl} target="_blank" rel="noreferrer"><IconPin /> {L.mapBtn}</a>
+              </div>
             </div>
           </div>
         </section>
