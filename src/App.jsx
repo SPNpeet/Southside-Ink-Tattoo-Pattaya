@@ -58,6 +58,7 @@ const CONTACT = {
   lineId: "Ponair1", lineUrl: "https://line.me/ti/p/VzL1rgJr-E",
   waUrl: "https://wa.me/66656964693",
   fbId: "ploytattoopt", fbUrl: "https://www.facebook.com/ploytattoopt",
+  igId: "southside.ink.pattaya", igUrl: "https://www.instagram.com/southside.ink.pattaya/",
   mapUrl: "https://maps.app.goo.gl/5ewABJZuthpYTu2v8",
   reviewsUrl: "https://www.google.com/maps?cid=17392138095371947966",
   mapEmbed: "https://maps.google.com/maps?q=12.926258,100.8751928+(Southside+Ink+Tattoo+Pattaya)&z=17&hl=th&output=embed",
@@ -115,6 +116,7 @@ const I18N = {
       { code: "LINE", value: CONTACT.lineId, href: CONTACT.lineUrl },
       { code: "WhatsApp", value: CONTACT.phone, href: CONTACT.waUrl },
       { code: "Facebook", value: "Southside Ink Pattaya", href: CONTACT.fbUrl },
+      { code: "Instagram", value: `@${CONTACT.igId}`, href: CONTACT.igUrl },
     ],
     qrText: "สแกน QR เพื่อแอด LINE",
     footerCopy: "Southside Ink Tattoo Pattaya · EST.2023",
@@ -177,6 +179,7 @@ const I18N = {
       { code: "LINE", value: CONTACT.lineId, href: CONTACT.lineUrl },
       { code: "WhatsApp", value: CONTACT.phone, href: CONTACT.waUrl },
       { code: "Facebook", value: "Southside Ink Pattaya", href: CONTACT.fbUrl },
+      { code: "Instagram", value: `@${CONTACT.igId}`, href: CONTACT.igUrl },
     ],
     qrText: "Scan QR to add LINE",
     footerCopy: "Southside Ink Tattoo Pattaya · EST.2023",
@@ -203,6 +206,9 @@ function IconFb() {
 }
 function IconWa() {
   return <svg viewBox="0 0 24 24" width="18" height="18" fill="white" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1.1 3.9 4-1A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-2.4.6.6-2.3-.2-.3A8 8 0 1 1 12 20zm4.3-5.9c-.2-.1-1.3-.6-1.5-.7-.2 0-.4 0-.5.2l-.7.8c-.2.2-.4.2-.6.1-.2-.1-.9-.3-1.7-1-.6-.5-1-1.2-1.2-1.4 0-.2 0-.4.1-.5l.6-.7c.1-.1.1-.2 0-.4l-.6-1.5c-.2-.4-.3-.4-.5-.4h-.4c-.2 0-.4.1-.6.3-.2.2-.7.7-.7 1.7s.7 2 1 2.3c.2.2 1.3 2 3.1 2.8l1.3.5c.3.1.5.1.7 0 .2-.1.9-.4 1-.7.1-.3.1-.6 0-.7 0 0-.1 0-.3 0z"/></svg>
+}
+function IconIg() {
+  return <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1" fill="white" stroke="none"/></svg>
 }
 function IconPhone() {
   return <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>
@@ -346,6 +352,7 @@ export default function App() {
             </div>
             <a className="oc-ic line" href={CONTACT.lineUrl} target="_blank" rel="noreferrer" aria-label="LINE"><IconLine /></a>
             <a className="oc-ic fb" href={CONTACT.fbUrl} target="_blank" rel="noreferrer" aria-label="Facebook"><IconFb /></a>
+            <a className="oc-ic ig" href={CONTACT.igUrl} target="_blank" rel="noreferrer" aria-label="Instagram"><IconIg /></a>
             <a className="oc-ic wa" href={CONTACT.waUrl} target="_blank" rel="noreferrer" aria-label="WhatsApp"><IconWa /></a>
             <button className="oc-menu" aria-label="Menu" aria-expanded={menuOpen} onClick={() => setMenuOpen(v => !v)}><span /><span /><span /></button>
           </div>
@@ -449,7 +456,7 @@ export default function App() {
               </ul>
               <div className="oc-artist-actions">
                 <a className="btn btn-primary" href={CONTACT.fbUrl} target="_blank" rel="noreferrer">{L.artistBtn}</a>
-                <a className="btn btn-ghost" href={CONTACT.waUrl} target="_blank" rel="noreferrer">WhatsApp</a>
+                <a className="btn btn-ghost" href={CONTACT.igUrl} target="_blank" rel="noreferrer">Instagram</a>
               </div>
             </div>
           </div>
@@ -543,6 +550,7 @@ export default function App() {
             <a href={CONTACT.lineUrl} target="_blank" rel="noreferrer" className="line">LINE {CONTACT.lineId}</a>
             <a href={CONTACT.waUrl} target="_blank" rel="noreferrer">WhatsApp</a>
             <a href={CONTACT.fbUrl} target="_blank" rel="noreferrer">Facebook</a>
+            <a href={CONTACT.igUrl} target="_blank" rel="noreferrer">Instagram @{CONTACT.igId}</a>
           </div>
           <div className="oc-footer-qr">
             <img src={`${base}images/line-qr.png`} alt={`LINE QR ${CONTACT.lineId}`} width="110" height="110" />
@@ -603,6 +611,10 @@ export default function App() {
             <a href={CONTACT.fbUrl} target="_blank" rel="noreferrer" className="oc-fab-item fb" role="menuitem">
               <span className="oc-fab-ic2"><IconFb /></span>
               <span><b>Facebook</b> Southside Ink Pattaya</span>
+            </a>
+            <a href={CONTACT.igUrl} target="_blank" rel="noreferrer" className="oc-fab-item ig" role="menuitem">
+              <span className="oc-fab-ic2"><IconIg /></span>
+              <span><b>Instagram</b> @{CONTACT.igId}</span>
             </a>
             <button className="oc-fab-item book" onClick={() => { setFabOpen(false); setDrawer(true) }} role="menuitem">
               <span className="oc-fab-ic2"><IconCheck /></span>

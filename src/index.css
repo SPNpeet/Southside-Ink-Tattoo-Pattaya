@@ -36,6 +36,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .oc-ic.line { background: var(--line); border-color: var(--line); }
 .oc-ic.fb { background: var(--fb); border-color: var(--fb); }
 .oc-ic.wa { background: var(--wa); border-color: var(--wa); }
+.oc-ic.ig { background: linear-gradient(45deg, #f58529, #dd2a7b 55%, #8134af); border-color: #dd2a7b; }
 .oc-menu { display: none; width: 42px; height: 42px; border-radius: 10px; border: 1px solid var(--border); background: var(--surface); flex-direction: column; align-items: center; justify-content: center; gap: 5px; cursor: pointer; }
 .oc-menu span { width: 18px; height: 2px; background: #fff; display: block; border-radius: 2px; }
 
@@ -219,6 +220,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .oc-fab-item.call .oc-fab-ic2 { background: #0f172a; color: #fff; }
 .oc-fab-item.wa { background: var(--wa); color: #fff; border-color: var(--wa); }
 .oc-fab-item.fb { background: var(--fb); color: #fff; border-color: var(--fb); }
+.oc-fab-item.ig { background: linear-gradient(45deg, #f58529, #dd2a7b 55%, #8134af); color: #fff; border-color: #dd2a7b; }
 .oc-fab-item.book { background: var(--yellow); color: #000; border-color: var(--yellow); }
 .oc-fab-item.book .oc-fab-ic2 { background: rgba(0,0,0,.12); color: #000; }
 .oc-fab-item b { font-size: 13px; }
@@ -240,6 +242,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 @media(max-width: 768px){
   #root{ padding: 0 14px 32px; }
+  .oc-ic.ig{ display: none; }
   .oc-nav-inner{ padding: 8px 14px; }
   .oc-logo-text{ display: none; }
   .oc-links{ position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; gap: 4px; background: var(--bg); border-bottom: 2px solid var(--yellow); padding: 12px 20px; display: none; }
@@ -263,7 +266,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   .oc-toast{ max-width: calc(100vw - 28px); white-space: normal; text-align: center; }
 }
 @media(max-width: 400px){
-  .oc-ic.fb, .oc-ic.wa{ display: none; }
+  .oc-ic.fb, .oc-ic.wa, .oc-ic.ig{ display: none; }
   .oc-actions{ gap: 6px; }
 }
 @media(prefers-reduced-motion: reduce){
