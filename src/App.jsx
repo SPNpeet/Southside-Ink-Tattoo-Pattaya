@@ -66,7 +66,7 @@ const CONTACT = {
 const I18N = {
   th: {
     nav: ["เกี่ยวกับเรา","สไตล์","ช่างสัก","ที่ตั้ง","ติดต่อ"],
-    heroKicker: "เปิดทุกวัน 13:00–24:00 · รับ Walk-in · 5.0★ 43 รีวิว",
+    heroKicker: "เปิดทุกวัน 13:00–24:00 · รับ Walk-in · 5.0★ 47 รีวิว",
     heroH1a: "ร้านสักพัทยา", heroH1b: "ห่างจาก Walking Street เพียงไม่กี่นาที",
     heroSub: "รับออกแบบและสักลายตามความต้องการของลูกค้า ครบทุกสไตล์ ช่างสักประสบการณ์มากกว่า 10 ปี สตูดิโอสะอาด ปลอดภัย",
     ctaBook: "ปรึกษา / จองคิว", ctaWorks: "ดูผลงาน",
@@ -99,7 +99,7 @@ const I18N = {
     artistDesc: "ช่างพลอยถนัดงาน Realistic แนว Black and Grey เก็บรายละเอียดสูง ทั้งภาพเหมือนบุคคลและลายนักรบโบราณตามแบบที่ลูกค้าต้องการ ใส่ใจทุกรายละเอียด มาสร้างผลงานชิ้นเอกของคุณกับเราได้เลย",
     artistTags: ["Realistic","Black & Grey","Portrait","Ancient Warrior"],
     artistBtn: "ดูผลงานช่างใน Facebook",
-    reviewsTitle: "ลูกค้าพูดถึงเรา", reviewsLink: "ดูรีวิวทั้งหมดใน Google (5.0★ 43 รีวิว)",
+    reviewsTitle: "ลูกค้าพูดถึงเรา", reviewsLink: "ดูรีวิวทั้งหมดใน Google (5.0★ 47 รีวิว)", translated: "แปลจากภาษาอังกฤษ",
     locTitle: "ที่ตั้งร้าน",
     locName: "Southside Ink Pattaya",
     locAddr: ["133/9 หมู่ 10 เมืองพัทยา","อำเภอบางละมุง จังหวัดชลบุรี 20150","ใกล้ Walking Street พัทยา"],
@@ -128,7 +128,7 @@ const I18N = {
   },
   en: {
     nav: ["About us","Style","Artist","Locations","Contact"],
-    heroKicker: "Open daily 13:00–24:00 · Walk-ins welcome · 5.0★ 43 reviews",
+    heroKicker: "Open daily 13:00–24:00 · Walk-ins welcome · 5.0★ 47 reviews",
     heroH1a: "Tattoo Studio in Pattaya", heroH1b: "Just a few minutes from Walking Street.",
     heroSub: "We create custom tattoos tailored to your ideas and preferences, offering a wide range of tattoo styles. Our tattoo artists have over 10 years of experience, and our studio is clean, safe, and hygienic.",
     ctaBook: "Get a Quote", ctaWorks: "View works",
@@ -161,7 +161,7 @@ const I18N = {
     artistDesc: "Artist Ploy of Southside Ink Tattoo Pattaya demonstrates the highest level of expertise. With a specialization in realistic, hyper-detailed black and grey work, including custom portraits and ancient warrior designs, Ploy's skill and attention to detail are exceptional. Come and get your custom masterpiece.",
     artistTags: ["Realistic","Black & Grey","Portrait","Ancient Warrior"],
     artistBtn: "See artist works on Facebook",
-    reviewsTitle: "What clients say", reviewsLink: "See all reviews on Google (5.0★ 43 reviews)",
+    reviewsTitle: "What clients say", reviewsLink: "See all reviews on Google (5.0★ 47 reviews)", translated: "translated from Thai",
     locTitle: "Locations",
     locName: "Southside Ink Pattaya",
     locAddr: ["133/9 M.10 Muang Pattaya","Bang Lamung, Chonburi 20150","Near Walking Street, Pattaya"],
@@ -214,20 +214,23 @@ function IconClock() {
   return <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
 }
 
-const REVIEWS = {
-  th: [
-    { name: 'Anna M. · UK', text: 'งานเนี๊ยบมาก พี่ช่างใส่ใจมาก สะอาด ปลอดภัย แนะนำดีสุดๆ' },
-    { name: 'Mark T. · AU', text: 'Best tattoo in Pattaya! Clean, pro, fair price. Done fine line script perfect.' },
-    { name: 'คุณฟ้า · กทม', text: 'สักครั้งแรกไม่เจ็บอย่างที่คิด ช่างมือเบา อธิบายดูแลละเอียด กลับมาซ้ำแน่นอนค่ะ' },
-    { name: 'Lisa K. · DE', text: 'Cover up old tattoo — looks brand new! Design was adjusted 3 times until perfect.' },
-  ],
-  en: [
-    { name: 'Anna M. · UK', text: 'Super clean and precise, artist cares a lot, safe and well advised.' },
-    { name: 'Mark T. · AU', text: 'Best tattoo in Pattaya! Clean, pro, fair price. Done fine line script perfect.' },
-    { name: 'Khun Fah · BKK', text: 'First tattoo, less painful than expected, gentle hand and clear aftercare.' },
-    { name: 'Lisa K. · DE', text: 'Cover up old tattoo — looks brand new! Design was adjusted 3 times until perfect.' },
-  ],
-}
+const REVIEWS = [
+  { name: 'Hatari Nangngam', lang: 'en',
+    text: 'Looking for the best tattoo shop in Pattaya? Look no further! The studio is exceptionally clean, hygienic, and follows strict safety standards. The artists are incredibly talented, speak great English, and make you feel completely at ease. They also offer fair prices with no hidden tourist traps. Highly recommend!',
+    th: 'กำลังมองหาร้านสักที่ดีที่สุดในพัทยาอยู่ใช่ไหม ไม่ต้องมองหาที่ไหนอีกแล้ว สตูดิโอสะอาดถูกสุขอนามัย ปฏิบัติตามมาตรฐานความปลอดภัยอย่างเคร่งครัด ช่างสักฝีมือดี พูดภาษาอังกฤษได้ดี ทำให้รู้สึกสบายใจ ราคาเป็นธรรม ไม่มีกลโกงนักท่องเที่ยว แนะนำเลย' },
+  { name: 'Tanaphat Satchanon', lang: 'th',
+    text: 'บริการดีครับ ช่างเป็นกันเองมากๆ งานถือว่าออกมาได้ดีน่าพอใจ',
+    en: 'Great service. The artist is very friendly and the work came out really well.' },
+  { name: 'Poonchida Poonpawas', lang: 'th',
+    text: 'ร้านบริการดีมากค่ะ ช่างสักมือเบามาก แนะนำร้านนี้ค่ะ',
+    en: 'Excellent service. The artist has a very gentle hand. I recommend this shop.' },
+  { name: 'Kran2539 Tt', lang: 'th',
+    text: 'ใครสนใจรอยสัก เข้าไปสอบถามกับช่างที่ร้านได้เลยครับ ช่างแนะนำดีมาก เป็นกันเองด้วย',
+    en: 'If you are interested in a tattoo, just walk in and talk to the artist. Great advice and very friendly.' },
+  { name: 'GlorFinNum', lang: 'th',
+    text: 'งานสักสวยสุดๆ ไม่เจ็บมากด้วย',
+    en: 'The tattoo turned out beautifully, and it did not hurt much.' },
+]
 
 export default function App() {
   const [lang, setLang] = useState(() => {
@@ -260,9 +263,12 @@ export default function App() {
     pickStyle(target === undefined ? label : target)
     scrollTo('style')
   }
-  const SHOP_SRC = SHOP.map(id => `${base}images/works/${id}.jpg`)
   const SHOP_THUMB = SHOP.map(id => `${base}images/works/thumb/${id}.jpg`)
-  const reviews = REVIEWS[lang]
+  const reviews = REVIEWS.map(r => {
+    const translated = r.lang !== lang
+    const text = translated ? (lang === 'th' ? r.th : r.en) : r.text
+    return { name: r.name, text, translated }
+  })
 
   useEffect(() => {
     try { localStorage.setItem('southside-lang', lang) } catch { /* storage blocked */ }
@@ -309,10 +315,13 @@ export default function App() {
     document.body.style.overflow = 'hidden'
     return () => { window.removeEventListener('keydown', onKey); document.body.style.overflow = '' }
   }, [lightbox, PORTFOLIO.length])
+  const [reviewPaused, setReviewPaused] = useState(false)
   useEffect(() => {
-    const id = setInterval(() => setReviewIdx(v => (v + 1) % reviews.length), 3800)
+    if (reviewPaused) return
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    const id = setInterval(() => setReviewIdx(v => (v + 1) % reviews.length), 5000)
     return () => clearInterval(id)
-  }, [reviews.length])
+  }, [reviews.length, reviewPaused])
 
   const navLink = (id, i) => (
     <a key={id} href={`#${id}`} onClick={(e) => { e.preventDefault(); scrollTo(id) }}>{L.nav[i]}</a>
@@ -344,7 +353,10 @@ export default function App() {
 
       <main id="top" className="oc-main">
         <section className="oc-hero">
-          <img className="oc-hero-img" src={SHOP_SRC[0]} alt="" aria-hidden="true" fetchPriority="high" />
+          <picture>
+            <source type="image/webp" srcSet={`${base}images/hero/shop-800.webp 800w, ${base}images/hero/shop-1200.webp 1200w, ${base}images/hero/shop-1600.webp 1600w`} sizes="(max-width: 768px) 100vw, 1140px" />
+            <img className="oc-hero-img" src={`${base}images/hero/shop-1200.jpg`} srcSet={`${base}images/hero/shop-800.jpg 800w, ${base}images/hero/shop-1200.jpg 1200w, ${base}images/hero/shop-1600.jpg 1600w`} sizes="(max-width: 768px) 100vw, 1140px" alt="" aria-hidden="true" fetchPriority="high" decoding="async" />
+          </picture>
           <div className="oc-hero-shade" aria-hidden="true" />
           <div className="oc-hero-inner">
             <div className="oc-kicker">{L.heroKicker}</div>
@@ -433,13 +445,13 @@ export default function App() {
           </div>
           <div className="oc-reviews">
             <h3>{L.reviewsTitle}</h3>
-            <div className="oc-carousel">
+            <div className="oc-carousel" onMouseEnter={() => setReviewPaused(true)} onMouseLeave={() => setReviewPaused(false)} onTouchStart={() => setReviewPaused(true)}>
               <div className="oc-track" style={{ transform: `translateX(-${reviewIdx * 100}%)` }}>
                 {reviews.map(r => (
                   <div key={r.name} className="oc-review">
                     <div className="oc-stars" aria-label="5 stars">★★★★★</div>
                     <p>“{r.text}”</p>
-                    <small>{r.name}</small>
+                    <small>{r.name} · Google{r.translated ? ` · ${L.translated}` : ''}</small>
                   </div>
                 ))}
               </div>
