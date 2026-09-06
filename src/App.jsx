@@ -240,7 +240,7 @@ export default function App() {
 
   const L = I18N[lang]
   const base = import.meta.env.BASE_URL
-  const ALL = WORKS.map((id, i) => ({ id, src: `${base}images/works/${id}.jpg`, alt: `Southside Ink Pattaya tattoo work ${i + 1}`, styles: WORK_STYLES[i] || [] }))
+  const ALL = WORKS.map((id, i) => ({ id, src: `${base}images/works/${id}.jpg`, thumb: `${base}images/works/thumb/${id}.jpg`, alt: `Southside Ink Pattaya tattoo work ${i + 1}`, styles: WORK_STYLES[i] || [] }))
   const STYLE_LIST = STYLES.filter(s => ALL.some(w => w.styles.includes(s)))
   const PORTFOLIO = style ? ALL.filter(w => w.styles.includes(style)) : ALL
   const pickStyle = (s) => {
@@ -253,6 +253,7 @@ export default function App() {
     scrollTo('style')
   }
   const SHOP_SRC = SHOP.map(id => `${base}images/works/${id}.jpg`)
+  const SHOP_THUMB = SHOP.map(id => `${base}images/works/thumb/${id}.jpg`)
   const reviews = REVIEWS[lang]
 
   useEffect(() => {
@@ -353,8 +354,8 @@ export default function App() {
               <button className="btn btn-primary" onClick={() => setDrawer(true)}>{L.ctaBook}</button>
             </div>
             <div className="oc-about-photos">
-              <img src={SHOP_SRC[1]} alt="Southside Ink Pattaya studio" loading="lazy" />
-              <img src={ALL[1].src} alt={ALL[1].alt} loading="lazy" />
+              <img src={SHOP_THUMB[1]} alt="Southside Ink Pattaya studio" loading="lazy" decoding="async" />
+              <img src={ALL[1].thumb} alt={ALL[1].alt} loading="lazy" decoding="async" />
             </div>
           </div>
         </section>
@@ -374,7 +375,7 @@ export default function App() {
           <div className="oc-grid">
             {PORTFOLIO.map((it, idx) => (
               <button key={it.id} className={`oc-tile ${idx===0?'tall': idx===7?'wide':''}`} onClick={() => setLightbox(idx)} aria-label={`${L.worksDesc} ${idx + 1}`}>
-                <img src={it.src} alt={it.alt} loading="lazy" />
+                <img src={it.thumb} alt={it.alt} loading="lazy" decoding="async" />
               </button>
             ))}
           </div>
@@ -432,8 +433,8 @@ export default function App() {
               <p className="oc-loc-hours"><IconClock /><span><b>{L.locHoursLabel}</b><br />{L.locHours} · {L.locWalk}</span></p>
               <a className="btn btn-primary" href={CONTACT.mapUrl} target="_blank" rel="noreferrer">{L.mapBtn}</a>
               <div className="oc-shop-grid">
-                {SHOP_SRC.map((src, i) => (
-                  <img key={src} src={src} alt={`Southside Ink Pattaya studio ${i + 1}`} loading="lazy" />
+                {SHOP_THUMB.map((src, i) => (
+                  <img key={src} src={src} alt={`Southside Ink Pattaya studio ${i + 1}`} loading="lazy" decoding="async" />
                 ))}
               </div>
             </div>

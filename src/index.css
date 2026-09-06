@@ -29,9 +29,9 @@ ul { margin: 0; padding: 0; list-style: none; }
 .oc-links a:hover::after { width: 100%; }
 .oc-actions { display: flex; align-items: center; gap: 8px; }
 .oc-lang { display: flex; border: 1px solid var(--border); border-radius: 999px; overflow: hidden; background: var(--surface); }
-.oc-lang button { padding: 7px 10px; font-family: var(--mono); font-size: 11px; font-weight: 800; border: 0; background: transparent; color: var(--dim); cursor: pointer; min-width: 38px; min-height: 34px; }
+.oc-lang button { padding: 7px 10px; font-family: var(--mono); font-size: 12px; font-weight: 800; border: 0; background: transparent; color: var(--dim); cursor: pointer; min-width: 42px; min-height: 42px; }
 .oc-lang button.on { background: var(--yellow); color: #070a14; }
-.oc-ic { width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--border); display: grid; place-items: center; background: var(--surface); transition: transform .18s; }
+.oc-ic { width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--border); display: grid; place-items: center; background: var(--surface); transition: transform .18s; }
 .oc-ic:hover { transform: translateY(-2px); }
 .oc-ic.line { background: var(--line); border-color: var(--line); }
 .oc-ic.fb { background: var(--fb); border-color: var(--fb); }
@@ -71,7 +71,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .oc-about-lead { font-size: 22px !important; font-weight: 800; color: #fff; line-height: 1.35 !important; letter-spacing: -.3px; }
 .oc-about-name { display: flex; align-items: center; gap: 6px; color: var(--yellow) !important; font-weight: 800; font-family: var(--mono); font-size: 13px !important; }
 .oc-about-styles { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 16px; }
-.oc-about-styles button, .oc-artist-tags button { padding: 8px 13px; border-radius: 999px; background: var(--surface); border: 1px solid var(--border2); font-size: 13px; font-weight: 600; color: #fff; cursor: pointer; font-family: inherit; min-height: 36px; transition: border-color .15s, background .15s; }
+.oc-about-styles button, .oc-artist-tags button { padding: 9px 14px; border-radius: 999px; background: var(--surface); border: 1px solid var(--border2); font-size: 13px; font-weight: 600; color: #fff; cursor: pointer; font-family: inherit; min-height: 42px; transition: border-color .15s, background .15s; }
 .oc-about-styles button:hover, .oc-artist-tags button:hover { border-color: var(--yellow); background: var(--surface2); }
 .oc-checklist { display: grid; gap: 8px; margin: 0 0 18px; }
 .oc-checklist li { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; line-height: 1.55; }
@@ -84,7 +84,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 /* style + works */
 .oc-styles { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 26px; }
-.oc-styles button { padding: 8px 14px; border-radius: 999px; font-family: var(--mono); font-size: 12px; font-weight: 700; border: 1px solid var(--border2); color: var(--text); background: var(--surface); cursor: pointer; min-height: 38px; transition: border-color .15s, background .15s; }
+.oc-styles button { padding: 9px 15px; border-radius: 999px; font-family: var(--mono); font-size: 12px; font-weight: 700; border: 1px solid var(--border2); color: var(--text); background: var(--surface); cursor: pointer; min-height: 42px; transition: border-color .15s, background .15s; }
 .oc-styles button:hover { border-color: var(--yellow); }
 .oc-styles button.on { background: var(--yellow); color: #000; border-color: var(--yellow); }
 .oc-works-title { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin: 0 0 12px; font-size: 17px; color: #fff; }
@@ -117,9 +117,10 @@ ul { margin: 0; padding: 0; list-style: none; }
 .oc-stars { color: var(--yellow); font-size: 13px; letter-spacing: 1px; margin-bottom: 8px; }
 .oc-review p { margin: 0 0 8px; font-size: 14px; line-height: 1.65; color: var(--text); }
 .oc-review small { font-family: var(--mono); font-size: 11px; color: var(--dim); }
-.oc-dots { display: flex; gap: 6px; justify-content: center; padding: 12px 0 0; }
-.oc-dots button { width: 10px; height: 10px; border-radius: 50%; border: 0; background: var(--border2); cursor: pointer; transition: all .2s; padding: 0; }
-.oc-dots button.on { background: var(--yellow); width: 22px; border-radius: 999px; }
+.oc-dots { display: flex; gap: 2px; justify-content: center; padding: 8px 0 0; }
+.oc-dots button { width: 44px; height: 44px; border: 0; background: transparent; cursor: pointer; padding: 0; display: grid; place-items: center; }
+.oc-dots button::before { content: ''; width: 10px; height: 10px; border-radius: 999px; background: var(--border2); transition: all .2s; }
+.oc-dots button.on::before { background: var(--yellow); width: 24px; }
 
 /* locations */
 .oc-loc { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; }
@@ -138,12 +139,12 @@ ul { margin: 0; padding: 0; list-style: none; }
 .oc-contact-lines { display: grid; gap: 8px; }
 .oc-contact-lines a { display: flex; justify-content: space-between; align-items: center; gap: 10px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 13px 16px; color: #fff; font-size: 14px; font-weight: 600; min-height: 48px; transition: border-color .15s; }
 .oc-contact-lines a:hover { border-color: var(--yellow); }
-.oc-contact-lines code { font-family: var(--mono); font-size: 10px; color: var(--yellow); text-transform: uppercase; letter-spacing: .8px; font-weight: 800; }
+.oc-contact-lines code { font-family: var(--mono); font-size: 11px; color: var(--yellow); text-transform: uppercase; letter-spacing: .8px; font-weight: 800; }
 .oc-line-qr-card { display: grid; justify-items: center; gap: 4px; background: #fff; border: 2px solid var(--yellow); border-radius: 14px; padding: 16px; text-align: center; }
 .oc-line-qr-card img { border-radius: 8px; border: 1px solid #e5e7eb; background: #fff; margin-bottom: 6px; }
 .oc-line-qr-card b { color: #000; font-size: 14px; }
 .oc-line-qr-card span { font-size: 12px; color: #065f46; }
-.oc-line-qr-card a { font-size: 12px; color: #047a37; font-weight: 800; font-family: var(--mono); }
+.oc-line-qr-card a { font-size: 12px; color: #047a37; font-weight: 800; font-family: var(--mono); display: inline-flex; align-items: center; min-height: 40px; padding: 0 8px; }
 .oc-book { margin-top: 20px; background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 55%, #b45309 100%); border-radius: 14px; padding: 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; color: #fff; border: 1px solid rgba(250,204,21,.3); }
 .oc-book h3 { margin: 0; color: #fff; font-size: 17px; }
 .oc-book p { margin: 0; color: rgba(255,255,255,.88); font-size: 13px; }
@@ -156,14 +157,15 @@ ul { margin: 0; padding: 0; list-style: none; }
 .oc-footer-name { margin-top: 10px; font-weight: 800; color: var(--heading); font-family: var(--mono); font-size: 13px; }
 .oc-footer-addr { font-size: 12px; color: var(--dim); margin-top: 6px; line-height: 1.6; }
 .oc-footer-grid h4 { font-family: var(--mono); font-size: 11px; letter-spacing: 1px; color: var(--yellow); margin: 0 0 10px; text-transform: uppercase; font-weight: 800; }
-.oc-footer-grid a { display: block; font-size: 13px; color: var(--dim); margin-bottom: 7px; font-weight: 500; }
+.oc-footer-grid a { display: flex; align-items: center; min-height: 40px; font-size: 14px; color: var(--dim); font-weight: 500; }
 .oc-footer-grid a:hover { color: #fff; }
 .oc-footer-grid a.line { color: var(--line); font-weight: 800; }
 .oc-footer-qr { text-align: center; background: #fff; border: 2px solid var(--yellow); border-radius: 12px; padding: 10px; font-family: var(--mono); font-size: 11px; color: #334155; }
 .oc-footer-qr img { margin: 0 auto 6px; }
 .oc-footer-qr b { color: #000; }
 .oc-footer-bottom { border-top: 1px solid rgba(255,255,255,.08); padding: 14px 0 0; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; color: var(--muted); }
-.oc-footer-bottom a { color: var(--dim); }
+.oc-footer-bottom a { color: var(--dim); display: inline-flex; align-items: center; min-height: 40px; }
+.oc-footer-bottom { align-items: center; }
 
 /* drawer */
 .oc-drawer { position: fixed; inset: 0; z-index: 60; display: none; }
@@ -181,7 +183,8 @@ ul { margin: 0; padding: 0; list-style: none; }
 .oc-choice.blue { background: var(--wa); color: #fff; border-color: var(--wa); }
 .oc-choice.blue span { color: rgba(255,255,255,.9); }
 .oc-choice.line { background: var(--line); color: #fff; border-color: var(--line); display: flex; align-items: center; gap: 10px; }
-.oc-choice.line img { border-radius: 6px; background: #fff; padding: 2px; }
+.oc-choice.line img { border-radius: 6px; background: #fff; padding: 2px; flex-shrink: 0; }
+.oc-choice.line > span { display: grid; gap: 2px; }
 .oc-choice.line span span { color: rgba(255,255,255,.9); }
 
 /* lightbox */
@@ -201,7 +204,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .oc-fab-btn:hover { transform: translateY(-2px); }
 .oc-fab-btn.open { background: #0f172a; }
 .oc-fab-logo { width: 32px; height: 28px; object-fit: contain; border-radius: 4px; display: block; }
-.oc-fab-label { font-family: var(--mono); font-size: 8px; font-weight: 800; color: var(--yellow); letter-spacing: .6px; line-height: 1; }
+.oc-fab-label { font-family: var(--mono); font-size: 10px; font-weight: 800; color: var(--yellow); letter-spacing: .4px; line-height: 1; }
 .oc-fab-close { font-size: 26px; font-weight: 900; color: var(--yellow); line-height: 1; }
 .oc-fab-menu { display: grid; gap: 8px; background: #0f172a; border: 1px solid var(--border); border-radius: 14px; padding: 8px; box-shadow: 0 12px 32px rgba(0,0,0,.4); min-width: 230px; }
 .oc-fab-item { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--border); background: var(--surface); color: #fff; font-weight: 700; font-size: 13px; cursor: pointer; text-align: left; min-height: 44px; font-family: inherit; }
@@ -257,4 +260,8 @@ ul { margin: 0; padding: 0; list-style: none; }
 @media(max-width: 400px){
   .oc-ic.fb, .oc-ic.wa{ display: none; }
   .oc-actions{ gap: 6px; }
+}
+@media(prefers-reduced-motion: reduce){
+  html{ scroll-behavior: auto; }
+  *, *::before, *::after{ transition: none !important; animation: none !important; }
 }
