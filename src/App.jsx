@@ -510,18 +510,18 @@ export default function App({ initialLang = 'th' }) {
               <p className="oc-loc-addr"><IconPin /><span>{L.locAddr.map(a => <span key={a}>{a}<br /></span>)}</span></p>
               <p className="oc-loc-hours"><IconClock /><span><b>{L.locHoursLabel}</b><br />{L.locHours} · {L.locWalk}</span></p>
               <a className="btn btn-primary" href={CONTACT.mapUrl} target="_blank" rel="noreferrer">{L.mapBtn}</a>
-              <div className="oc-shop-grid">
-                {SHOP_THUMB.map((src, i) => (
-                  <picture key={src}>
-                    <source type="image/webp" srcSet={SHOP_THUMB_WEBP[i]} />
-                    <img src={src} alt={`Southside Ink Pattaya studio ${i + 1}`} loading="lazy" decoding="async" width="720" height="720" />
-                  </picture>
-                ))}
-              </div>
             </div>
             <div className="oc-map">
               <iframe title="Southside Ink Pattaya map" src={CONTACT.mapEmbed} loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
             </div>
+          </div>
+          <div className="oc-shop-grid">
+            {SHOP_THUMB.map((src, i) => (
+              <picture key={src}>
+                <source type="image/webp" srcSet={SHOP_THUMB_WEBP[i]} />
+                <img src={src} alt={`Southside Ink Pattaya studio ${i + 1}`} loading="lazy" decoding="async" width="720" height="540" />
+              </picture>
+            ))}
           </div>
         </section>
 
