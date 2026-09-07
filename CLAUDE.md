@@ -54,6 +54,17 @@ head ของแต่ละหน้ามี title/description/og/canonical �
 ห้ามเรียก `window` / `localStorage` / `navigator` / `new Date()` ตอน render (ใส่ใน `useEffect` เท่านั้น)
 state เริ่มต้นต้องเท่ากันทั้ง server และ client (`lang='th'`, `openNow=true`) แล้วค่อยปรับใน effect
 
+## 2.2.1 โครงคอนเทนเนอร์ (ห้ามพัง)
+
+ทุกแถบ (langbar, nav, hero, section, footer) กว้างเต็มจอ แล้วจัดเนื้อหาลงคอลัมน์กลางด้วย `--wrap: 1360px`
+และระยะขอบ `--gut` (32px เดสก์ท็อป / 24px แท็บเล็ต / 16px มือถือ) `#root` ไม่มี max-width และไม่มี padding
+**ห้ามใช้ `100vw` ทำ full-bleed** เพราะรวมความกว้างแถบเลื่อน ทำให้ล้นขอบจอ 8-15px และขอบไม่ตรงกับส่วนอื่น
+ตรวจทุกครั้งด้วยการวัด `getBoundingClientRect().left/right` ของ nav, hero-inner, section-head, footer ต้องได้ค่าเท่ากัน
+
+**กับดักรูป**: แอตทริบิวต์ `width`/`height` บน `<img>` จะกลายเป็น CSS height ที่ทับ `aspect-ratio`
+ถ้ากฎของรูปนั้นไม่ได้ประกาศ height เอง (เคยทำให้รูปหน้าร้านยืดเป็นแถบสูง 720px)
+กันไว้แล้วด้วย `img { height: auto }` ในกฎฐาน ห้ามลบออก
+
 ## 2.3 ฟอนต์และ CSS
 
 - ฟอนต์ IBM Plex self-host ที่ `public/fonts/` (@font-face อยู่บนสุดของ `src/index.css`) ห้ามกลับไปใช้ Google Fonts
